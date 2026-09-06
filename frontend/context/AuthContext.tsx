@@ -11,11 +11,11 @@ export interface User {
 }
 
 export interface AuthContextType {
-    user: User | null;
-    jwtToken: string | null;
-    isAuthenticated: boolean;
-
-    login: (user: User, jwtToken: string) => void;
+    user?: User | null;
+    jwtToken?: string | null;
+    isAuthenticated?: boolean;
+    authenticating?: boolean;
+    login: (user: User) => void;
     logout: () => void;
 }
 

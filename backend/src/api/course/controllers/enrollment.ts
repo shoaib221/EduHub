@@ -1,4 +1,5 @@
 export default {
+
     async enroll(ctx: any) {
 
         try {
@@ -57,8 +58,10 @@ export default {
     async enrolledCourses(ctx: any) {
 
         try {
-            console.log("enrolledCourses");
+
             const user = ctx.state.user;
+
+            console.log("enrolledCourses", user);
 
             if (!user) {
                 return ctx.unauthorized("Authentication required.");

@@ -1,34 +1,63 @@
 import { ReactNode } from "react";
+import { notFound } from "next/navigation";
 
-import CourseHeader from "@/components/course/CourseHeader";
 import CourseSidebar from "@/components/course/CourseSidebar";
+import CourseHeader from "@/components/course/CourseHeader";
+import { serverApi } from "@/lib/server-api";
+import { fetchCourse } from "@/requestAPI/fetchCourse";
+import { Course } from "@/types/course";
+import ProtectedLayout from "@/components/server/ProtectedRoute";
 
 interface LayoutProps {
     children: ReactNode;
+
+    params: Promise<{
+        id: string;
+    }>;
 }
 
-export default function CourseLayout({
+
+export default async function CourseLayout({
     children,
+    params,
 }: LayoutProps) {
+
+
+    const { id: courseId } = await params;
+
+
+    if (!courseId) {
+        notFound();
+    }
+
+
+    const { course }: { course: Course } = await serverApi(`/course/${courseId}`);
+
+
     return (
-        <div className="flex h-screen flex-col overflow-hidden bg-slate-100">
+        <ProtectedLayout>
+            <div className="flex flex-col overflow-auto bg-slate-100">
 
-            {/* Top Header */}
-            <CourseHeader />
 
-            {/* Main */}
-            <div className="flex flex-1 overflow-hidden">
+                <div className="flex flex-1 overflow-hidden">
 
-                {/* Sidebar */}
-                <CourseSidebar courseId="1" />
 
-                {/* Content */}
-                <main className="flex-1 overflow-y-auto bg-slate-50 p-6">
-                    {children}
-                </main>
+                    <CourseSidebar
+                        course={course}
+                    />
+
+
+                    <main className="flex-1 overflow-y-auto bg-slate-50 p-6">
+
+                        {children}
+
+                    </main>
+
+
+                </div>
+
 
             </div>
-
-        </div>
+        </ProtectedLayout>
     );
 }

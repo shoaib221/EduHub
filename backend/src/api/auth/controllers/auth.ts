@@ -1,5 +1,6 @@
 
 import { apiRoutes } from "../../../extra/apiRoutes";
+import { ErrorProcessor } from "../../../lib/ErrorProcessor";
 
 export default {
 
@@ -12,13 +13,11 @@ export default {
             user_role
         } = ctx.request.body;
 
-
         if (!username || !email || !password || !user_role) {
             return ctx.badRequest(
                 "username, email, password and user_role required"
             );
         }
-
 
         const existingUser = await strapi
             .query("plugin::users-permissions.user")
@@ -28,13 +27,11 @@ export default {
                 },
             });
 
-
         if (existingUser) {
             return ctx.badRequest(
                 "Email already exists"
             );
         }
-
 
         const user = await strapi
             .plugin("users-permissions")
@@ -57,11 +54,17 @@ export default {
                     email: user.email
                 });
 
+        ctx.cookies.set("jwtAuthToken", jwtToken, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            sameSite: "lax",
+            maxAge: 7 * 24 * 60 * 60 * 1000,
+            path: "/",
+        });
 
         ctx.body = {
             message: "Registered successfully",
             user,
-            jwtToken
         };
     },
 
@@ -75,7 +78,6 @@ export default {
                 password,
             } = ctx.request.body;
 
-
             const user = await strapi
                 .query("plugin::users-permissions.user")
                 .findOne({
@@ -84,13 +86,11 @@ export default {
                     },
                 });
 
-
             if (!user) {
                 return ctx.badRequest(
                     "Invalid email"
                 );
             }
-
 
             const validPassword =
                 await strapi
@@ -101,13 +101,11 @@ export default {
                         user.password
                     );
 
-
             if (!validPassword) {
                 return ctx.badRequest(
                     "Invalid password"
                 );
             }
-
 
             const jwtToken =
                 await strapi
@@ -118,21 +116,25 @@ export default {
                         username: user.username
                     });
 
+            ctx.cookies.set("jwtAuthToken", jwtToken, {
+                httpOnly: true,
+                secure: process.env.NODE_ENV === "production",
+                sameSite: "lax",
+                maxAge: 7 * 24 * 60 * 60 * 1000,
+                path: "/",
+            });
 
             ctx.body = {
-                jwtToken,
                 user
             };
         }
         catch (error) {
-            strapi.log.error("Login error:", error);
 
             return ctx.internalServerError(
-                "An unexpected error occurred. Please try again later."
+                ErrorProcessor((error))
             );
 
         }
-
 
     },
 
@@ -144,14 +146,80 @@ export default {
 
     },
 
+    async updateMe(ctx: any) {
+
+        try {
+            const user = ctx.state.user;
+
+            const updation = ctx.request.body;
+
+
+            const updatedUser = await strapi
+                .query(
+                    "plugin::users-permissions.user"
+                )
+                .update({
+                    where: {
+                        id: user.id,
+                    },
+
+                    data: {
+                        ...updation
+                    },
+
+                    populate: [
+                        "role",
+                    ],
+                });
+
+
+            ctx.body = {
+                message: "Profile updated successfully",
+                user: updatedUser,
+            };
+
+
+        } catch (err) {
+            return ctx.internalServerError(
+                ErrorProcessor(err)
+            );
+
+        }
+
+    },
+
     async home(ctx: any) {
-
-
 
         ctx.body = {
             message: "Welcome to Learing Management System",
             apiRoutes
         };
+    },
+
+    async logout(ctx: any) {
+
+        try {
+            console.log("logout");
+
+            ctx.cookies.set("jwtAuthToken", null, {
+                httpOnly: true,
+                expires: new Date(0),
+                sameSite: "lax",
+                secure: process.env.NODE_ENV === "production",
+            });
+
+            ctx.body = {
+                message: "logged out successfully"
+            };
+        }
+        catch (error) {
+
+            return ctx.internalServerError(
+                ErrorProcessor((error))
+            );
+
+        }
+
     },
 
 };

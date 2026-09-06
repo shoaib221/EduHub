@@ -1,77 +1,42 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
     ArrowLeft,
     ArrowRight,
     CheckCircle,
     Clock,
     HelpCircle,
+    Loader,
 } from "lucide-react";
+import { useParams } from "next/navigation";
+import { Quiz } from "@/types/quiz";
+import api from "@/lib/axios";
+import ErrorProcessor from "@/lib/ErrorProcessor";
 
-interface PageProps {
-    params: Promise<{
-        id: string;
-        quizId: string;
-    }>;
-}
 
-export default function QuizPage({
-    params,
-}: PageProps) {
-    const [answers, setAnswers] = useState<Record<number, number>>({});
+export default function QuizPage() {
 
-    // Next.js 15+
-    const [courseId, setCourseId] = useState("");
-    const [quizId, setQuizId] = useState("");
+    const { id: courseId, quizId } = useParams()
 
-    params.then((p) => {
-        if (!courseId) {
-            setCourseId(p.id);
-            setQuizId(p.quizId);
+    const [answers, setAnswers] = useState<Record<number, number>>({})
+    const [quiz, setQuiz] = useState<Quiz | null>(null)
+
+    useEffect(() => {
+        async function FetchQuiz() {
+            try {
+                const response = await api.get(`/quiz/${quizId}`)
+                setQuiz(response.data.quiz)
+                console.log(response.data.quiz)
+            }
+            catch (err) {
+                ErrorProcessor(err);
+            }
         }
-    });
 
-    // TODO: Fetch quiz from Strapi
-    const quiz = {
-        title: `Quiz ${quizId || "1"}`,
-        duration: 15,
-        questions: [
-            {
-                id: 1,
-                question: "Which hook is used to store state in React?",
-                options: [
-                    "useEffect",
-                    "useState",
-                    "useMemo",
-                    "useRef",
-                ],
-            },
-            {
-                id: 2,
-                question:
-                    "Which company developed React?",
-                options: [
-                    "Google",
-                    "Facebook",
-                    "Microsoft",
-                    "Netflix",
-                ],
-            },
-            {
-                id: 3,
-                question:
-                    "Which prop is required when rendering lists?",
-                options: [
-                    "index",
-                    "id",
-                    "key",
-                    "value",
-                ],
-            },
-        ],
-    };
+        FetchQuiz()
+    }, [])
 
     function handleSelect(
         questionId: number,
@@ -89,6 +54,8 @@ export default function QuizPage({
 
         console.log(answers);
     }
+
+    if (!quiz) return <Loader />
 
     return (
         <div className="mx-auto max-w-5xl space-y-8">
@@ -121,7 +88,7 @@ export default function QuizPage({
 
                         <Clock size={18} />
 
-                        {quiz.duration} Minutes
+                        {/* {quiz.duration} Minutes */}
 
                     </div>
 
@@ -132,7 +99,7 @@ export default function QuizPage({
             {/* Questions */}
             <div className="space-y-8">
 
-                {quiz.questions.map((question, index) => (
+                {quiz.questions?.map((question, index) => (
 
                     <section
                         key={question.id}
@@ -146,7 +113,7 @@ export default function QuizPage({
                         </h2>
 
                         <p className="mt-4 text-lg text-slate-700">
-                            {question.question}
+                            {question.statement}
                         </p>
 
                         <div className="mt-8 space-y-4">
@@ -157,7 +124,7 @@ export default function QuizPage({
                                     <label
                                         key={optionIndex}
                                         className={`flex cursor-pointer items-center gap-4 rounded-xl border p-4 transition ${answers[
-                                            question.id
+                                            question.id!
                                         ] === optionIndex
                                             ? "border-blue-600 bg-blue-50"
                                             : "border-slate-200 hover:bg-slate-50"
@@ -169,13 +136,13 @@ export default function QuizPage({
                                             name={`question-${question.id}`}
                                             checked={
                                                 answers[
-                                                question.id
+                                                question.id!
                                                 ] ===
                                                 optionIndex
                                             }
                                             onChange={() =>
                                                 handleSelect(
-                                                    question.id,
+                                                    question.id!,
                                                     optionIndex
                                                 )
                                             }

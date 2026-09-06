@@ -1,17 +1,37 @@
-"use client";
+import CourseHeader from "@/components/course/CourseHeader";
 
-import { useAuth } from "@/hooks/useAuth";
-import ProtectedRoute from "@/components/auth/ProtectedRoute";
+import { serverApi } from "@/lib/server-api";
+import { Course } from "@/types/course";
+import { notFound } from "next/navigation";
 
 
-export default function DashboardPage() {
-    const { user } = useAuth()
+interface PageProps {
+    params: Promise<{
+        id: string;
+    }>;
+}
+
+
+export default async function DashboardPage({
+    params,
+}: PageProps) {
+
+    const { id: courseId } = await params;
+
+    if (!courseId) {
+        notFound();
+    }
+
+    console.log(courseId)
+    const { course }: { course: Course } = await serverApi(`/course/${courseId}`);
+
+    if (!course) {
+        notFound();
+    }
 
     return (
-        <ProtectedRoute>
-            <div className="text-black" >
-                Hello
-            </div>
-        </ProtectedRoute>
-    )
+        <CourseHeader
+            course={course}
+        />
+    );
 }

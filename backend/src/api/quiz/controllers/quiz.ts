@@ -1,3 +1,4 @@
+import { ErrorProcessor } from "../../../lib/ErrorProcessor";
 
 
 export default {
@@ -61,6 +62,9 @@ export default {
                     where: {
                         id: Number(quizId),
                     },
+                    populate: {
+                        questions: true
+                    }
                 });
 
             if (!quiz) {
@@ -72,7 +76,8 @@ export default {
             };
         }
         catch (error: any) {
-            return ctx.internalServerError(error.message);
+
+            return ctx.internalServerError(ErrorProcessor(error));
         }
     },
 

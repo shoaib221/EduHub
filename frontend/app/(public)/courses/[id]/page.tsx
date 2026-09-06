@@ -49,23 +49,31 @@ export default function CourseDetailsPage() {
                 setCourse(response.data.course)
             }
             catch (err) {
-                ErrorProcessor(err)
+                console.log(ErrorProcessor(err))
             }
         }
 
-        FetchCourse()
+        FetchCourse();
 
     }, [id])
 
     const handleEnroll = async () => {
-        const res = await api.post(
-            "/api/payments/create-checkout-session",
-            {
-                courseId,
-            }
-        );
 
-        window.location.href = res.data.url;
+        try {
+            const res = await api.post(
+                "/payment/create-stripe-session",
+                {
+                    courseId: id,
+                }
+            );
+            if (!res.data.payment_url)
+                throw new Error("no payment url")
+
+            window.location.href = res.data.payment_url;
+        } catch (err) {
+            ErrorProcessor(err);
+        }
+
     };
 
     if (!course) return <Loader2 />
@@ -149,7 +157,11 @@ export default function CourseDetailsPage() {
                             </h2>
 
 
-                            {user ? <button className="mt-6 w-full rounded-xl bg-blue-600 py-4 font-semibold text-white transition hover:bg-blue-700">
+                            {user ? <button
+                                className="mt-6 w-full rounded-xl bg-blue-600 py-4 font-semibold text-white transition hover:bg-blue-700"
+                                onClick={handleEnroll}
+                            >
+
                                 Enroll Now
                             </button> :
                                 <button className="mt-6 w-full rounded-xl bg-blue-600 py-4 font-semibold text-white transition hover:bg-blue-700"

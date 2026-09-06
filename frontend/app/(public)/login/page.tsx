@@ -47,9 +47,9 @@ export default function LoginPage() {
 
             console.log("login successful:", response.data);
 
-            const { jwtToken, user } = response.data;
+            const { user } = response.data;
 
-            login(user, jwtToken)
+            login(user)
 
             console.log(
                 "Registration successful:",

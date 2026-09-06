@@ -1,43 +1,71 @@
-export default (config: any, { strapi }: any) => {
+import { ErrorProcessor } from "../lib/ErrorProcessor";
 
+export default (config: any, { strapi }: any) => {
 
     return async (ctx: any, next: any) => {
 
-        const authHeader = ctx.request.headers.authorization;
+        console.log("authMiddleware ", ctx.url);
 
-        if (!authHeader) {
-            return ctx.unauthorized("Missing authorization token");
+
+
+        let token = ctx.cookies.get("jwtAuthToken");
+        console.log("token", token)
+
+        if (!token) {
+
+
+            return ctx.unauthorized(
+                "Missing authentication token ... ..."
+            );
         }
 
-        const token = authHeader.replace("Bearer ", "");
+
+
 
         try {
-            const payload = await strapi
-                .plugin("users-permissions")
-                .service("jwt")
-                .verify(token);
 
+            const payload =
+                await strapi
+                    .plugin("users-permissions")
+                    .service("jwt")
+                    .verify(token);
 
-            const user = await strapi
-                .query("plugin::users-permissions.user")
-                .findOne({
-                    where: {
-                        email: payload.email
-                    },
-                });
+            console.log("payload", payload)
+            const user =
+                await strapi
+                    .query(
+                        "plugin::users-permissions.user"
+                    )
+                    .findOne({
+                        where: {
+                            email: payload.email
+                        },
+                    });
 
 
             if (!user) {
-                throw new Error("Unauthorized action")
+                return ctx.unauthorized(
+                    "User not found"
+                );
             }
 
 
             ctx.state.user = user;
 
+            console.log("user ", user)
+
+
+
             await next();
 
+
         } catch (err) {
-            return ctx.unauthorized("Unauthorized action");
+
+            return ctx.unauthorized(
+                ErrorProcessor(err)
+            );
+
         }
+
     };
 };

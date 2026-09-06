@@ -510,6 +510,7 @@ export interface ApiCourseCourse extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Private;
     Media: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    payments: Schema.Attribute.Relation<'oneToMany', 'api::payment.payment'>;
     price: Schema.Attribute.Decimal;
     published: Schema.Attribute.Date;
     publishedAt: Schema.Attribute.DateTime;
@@ -564,6 +565,7 @@ export interface ApiPaymentPayment extends Struct.CollectionTypeSchema {
     draftAndPublish: false;
   };
   attributes: {
+    course: Schema.Attribute.Relation<'manyToOne', 'api::course.course'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -573,7 +575,18 @@ export interface ApiPaymentPayment extends Struct.CollectionTypeSchema {
       'api::payment.payment'
     > &
       Schema.Attribute.Private;
+    paidAmount: Schema.Attribute.Decimal;
+    payer: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+    paymentStatus: Schema.Attribute.Enumeration<
+      ['pending ', 'paid', 'cancelled', 'failed']
+    >;
+    provider: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
+    sessionId: Schema.Attribute.String;
+    transactionId: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1204,6 +1217,7 @@ export interface PluginUsersPermissionsUser
       Schema.Attribute.SetMinMaxLength<{
         minLength: 6;
       }>;
+    payments: Schema.Attribute.Relation<'oneToMany', 'api::payment.payment'>;
     provider: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
     quiz_tests: Schema.Attribute.Relation<

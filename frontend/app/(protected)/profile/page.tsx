@@ -1,6 +1,6 @@
 "use client";
 
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import {
     Camera,
     Mail,
@@ -22,13 +22,27 @@ export default function ProfilePage() {
     const [message, setMessage] = useState("");
 
     const [formData, setFormData] = useState({
-        username: user?.username ?? "",
-        email: user?.email ?? "",
+        username: "",
+        email: "",
         firstName: "",
         lastName: "",
         phone: "",
         bio: "",
     });
+
+    useEffect(() => {
+        if (!user) return;
+
+        setFormData({
+            username: user.username ?? "",
+            email: user.email ?? "",
+            firstName: "",
+            lastName: "",
+            phone: "",
+            bio: "",
+        });
+
+    }, [user])
 
     const [profileImage, setProfileImage] = useState<string | null>(null);
 

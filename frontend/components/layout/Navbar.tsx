@@ -5,7 +5,7 @@ import { Menu, Search, User } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 
 export default function Navbar() {
-    const { isAuthenticated } = useAuth()
+    const { user } = useAuth()
 
 
     return (
@@ -28,7 +28,7 @@ export default function Navbar() {
                         Courses
                     </Link>
 
-                    {isAuthenticated && <Link
+                    {user && <Link
                         href="/dashboard"
                         className="text-sm font-medium text-slate-700 transition hover:text-blue-600"
                     >
@@ -67,7 +67,7 @@ export default function Navbar() {
                 <div className="hidden items-center gap-3 md:flex">
 
 
-                    {isAuthenticated ?
+                    {user ?
                         <Link
                             href="/profile"
                         >

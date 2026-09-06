@@ -211,15 +211,15 @@ export default function InstructorDashboard() {
                                     <div className="mt-2 flex gap-4 text-sm text-slate-500">
 
                                         <span>
-                                            {course.students} Students
+                                            {/* {course.students} Students */}
                                         </span>
 
                                         <span>
-                                            ⭐ {course.rating || "N/A"}
+                                            {/* ⭐ {course.rating || "N/A"} */}
                                         </span>
 
                                         <span>
-                                            {course.status}
+                                            {/* {course.status} */}
                                         </span>
 
                                     </div>

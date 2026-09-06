@@ -1,7 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AuthContext, User } from "@/context/AuthContext";
+import ErrorProcessor from "@/lib/ErrorProcessor";
+import api from "@/lib/axios";
 
 interface AuthProviderProps {
     children: React.ReactNode;
@@ -10,47 +12,45 @@ interface AuthProviderProps {
 export default function AuthProvider({
     children,
 }: AuthProviderProps) {
-    const [user, setUser] = useState<User | null>(() => {
-        if (typeof window === "undefined") {
-            return null;
+
+    const [authenticating, setAuthenticating] = useState(true)
+
+    const [user, setUser] = useState<User | null>(null);
+
+    useEffect(() => {
+
+        async function Auth() {
+            try {
+                const response = await api.get("/auth/me")
+                setUser(response.data.user)
+            }
+            catch (err) {
+                console.log(ErrorProcessor(err))
+            }
+            finally {
+                setAuthenticating(false)
+            }
         }
 
-        const storedUser = localStorage.getItem("user");
-        return storedUser ? JSON.parse(storedUser) : null;
-    });
+        Auth();
+    }, [])
 
-    const [jwtToken, setJwtToken] = useState<string | null>(() => {
-        if (typeof window === "undefined") {
-            return null;
-        }
-
-        return localStorage.getItem("jwtToken");
-    });
-
-    const login = (user: User, jwtToken: string) => {
+    const login = (user: User) => {
         setUser(user);
-        setJwtToken(jwtToken);
-
-        localStorage.setItem("jwtToken", jwtToken);
-        localStorage.setItem("user", JSON.stringify(user));
     };
 
     const logout = () => {
         setUser(null);
-        setJwtToken(null);
 
-        localStorage.removeItem("jwtToken");
-        localStorage.removeItem("user");
     };
 
     return (
         <AuthContext.Provider
             value={{
                 user,
-                jwtToken,
-                isAuthenticated: !!user,
                 login,
                 logout,
+                authenticating
             }}
         >
             {children}

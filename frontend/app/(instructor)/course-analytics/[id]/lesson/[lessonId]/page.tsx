@@ -25,7 +25,7 @@ interface AddLessonProps {
 
 export default function UpdateLesson({ }: AddLessonProps) {
 
-    const { id: courseId, lessonId } = useParams<{ id: string }>();
+    const { id: courseId, lessonId } = useParams<{ id: string, lessonId: string }>();
     const router = useRouter();
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
@@ -84,7 +84,7 @@ export default function UpdateLesson({ }: AddLessonProps) {
         }));
     }
 
-    function EditorChange(name, value) {
+    function EditorChange(name: any, value: any) {
 
         console.log(value)
 

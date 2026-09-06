@@ -1,3 +1,5 @@
+
+
 import Link from "next/link";
 import {
     ArrowLeft,
@@ -10,50 +12,32 @@ import {
     PlayCircle,
 } from "lucide-react";
 
+import { Lesson } from "@/types/lesson";
+import { serverApi } from "@/lib/server-api";
+import BlocknoteViewer from "@/components/blocknote/BlocknoteViewer";
+
 interface PageProps {
     params: Promise<{
         id: string;
         lessonId: string;
     }>;
+
+    searchParams: Promise<{
+        tab?: string;
+    }>;
 }
 
 export default async function LessonPage({
-    params,
+    params, searchParams
 }: PageProps) {
+
     const { id, lessonId } = await params;
+    const { tab } = await searchParams;
 
-    // TODO:
-    // Fetch lesson from Strapi using course id & lesson id
+    console.log(lessonId)
 
-    const lesson = {
-        id: Number(lessonId),
-        title: `Lesson ${lessonId}: Introduction to React`,
-        duration: "18 min",
-        videoUrl: "",
-        description:
-            "In this lesson you'll learn the core concepts and understand how React components work.",
-        notes: `
-React lets you build user interfaces using reusable components.
+    const { lesson }: { lesson: Lesson } = await serverApi(`/lesson/${lessonId}`)
 
-Topics covered:
-
-• JSX
-• Components
-• Props
-• Rendering
-• Component hierarchy
-        `,
-        attachments: [
-            {
-                id: 1,
-                name: "Lesson Notes.pdf",
-            },
-            {
-                id: 2,
-                name: "Source Code.zip",
-            },
-        ],
-    };
 
     return (
         <div className="mx-auto max-w-5xl space-y-8">
@@ -77,11 +61,11 @@ Topics covered:
 
                             <span className="flex items-center gap-2">
                                 <Clock size={16} />
-                                {lesson.duration}
+                                {/* {lesson.duration} */}
                             </span>
 
                             <span>
-                                Lesson #{lesson.id}
+                                {/* Lesson #{lesson.id} */}
                             </span>
 
                         </div>
@@ -116,7 +100,7 @@ Topics covered:
             </section>
 
             {/* Lesson Description */}
-            <section className="rounded-3xl bg-white p-8 shadow-sm">
+            {/* <section className="rounded-3xl bg-white p-8 shadow-sm">
 
                 <h2 className="text-2xl font-semibold text-slate-900">
                     About this lesson
@@ -126,7 +110,7 @@ Topics covered:
                     {lesson.description}
                 </p>
 
-            </section>
+            </section> */}
 
             {/* Lesson Notes */}
             <section className="rounded-3xl bg-white p-8 shadow-sm">
@@ -142,13 +126,13 @@ Topics covered:
                 </div>
 
                 <pre className="mt-6 whitespace-pre-wrap font-sans leading-8 text-slate-600">
-                    {lesson.notes}
+                    <BlocknoteViewer content={lesson.content} />
                 </pre>
 
             </section>
 
             {/* Attachments */}
-            <section className="rounded-3xl bg-white p-8 shadow-sm">
+            {/* <section className="rounded-3xl bg-white p-8 shadow-sm">
 
                 <h2 className="text-2xl font-semibold">
                     Attachments
@@ -187,7 +171,9 @@ Topics covered:
 
                 </div>
 
-            </section>
+            </section> */}
+
+
 
             {/* Footer */}
             <section className="rounded-3xl bg-white p-8 shadow-sm">

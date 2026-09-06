@@ -1,30 +1,54 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/hooks/useAuth";
 
-interface GuestRouteProps {
+interface ProtectedRouteProps {
     children: React.ReactNode;
     redirectTo?: string;
 }
 
-export default function GuestRoute({
+export default function ProtectedRoute({
     children,
-    redirectTo = "/",
-}: GuestRouteProps) {
-    const { isAuthenticated } = useAuth();
+    redirectTo = "/profile",
+}: ProtectedRouteProps) {
+
+    const { user, authenticating } = useAuth();
+
+
     const router = useRouter();
 
+
     useEffect(() => {
-        if (isAuthenticated) {
+
+        if (authenticating) return;
+
+        if (user) {
             router.replace(redirectTo);
         }
-    }, [isAuthenticated, redirectTo, router]);
 
-    if (isAuthenticated) {
+    }, [
+        user,
+        authenticating,
+        redirectTo,
+        router,
+    ]);
+
+
+    if (authenticating) {
+        return (
+            <div className="flex min-h-screen items-center justify-center">
+                Loading...
+            </div>
+        );
+    }
+
+
+    if (user) {
         return null;
     }
+
 
     return <>{children}</>;
 }

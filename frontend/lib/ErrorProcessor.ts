@@ -16,16 +16,15 @@ export default function ErrorProcessor(error: any): string {
         message?: string;
     };
 
-    alert("Login failed")
+
 
     const message =
         err.response?.data?.error?.message ??
         err.response?.data?.message ??
         err.response?.message ??
         err.message ??
-        "Login failed";
+        "Untracked error";
 
-    console.error("Login failed:", message);
 
     return message;
 }

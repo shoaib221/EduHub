@@ -1,3 +1,5 @@
+"use client"
+
 import Link from "next/link";
 import {
     BookOpen,
@@ -8,34 +10,33 @@ import {
     TrendingUp,
 } from "lucide-react";
 import ProtectedRoute from "@/components/auth/ProtectedRoute";
-
-
-const courses = [
-    {
-        id: 1,
-        title: "Complete Next.js Course",
-        progress: 75,
-        lessons: 42,
-        completedLessons: 31,
-    },
-    {
-        id: 2,
-        title: "JavaScript Mastery",
-        progress: 45,
-        lessons: 35,
-        completedLessons: 16,
-    },
-    {
-        id: 3,
-        title: "UI/UX Design Fundamentals",
-        progress: 90,
-        lessons: 20,
-        completedLessons: 18,
-    },
-];
+import { useEffect, useState } from "react";
+import { Course } from "@/types/course";
+import api from "@/lib/axios";
+import ErrorProcessor from "@/lib/ErrorProcessor";
 
 
 export default function StudentDashboard() {
+    const [courses, setCourses] = useState<Course[]>([]);
+
+
+
+    async function FetchEnrolledCourses() {
+        try {
+            const response = await api.get("/enrolled-courses");
+            setCourses(response.data.courses);
+        }
+        catch (err) {
+            ErrorProcessor(err);
+        }
+    }
+
+    useEffect(() => {
+        FetchEnrolledCourses();
+    }, [])
+
+
+
 
     return (
 
@@ -65,7 +66,7 @@ export default function StudentDashboard() {
                     <BookOpen className="text-blue-600" />
 
                     <h2 className="mt-4 text-3xl font-bold text-slate-900">
-                        8
+                        {courses?.length}
                     </h2>
 
                     <p className="text-slate-500">
@@ -133,9 +134,8 @@ export default function StudentDashboard() {
                 <div className="flex items-center justify-between">
 
                     <h2 className="text-2xl font-bold text-slate-900">
-                        Continue Learning
+                        Enrolled Courses
                     </h2>
-
 
                     <Link
                         href="/courses"
@@ -143,10 +143,7 @@ export default function StudentDashboard() {
                     >
                         Browse Courses
                     </Link>
-
                 </div>
-
-
 
                 <div className="mt-6 space-y-5">
 
@@ -160,21 +157,15 @@ export default function StudentDashboard() {
 
                                 <div className="flex flex-col justify-between gap-4 md:flex-row md:items-center">
 
-
                                     <div>
-
                                         <h3 className="text-lg font-semibold text-slate-900">
                                             {course.title}
                                         </h3>
 
-
-                                        <p className="mt-1 text-sm text-slate-500">
+                                        {/* <p className="mt-1 text-sm text-slate-500">
                                             {course.completedLessons}/{course.lessons} lessons completed
-                                        </p>
-
+                                        </p> */}
                                     </div>
-
-
 
                                     <Link
                                         href={`/enrolled-courses/${course.id}`}
@@ -184,13 +175,10 @@ export default function StudentDashboard() {
                                         Continue
                                     </Link>
 
-
                                 </div>
 
-
-
                                 {/* Progress */}
-                                <div className="mt-5">
+                                {/* <div className="mt-5">
 
                                     <div className="mb-2 flex justify-between text-sm">
 
@@ -216,8 +204,7 @@ export default function StudentDashboard() {
 
                                     </div>
 
-                                </div>
-
+                                </div> */}
 
                             </div>
 
@@ -232,7 +219,7 @@ export default function StudentDashboard() {
 
 
             {/* Recent Activity */}
-            <section className="rounded-3xl bg-white p-8 shadow-sm">
+            {/* <section className="rounded-3xl bg-white p-8 shadow-sm">
 
                 <h2 className="text-2xl font-bold text-slate-900">
                     Recent Activity
@@ -279,7 +266,7 @@ export default function StudentDashboard() {
 
                 </div>
 
-            </section>
+            </section> */}
 
         </div>
     );

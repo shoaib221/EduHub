@@ -10,44 +10,14 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/image.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/client/app-dir/link.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$axios$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/lib/axios.ts [app-client] (ecmascript)");
 ;
 var _s = __turbopack_context__.k.signature();
 "use client";
 ;
 ;
 ;
-const featuredCourses = [
-    {
-        id: 1,
-        title: "Complete Web Development Bootcamp",
-        instructor: "John Doe",
-        image: "/images/courses/web-development.jpg",
-        students: "12,540",
-        lessons: 42,
-        duration: "24 Hours",
-        price: "$49"
-    },
-    {
-        id: 2,
-        title: "Mastering UI/UX Design",
-        instructor: "Jane Smith",
-        image: "/images/courses/uiux.jpg",
-        students: "8,720",
-        lessons: 30,
-        duration: "18 Hours",
-        price: "$39"
-    },
-    {
-        id: 3,
-        title: "Data Structures & Algorithms",
-        instructor: "Alex Johnson",
-        image: "/images/courses/dsa.jpg",
-        students: "15,200",
-        lessons: 56,
-        duration: "35 Hours",
-        price: "$59"
-    }
-];
+;
 function FeaturedCourses() {
     _s();
     const [courses, setCourses] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
@@ -58,12 +28,8 @@ function FeaturedCourses() {
                 "FeaturedCourses.useEffect.fetchCourses": async ()=>{
                     try {
                         setLoading(true);
-                        const res = await fetch("/courses");
-                        if (!res.ok) {
-                            throw new Error("Failed to fetch courses");
-                        }
-                        const data = await res.json();
-                        setCourses(data);
+                        const res = await __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$axios$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].get("/courses");
+                        setCourses(res.data.courses);
                     } catch (err) {
                         console.error(err);
                     } finally{
@@ -89,7 +55,7 @@ function FeaturedCourses() {
                                     children: "Featured Courses"
                                 }, void 0, false, {
                                     fileName: "[project]/components/home/FeaturedCourses.tsx",
-                                    lineNumber: 73,
+                                    lineNumber: 37,
                                     columnNumber: 25
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
@@ -97,7 +63,7 @@ function FeaturedCourses() {
                                     children: "Learn from the Best"
                                 }, void 0, false, {
                                     fileName: "[project]/components/home/FeaturedCourses.tsx",
-                                    lineNumber: 77,
+                                    lineNumber: 41,
                                     columnNumber: 25
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -105,13 +71,13 @@ function FeaturedCourses() {
                                     children: "Explore our most popular courses designed by industry experts to help you achieve your learning goals."
                                 }, void 0, false, {
                                     fileName: "[project]/components/home/FeaturedCourses.tsx",
-                                    lineNumber: 81,
+                                    lineNumber: 45,
                                     columnNumber: 25
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/components/home/FeaturedCourses.tsx",
-                            lineNumber: 72,
+                            lineNumber: 36,
                             columnNumber: 21
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -120,35 +86,35 @@ function FeaturedCourses() {
                             children: "View All"
                         }, void 0, false, {
                             fileName: "[project]/components/home/FeaturedCourses.tsx",
-                            lineNumber: 88,
+                            lineNumber: 52,
                             columnNumber: 21
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/components/home/FeaturedCourses.tsx",
-                    lineNumber: 71,
+                    lineNumber: 35,
                     columnNumber: 17
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                     className: "grid gap-8 md:grid-cols-2 xl:grid-cols-3",
-                    children: featuredCourses.map((course)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    children: courses && courses.map((course)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                             className: "overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl",
                             children: [
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                     className: "relative h-56",
-                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
-                                        src: course.image,
+                                    children: course.coverImage && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                                        src: course.coverImage,
                                         alt: course.title,
                                         fill: true,
                                         className: "object-cover"
                                     }, void 0, false, {
                                         fileName: "[project]/components/home/FeaturedCourses.tsx",
-                                        lineNumber: 103,
-                                        columnNumber: 33
+                                        lineNumber: 67,
+                                        columnNumber: 55
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/components/home/FeaturedCourses.tsx",
-                                    lineNumber: 102,
+                                    lineNumber: 66,
                                     columnNumber: 29
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -159,7 +125,7 @@ function FeaturedCourses() {
                                             children: "Bestseller"
                                         }, void 0, false, {
                                             fileName: "[project]/components/home/FeaturedCourses.tsx",
-                                            lineNumber: 112,
+                                            lineNumber: 76,
                                             columnNumber: 33
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
@@ -167,7 +133,7 @@ function FeaturedCourses() {
                                             children: course.title
                                         }, void 0, false, {
                                             fileName: "[project]/components/home/FeaturedCourses.tsx",
-                                            lineNumber: 116,
+                                            lineNumber: 80,
                                             columnNumber: 33
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -177,16 +143,16 @@ function FeaturedCourses() {
                                                 " ",
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                     className: "font-medium text-slate-700",
-                                                    children: course.instructor
+                                                    children: course.instructor?.username
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/home/FeaturedCourses.tsx",
-                                                    lineNumber: 122,
+                                                    lineNumber: 86,
                                                     columnNumber: 37
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/components/home/FeaturedCourses.tsx",
-                                            lineNumber: 120,
+                                            lineNumber: 84,
                                             columnNumber: 33
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -196,10 +162,10 @@ function FeaturedCourses() {
                                                     children: [
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                                             className: "font-bold text-slate-900",
-                                                            children: course.students
+                                                            children: course.enrolled_users?.length
                                                         }, void 0, false, {
                                                             fileName: "[project]/components/home/FeaturedCourses.tsx",
-                                                            lineNumber: 129,
+                                                            lineNumber: 93,
                                                             columnNumber: 41
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -207,23 +173,23 @@ function FeaturedCourses() {
                                                             children: "Students"
                                                         }, void 0, false, {
                                                             fileName: "[project]/components/home/FeaturedCourses.tsx",
-                                                            lineNumber: 132,
+                                                            lineNumber: 96,
                                                             columnNumber: 41
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/components/home/FeaturedCourses.tsx",
-                                                    lineNumber: 128,
+                                                    lineNumber: 92,
                                                     columnNumber: 37
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                     children: [
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                                             className: "font-bold text-slate-900",
-                                                            children: course.lessons
+                                                            children: course.lessons?.length
                                                         }, void 0, false, {
                                                             fileName: "[project]/components/home/FeaturedCourses.tsx",
-                                                            lineNumber: 138,
+                                                            lineNumber: 102,
                                                             columnNumber: 41
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -231,43 +197,19 @@ function FeaturedCourses() {
                                                             children: "Lessons"
                                                         }, void 0, false, {
                                                             fileName: "[project]/components/home/FeaturedCourses.tsx",
-                                                            lineNumber: 141,
+                                                            lineNumber: 105,
                                                             columnNumber: 41
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/components/home/FeaturedCourses.tsx",
-                                                    lineNumber: 137,
-                                                    columnNumber: 37
-                                                }, this),
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                    children: [
-                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                            className: "font-bold text-slate-900",
-                                                            children: course.duration
-                                                        }, void 0, false, {
-                                                            fileName: "[project]/components/home/FeaturedCourses.tsx",
-                                                            lineNumber: 147,
-                                                            columnNumber: 41
-                                                        }, this),
-                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                            className: "text-xs text-slate-500",
-                                                            children: "Duration"
-                                                        }, void 0, false, {
-                                                            fileName: "[project]/components/home/FeaturedCourses.tsx",
-                                                            lineNumber: 150,
-                                                            columnNumber: 41
-                                                        }, this)
-                                                    ]
-                                                }, void 0, true, {
-                                                    fileName: "[project]/components/home/FeaturedCourses.tsx",
-                                                    lineNumber: 146,
+                                                    lineNumber: 101,
                                                     columnNumber: 37
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/components/home/FeaturedCourses.tsx",
-                                            lineNumber: 127,
+                                            lineNumber: 91,
                                             columnNumber: 33
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -278,7 +220,7 @@ function FeaturedCourses() {
                                                     children: course.price
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/home/FeaturedCourses.tsx",
-                                                    lineNumber: 157,
+                                                    lineNumber: 114,
                                                     columnNumber: 37
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -287,30 +229,30 @@ function FeaturedCourses() {
                                                     children: "View Course"
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/home/FeaturedCourses.tsx",
-                                                    lineNumber: 161,
+                                                    lineNumber: 118,
                                                     columnNumber: 37
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/components/home/FeaturedCourses.tsx",
-                                            lineNumber: 156,
+                                            lineNumber: 113,
                                             columnNumber: 33
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/components/home/FeaturedCourses.tsx",
-                                    lineNumber: 111,
+                                    lineNumber: 75,
                                     columnNumber: 29
                                 }, this)
                             ]
                         }, course.id, true, {
                             fileName: "[project]/components/home/FeaturedCourses.tsx",
-                            lineNumber: 98,
+                            lineNumber: 62,
                             columnNumber: 25
                         }, this))
                 }, void 0, false, {
                     fileName: "[project]/components/home/FeaturedCourses.tsx",
-                    lineNumber: 96,
+                    lineNumber: 60,
                     columnNumber: 17
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -321,23 +263,23 @@ function FeaturedCourses() {
                         children: "View All Courses"
                     }, void 0, false, {
                         fileName: "[project]/components/home/FeaturedCourses.tsx",
-                        lineNumber: 174,
+                        lineNumber: 131,
                         columnNumber: 21
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/components/home/FeaturedCourses.tsx",
-                    lineNumber: 173,
+                    lineNumber: 130,
                     columnNumber: 17
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/components/home/FeaturedCourses.tsx",
-            lineNumber: 70,
+            lineNumber: 34,
             columnNumber: 13
         }, this)
     }, void 0, false, {
         fileName: "[project]/components/home/FeaturedCourses.tsx",
-        lineNumber: 69,
+        lineNumber: 33,
         columnNumber: 9
     }, this);
 }

@@ -66,7 +66,7 @@ export default function FeaturedCourses() {
                             <div className="relative h-56">
                                 {course.coverImage && <Image
                                     src={course.coverImage}
-                                    alt={course.title}
+                                    alt={course.title!}
                                     fill
                                     className="object-cover"
                                 />}

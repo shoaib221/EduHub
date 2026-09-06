@@ -305,23 +305,11 @@ const api = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axio
     baseURL: ("TURBOPACK compile-time value", "http://localhost:1337/api"),
     headers: {
         "Content-Type": "application/json"
-    }
-});
-api.interceptors.request.use((config)=>{
-    if ("TURBOPACK compile-time truthy", 1) {
-        const token = localStorage.getItem("jwtToken");
-        if (token) {
-            config.headers.Authorization = `Bearer ${token}`;
-        }
-    }
-    return config;
-}, (error)=>{
-    return Promise.reject(error);
+    },
+    withCredentials: true
 });
 api.interceptors.response.use((response)=>response, (error)=>{
     if (error.response?.status === 401) {
-        localStorage.removeItem("jwtToken");
-        localStorage.removeItem("user");
         window.dispatchEvent(new Event("auth:logout"));
     }
     return Promise.reject(error);

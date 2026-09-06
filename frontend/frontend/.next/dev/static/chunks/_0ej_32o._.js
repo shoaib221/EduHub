@@ -298,49 +298,49 @@ var _s = __turbopack_context__.k.signature();
 ;
 function AuthProvider({ children }) {
     _s();
-    const [user, setUser] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])({
-        "AuthProvider.useState": ()=>{
-            if ("TURBOPACK compile-time falsy", 0) //TURBOPACK unreachable
-            ;
-            const storedUser = localStorage.getItem("user");
-            return storedUser ? JSON.parse(storedUser) : null;
+    const [authenticating, setAuthenticating] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(true);
+    const [user, setUser] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
+        "AuthProvider.useEffect": ()=>{
+            function Auth() {
+                try {
+                    if ("TURBOPACK compile-time falsy", 0) //TURBOPACK unreachable
+                    ;
+                    const storedUser = localStorage.getItem("user");
+                    if (!storedUser) {
+                        setUser(null);
+                        setAuthenticating(false);
+                        return;
+                    }
+                    setUser(JSON.parse(storedUser));
+                    setAuthenticating(false);
+                } catch (err) {}
+            }
         }
-    }["AuthProvider.useState"]);
-    const [jwtToken, setJwtToken] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])({
-        "AuthProvider.useState": ()=>{
-            if ("TURBOPACK compile-time falsy", 0) //TURBOPACK unreachable
-            ;
-            return localStorage.getItem("jwtToken");
-        }
-    }["AuthProvider.useState"]);
-    const login = (user, jwtToken)=>{
+    }["AuthProvider.useEffect"], []);
+    const login = (user)=>{
         setUser(user);
-        setJwtToken(jwtToken);
-        localStorage.setItem("jwtToken", jwtToken);
         localStorage.setItem("user", JSON.stringify(user));
     };
     const logout = ()=>{
         setUser(null);
-        setJwtToken(null);
-        localStorage.removeItem("jwtToken");
         localStorage.removeItem("user");
     };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$context$2f$AuthContext$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["AuthContext"].Provider, {
         value: {
             user,
-            jwtToken,
-            isAuthenticated: !!user,
             login,
-            logout
+            logout,
+            authenticating
         },
         children: children
     }, void 0, false, {
         fileName: "[project]/providers/AuthProvider.tsx",
-        lineNumber: 47,
+        lineNumber: 57,
         columnNumber: 9
     }, this);
 }
-_s(AuthProvider, "kT+UMPqCcasWyj26zPPY1MsB95I=");
+_s(AuthProvider, "sykyEozVqhBu6/doQ7I4F1mkcCc=");
 _c = AuthProvider;
 var _c;
 __turbopack_context__.k.register(_c, "AuthProvider");

@@ -1,6 +1,5 @@
 export default {
     routes: [
-
         {
             method: "GET",
             path: "/",
@@ -9,7 +8,6 @@ export default {
                 auth: false,
             },
         },
-
         {
             method: "POST",
             path: "/auth/register",
@@ -18,8 +16,6 @@ export default {
                 auth: false,
             },
         },
-
-
         {
             method: "POST",
             path: "/auth/login",
@@ -28,8 +24,6 @@ export default {
                 auth: false,
             },
         },
-
-
         {
             method: "GET",
             path: "/auth/me",
@@ -41,6 +35,28 @@ export default {
                 ],
             },
         },
-
+        {
+            method: "PATCH",
+            path: "/auth/me",
+            handler: "auth.me",
+            config: {
+                auth: false,
+                middlewares: [
+                    "global::auth",
+                ],
+            },
+        },
+        {
+            method: "GET",
+            path: "/auth/logout",
+            handler: "auth.logout",
+            config: {
+                auth: false,
+                middlewares: [
+                    "global::auth",
+                ],
+            },
+        },
     ],
 };
+

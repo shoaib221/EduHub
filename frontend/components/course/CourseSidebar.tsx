@@ -12,31 +12,17 @@ import {
     Menu,
     X,
 } from "lucide-react";
+import { Course } from "@/types/course";
 
 interface CourseSidebarProps {
     courseId: string;
 }
 
-// Temporary data
-const lessons = [
-    { id: 1, title: "Lesson 1" },
-    { id: 2, title: "Lesson 2" },
-    { id: 3, title: "Lesson 3" },
-    { id: 4, title: "Lesson 4" },
-    { id: 5, title: "Lesson 5" },
-];
 
-const quizzes = [
-    { id: 1, title: "Quiz 1" },
-    { id: 2, title: "Quiz 2" },
-    { id: 3, title: "Quiz 3" },
-    { id: 4, title: "Quiz 4" },
-    { id: 5, title: "Quiz 5" },
-];
 
 export default function CourseSidebar({
-    courseId,
-}: CourseSidebarProps) {
+    course
+}: { course: Course }) {
     const pathname = usePathname();
 
     const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -88,8 +74,8 @@ export default function CourseSidebar({
 
                     {/* Home */}
                     <Link
-                        href={`/course-analytics/${courseId}`}
-                        className={`mb-3 flex items-center gap-3 rounded-xl px-4 py-3 transition ${isActive(`/course-analytics/${courseId}`)
+                        href={`/enrolled-courses/${course.id}`}
+                        className={`mb-3 flex items-center gap-3 rounded-xl px-4 py-3 transition ${isActive(`/course-analytics/${course.id}`)
                             ? "bg-blue-600 text-white"
                             : "text-slate-700 hover:bg-slate-100"
                             }`}
@@ -120,10 +106,10 @@ export default function CourseSidebar({
                     {lessonOpen && (
                         <div className="ml-6 mt-2 space-y-2">
 
-                            {lessons.map((lesson) => {
+                            {course.lessons?.map((lesson) => {
 
                                 const href =
-                                    `/course-analytics/${courseId}/lesson/${lesson.id}`;
+                                    `/enrolled-courses/${course.id}/lesson/${lesson.id}`;
 
                                 return (
                                     <Link
@@ -164,10 +150,10 @@ export default function CourseSidebar({
                     {quizOpen && (
                         <div className="ml-6 mt-2 space-y-2">
 
-                            {quizzes.map((quiz) => {
+                            {course.quizzes?.map((quiz) => {
 
                                 const href =
-                                    `/course-analytics/${courseId}/quiz/${quiz.id}`;
+                                    `/enrolled-courses/${course.id}/quiz/${quiz.id}`;
 
                                 return (
                                     <Link

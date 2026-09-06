@@ -62,9 +62,9 @@ export default function RegisterPage() {
 
             console.log("Registration successful:", response.data);
 
-            const { jwtToken, user } = response.data;
+            const { user } = response.data;
 
-            login(user, jwtToken);
+            login(user);
 
             console.log(
                 "Registration successful:",

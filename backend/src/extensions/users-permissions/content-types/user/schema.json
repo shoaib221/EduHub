@@ -106,6 +106,12 @@
     },
     "last_name": {
       "type": "string"
+    },
+    "payments": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::payment.payment",
+      "mappedBy": "payer"
     }
   }
 }

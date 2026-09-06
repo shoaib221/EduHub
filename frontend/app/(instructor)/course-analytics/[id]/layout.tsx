@@ -17,7 +17,7 @@ export default function CourseLayout({
 
 
     return (
-        <div className="flex h-screen flex-col overflow-hidden bg-slate-100">
+        <div className="flex flex-col overflow-auto bg-slate-100">
 
             {/* Top Header */}
             <CourseHeader />

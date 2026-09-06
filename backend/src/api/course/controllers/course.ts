@@ -14,7 +14,8 @@ export default {
                     },
                     populate: {
                         instructor: true,
-                        lessons: true
+                        lessons: true,
+                        quizzes: true
                     },
                 });
 

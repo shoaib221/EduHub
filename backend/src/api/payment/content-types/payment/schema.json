@@ -1,14 +1,48 @@
 {
-  "kind": "collectionType",
-  "collectionName": "payments",
-  "info": {
-    "singularName": "payment",
-    "pluralName": "payments",
-    "displayName": "Payment"
-  },
-  "options": {
-    "draftAndPublish": false
-  },
-  "pluginOptions": {},
-  "attributes": {}
+	"kind": "collectionType",
+	"collectionName": "payments",
+	"info": {
+		"singularName": "payment",
+		"pluralName": "payments",
+		"displayName": "Payment"
+	},
+	"options": {
+		"draftAndPublish": false
+	},
+	"pluginOptions": {},
+	"attributes": {
+		"provider": {
+			"type": "string"
+		},
+		"sessionId": {
+			"type": "string"
+		},
+		"transactionId": {
+			"type": "string"
+		},
+		"paidAmount": {
+			"type": "decimal"
+		},
+		"course": {
+			"type": "relation",
+			"relation": "manyToOne",
+			"target": "api::course.course",
+			"inversedBy": "payments"
+		},
+		"payer": {
+			"type": "relation",
+			"relation": "manyToOne",
+			"target": "plugin::users-permissions.user",
+			"inversedBy": "payments"
+		},
+		"paymentStatus": {
+			"type": "enumeration",
+			"enum": [
+				"pending ",
+				"paid",
+				"cancelled",
+				"failed"
+			]
+		}
+	}
 }
