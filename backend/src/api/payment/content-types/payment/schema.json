@@ -1,48 +1,42 @@
 {
-	"kind": "collectionType",
-	"collectionName": "payments",
-	"info": {
-		"singularName": "payment",
-		"pluralName": "payments",
-		"displayName": "Payment"
-	},
-	"options": {
-		"draftAndPublish": false
-	},
-	"pluginOptions": {},
-	"attributes": {
-		"provider": {
-			"type": "string"
-		},
-		"sessionId": {
-			"type": "string"
-		},
-		"transactionId": {
-			"type": "string"
-		},
-		"paidAmount": {
-			"type": "decimal"
-		},
-		"course": {
-			"type": "relation",
-			"relation": "manyToOne",
-			"target": "api::course.course",
-			"inversedBy": "payments"
-		},
-		"payer": {
-			"type": "relation",
-			"relation": "manyToOne",
-			"target": "plugin::users-permissions.user",
-			"inversedBy": "payments"
-		},
-		"paymentStatus": {
-			"type": "enumeration",
-			"enum": [
-				"pending ",
-				"paid",
-				"cancelled",
-				"failed"
-			]
-		}
-	}
+  "kind": "collectionType",
+  "collectionName": "payments",
+  "info": {
+    "singularName": "payment",
+    "pluralName": "payments",
+    "displayName": "Payment"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "provider": {
+      "type": "string"
+    },
+    "sessionId": {
+      "type": "string"
+    },
+    "transactionId": {
+      "type": "string"
+    },
+    "paidAmount": {
+      "type": "decimal"
+    },
+    "paymentStatus": {
+      "type": "enumeration",
+      "enum": [
+        "pending ",
+        "paid",
+        "cancelled",
+        "failed"
+      ]
+    },
+    "course_enrollment": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::course-enrollment.course-enrollment",
+      "mappedBy": "payment"
+    }
+  }
 }

@@ -39,9 +39,16 @@ export default function AuthProvider({
         setUser(user);
     };
 
-    const logout = () => {
-        setUser(null);
+    const logout = async () => {
 
+
+        try {
+            const response = await api.get("/auth/logout");
+            setUser(null);
+        }
+        catch (err) {
+            ErrorProcessor(err)
+        }
     };
 
     return (

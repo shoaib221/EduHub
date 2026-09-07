@@ -26,12 +26,6 @@
       "target": "api::question.question",
       "mappedBy": "quiz"
     },
-    "quiz_tests": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::quiz-test.quiz-test",
-      "mappedBy": "quiz"
-    },
     "description": {
       "type": "text"
     },

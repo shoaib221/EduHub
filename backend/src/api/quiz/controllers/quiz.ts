@@ -61,15 +61,28 @@ export default {
                 .findOne({
                     where: {
                         id: Number(quizId),
-                    },
-                    populate: {
-                        questions: true
                     }
+                });
+
+            const questions = await strapi.db
+                .query("api::question.question")
+                .findMany({
+                    where: {
+                        quiz: {
+                            id: Number(quizId)
+                        }
+                    },
+                    orderBy: {
+                        order: "asc"
+                    }
+
                 });
 
             if (!quiz) {
                 return ctx.notFound("Quiz not found.");
             }
+
+            quiz["questions"] = questions;
 
             ctx.body = {
                 quiz

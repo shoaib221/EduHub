@@ -1,3 +1,0 @@
-/**
- * quiz-test service
- */

@@ -45,12 +45,6 @@
       "target": "api::quiz.quiz",
       "mappedBy": "course"
     },
-    "enrolled_users": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "plugin::users-permissions.user",
-      "mappedBy": "enrolled_courses"
-    },
     "coverImage": {
       "type": "string"
     },
@@ -63,10 +57,10 @@
     "description": {
       "type": "text"
     },
-    "payments": {
+    "course_enrollments": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::payment.payment",
+      "target": "api::course-enrollment.course-enrollment",
       "mappedBy": "course"
     }
   }

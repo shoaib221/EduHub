@@ -76,27 +76,26 @@ export default async function LessonPage({
 
             </section>
 
+
+
+
             {/* Video */}
             <section className="overflow-hidden rounded-3xl bg-white shadow-sm">
-
-                <div className="aspect-video flex items-center justify-center bg-slate-900">
-
-                    {/* Replace with your video player */}
-                    <div className="text-center text-white">
-
-                        <PlayCircle
-                            size={80}
-                            className="mx-auto"
+                <div className="aspect-video bg-black">
+                    <video
+                        className="h-full w-full object-contain"
+                        controls
+                        preload="metadata"
+                        poster="/video-thumbnail.jpg"
+                    >
+                        <source
+                            src={"https://res.cloudinary.com/deqscvjss/video/upload/v1788757086/demo1_woru6q.mp4"}
+                            type="video/mp4"
                         />
 
-                        <p className="mt-4 text-lg">
-                            Video Player Placeholder
-                        </p>
-
-                    </div>
-
+                        Your browser does not support the video tag.
+                    </video>
                 </div>
-
             </section>
 
             {/* Lesson Description */}
@@ -180,7 +179,7 @@ export default async function LessonPage({
 
                 <div className="flex flex-wrap items-center justify-between gap-4">
 
-                    <Link
+                    {/* <Link
                         href={`/enrolled-courses/${id}/lesson/${Math.max(
                             1,
                             Number(lessonId) - 1
@@ -189,7 +188,7 @@ export default async function LessonPage({
                     >
                         <ArrowLeft size={18} />
                         Previous Lesson
-                    </Link>
+                    </Link> */}
 
                     <button className="flex items-center gap-2 rounded-xl bg-green-600 px-6 py-3 font-semibold text-white hover:bg-green-700">
 
@@ -199,7 +198,7 @@ export default async function LessonPage({
 
                     </button>
 
-                    <Link
+                    {/* <Link
                         href={`/enrolled-courses/${id}/lesson/${Number(
                             lessonId
                         ) + 1}`}
@@ -207,7 +206,7 @@ export default async function LessonPage({
                     >
                         Next Lesson
                         <ArrowRight size={18} />
-                    </Link>
+                    </Link> */}
 
                 </div>
 

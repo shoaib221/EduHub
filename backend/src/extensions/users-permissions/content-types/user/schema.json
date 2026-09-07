@@ -72,23 +72,11 @@
       "target": "api::course.course",
       "mappedBy": "instructor"
     },
-    "quiz_tests": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::quiz-test.quiz-test",
-      "mappedBy": "examinee"
-    },
     "blogs": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::blog.blog",
       "mappedBy": "users_permissions_user"
-    },
-    "enrolled_courses": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::course.course",
-      "inversedBy": "enrolled_users"
     },
     "user_role": {
       "type": "enumeration",
@@ -107,11 +95,11 @@
     "last_name": {
       "type": "string"
     },
-    "payments": {
+    "course_enrollments": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::payment.payment",
-      "mappedBy": "payer"
+      "target": "api::course-enrollment.course-enrollment",
+      "mappedBy": "student"
     }
   }
 }

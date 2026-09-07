@@ -477,6 +477,42 @@ export interface ApiBlogBlog extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiCourseEnrollmentCourseEnrollment
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'course_enrollments';
+  info: {
+    displayName: 'CourseEnrollment';
+    pluralName: 'course-enrollments';
+    singularName: 'course-enrollment';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    completedLessons: Schema.Attribute.JSON;
+    course: Schema.Attribute.Relation<'manyToOne', 'api::course.course'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::course-enrollment.course-enrollment'
+    > &
+      Schema.Attribute.Private;
+    payment: Schema.Attribute.Relation<'oneToOne', 'api::payment.payment'>;
+    publishedAt: Schema.Attribute.DateTime;
+    quizResults: Schema.Attribute.JSON;
+    student: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiCourseCourse extends Struct.CollectionTypeSchema {
   collectionName: 'courses';
   info: {
@@ -489,15 +525,15 @@ export interface ApiCourseCourse extends Struct.CollectionTypeSchema {
   };
   attributes: {
     category: Schema.Attribute.String;
+    course_enrollments: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::course-enrollment.course-enrollment'
+    >;
     coverImage: Schema.Attribute.String;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     description: Schema.Attribute.Text;
-    enrolled_users: Schema.Attribute.Relation<
-      'manyToMany',
-      'plugin::users-permissions.user'
-    >;
     instructor: Schema.Attribute.Relation<
       'manyToOne',
       'plugin::users-permissions.user'
@@ -510,7 +546,6 @@ export interface ApiCourseCourse extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Private;
     Media: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
-    payments: Schema.Attribute.Relation<'oneToMany', 'api::payment.payment'>;
     price: Schema.Attribute.Decimal;
     published: Schema.Attribute.Date;
     publishedAt: Schema.Attribute.DateTime;
@@ -565,7 +600,10 @@ export interface ApiPaymentPayment extends Struct.CollectionTypeSchema {
     draftAndPublish: false;
   };
   attributes: {
-    course: Schema.Attribute.Relation<'manyToOne', 'api::course.course'>;
+    course_enrollment: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::course-enrollment.course-enrollment'
+    >;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -576,10 +614,6 @@ export interface ApiPaymentPayment extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Private;
     paidAmount: Schema.Attribute.Decimal;
-    payer: Schema.Attribute.Relation<
-      'manyToOne',
-      'plugin::users-permissions.user'
-    >;
     paymentStatus: Schema.Attribute.Enumeration<
       ['pending ', 'paid', 'cancelled', 'failed']
     >;
@@ -587,36 +621,6 @@ export interface ApiPaymentPayment extends Struct.CollectionTypeSchema {
     publishedAt: Schema.Attribute.DateTime;
     sessionId: Schema.Attribute.String;
     transactionId: Schema.Attribute.String;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
-export interface ApiQuestionOptionQuestionOption
-  extends Struct.CollectionTypeSchema {
-  collectionName: 'question_options';
-  info: {
-    displayName: 'QuestionOption';
-    pluralName: 'question-options';
-    singularName: 'question-option';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    content: Schema.Attribute.Text;
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::question-option.question-option'
-    > &
-      Schema.Attribute.Private;
-    order: Schema.Attribute.Integer;
-    publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -657,40 +661,6 @@ export interface ApiQuestionQuestion extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiQuizTestQuizTest extends Struct.CollectionTypeSchema {
-  collectionName: 'quiz_tests';
-  info: {
-    displayName: 'QuizTest';
-    pluralName: 'quiz-tests';
-    singularName: 'quiz-test';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  attributes: {
-    answers: Schema.Attribute.JSON;
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    examinee: Schema.Attribute.Relation<
-      'manyToOne',
-      'plugin::users-permissions.user'
-    >;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::quiz-test.quiz-test'
-    > &
-      Schema.Attribute.Private;
-    publishedAt: Schema.Attribute.DateTime;
-    quiz: Schema.Attribute.Relation<'manyToOne', 'api::quiz.quiz'>;
-    score: Schema.Attribute.Decimal;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
 export interface ApiQuizQuiz extends Struct.CollectionTypeSchema {
   collectionName: 'quizzes';
   info: {
@@ -715,10 +685,6 @@ export interface ApiQuizQuiz extends Struct.CollectionTypeSchema {
       Schema.Attribute.Unique;
     publishedAt: Schema.Attribute.DateTime;
     questions: Schema.Attribute.Relation<'oneToMany', 'api::question.question'>;
-    quiz_tests: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::quiz-test.quiz-test'
-    >;
     title: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -1188,6 +1154,10 @@ export interface PluginUsersPermissionsUser
     blogs: Schema.Attribute.Relation<'oneToMany', 'api::blog.blog'>;
     confirmationToken: Schema.Attribute.String & Schema.Attribute.Private;
     confirmed: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    course_enrollments: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::course-enrollment.course-enrollment'
+    >;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1196,10 +1166,6 @@ export interface PluginUsersPermissionsUser
       Schema.Attribute.SetMinMaxLength<{
         minLength: 6;
       }>;
-    enrolled_courses: Schema.Attribute.Relation<
-      'manyToMany',
-      'api::course.course'
-    >;
     first_name: Schema.Attribute.String;
     instructed_courses: Schema.Attribute.Relation<
       'oneToMany',
@@ -1217,13 +1183,8 @@ export interface PluginUsersPermissionsUser
       Schema.Attribute.SetMinMaxLength<{
         minLength: 6;
       }>;
-    payments: Schema.Attribute.Relation<'oneToMany', 'api::payment.payment'>;
     provider: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
-    quiz_tests: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::quiz-test.quiz-test'
-    >;
     resetPasswordToken: Schema.Attribute.String & Schema.Attribute.Private;
     role: Schema.Attribute.Relation<
       'manyToOne',
@@ -1258,12 +1219,11 @@ declare module '@strapi/strapi' {
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
       'api::blog.blog': ApiBlogBlog;
+      'api::course-enrollment.course-enrollment': ApiCourseEnrollmentCourseEnrollment;
       'api::course.course': ApiCourseCourse;
       'api::lesson.lesson': ApiLessonLesson;
       'api::payment.payment': ApiPaymentPayment;
-      'api::question-option.question-option': ApiQuestionOptionQuestionOption;
       'api::question.question': ApiQuestionQuestion;
-      'api::quiz-test.quiz-test': ApiQuizTestQuizTest;
       'api::quiz.quiz': ApiQuizQuiz;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;

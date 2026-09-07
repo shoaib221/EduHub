@@ -3,26 +3,19 @@ import { ErrorProcessor } from "../lib/ErrorProcessor";
 export default (config: any, { strapi }: any) => {
 
     return async (ctx: any, next: any) => {
-
         console.log("authMiddleware ", ctx.url);
 
-
-
-        let token = ctx.cookies.get("jwtAuthToken");
-        console.log("token", token)
-
-        if (!token) {
-
-
-            return ctx.unauthorized(
-                "Missing authentication token ... ..."
-            );
-        }
-
-
-
-
         try {
+            let token = ctx.cookies.get("jwtAuthToken");
+            // console.log("token", token)
+
+            if (!token) {
+
+
+                return ctx.unauthorized(
+                    "Missing authentication token ... ..."
+                );
+            }
 
             const payload =
                 await strapi
@@ -30,7 +23,7 @@ export default (config: any, { strapi }: any) => {
                     .service("jwt")
                     .verify(token);
 
-            console.log("payload", payload)
+            // console.log("payload", payload)
             const user =
                 await strapi
                     .query(
@@ -42,22 +35,15 @@ export default (config: any, { strapi }: any) => {
                         },
                     });
 
-
             if (!user) {
                 return ctx.unauthorized(
                     "User not found"
                 );
             }
 
-
             ctx.state.user = user;
-
-            console.log("user ", user)
-
-
-
+            // console.log("user ", user)
             await next();
-
 
         } catch (err) {
 
