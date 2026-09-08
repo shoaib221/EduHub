@@ -36,6 +36,7 @@ export default function EditQuizPage() {
                 setLoading(true);
                 const response = await api.get(`/quiz/${quizId}`);
                 setQuiz(response.data.quiz);
+                setQuestions(response.data.quiz?.questions)
 
                 console.log("Fetched quiz:", response);
 
@@ -71,17 +72,7 @@ export default function EditQuizPage() {
         }
     }
 
-    useEffect(() => {
 
-        if (!quizId) {
-
-            return;
-        }
-
-        fetchQuestions();
-
-
-    }, [quizId]);
 
     async function deleteQuestion(questionId: number) {
         console.log("questionId", questionId)
@@ -182,7 +173,7 @@ export default function EditQuizPage() {
                         Description
                     </label>
 
-                    <input
+                    <textarea
                         value={quiz?.description}
                         onChange={(e) =>
                             setQuiz((currentQuiz) =>
@@ -192,6 +183,7 @@ export default function EditQuizPage() {
                             )
                         }
                         className="w-full rounded-xl border p-4"
+                        rows={5}
                         required
                     />
 

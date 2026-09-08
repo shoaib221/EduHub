@@ -486,7 +486,7 @@ export interface ApiCourseEnrollmentCourseEnrollment
     singularName: 'course-enrollment';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
     completedLessons: Schema.Attribute.JSON;
@@ -579,7 +579,6 @@ export interface ApiLessonLesson extends Struct.CollectionTypeSchema {
       'api::lesson.lesson'
     > &
       Schema.Attribute.Private;
-    order: Schema.Attribute.Integer;
     publishedAt: Schema.Attribute.DateTime;
     title: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
@@ -649,9 +648,6 @@ export interface ApiQuestionQuestion extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Private;
     options: Schema.Attribute.JSON;
-    order: Schema.Attribute.Integer &
-      Schema.Attribute.Required &
-      Schema.Attribute.Unique;
     publishedAt: Schema.Attribute.DateTime;
     quiz: Schema.Attribute.Relation<'manyToOne', 'api::quiz.quiz'>;
     statement: Schema.Attribute.String;
@@ -680,9 +676,6 @@ export interface ApiQuizQuiz extends Struct.CollectionTypeSchema {
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::quiz.quiz'> &
       Schema.Attribute.Private;
-    order: Schema.Attribute.Integer &
-      Schema.Attribute.Required &
-      Schema.Attribute.Unique;
     publishedAt: Schema.Attribute.DateTime;
     questions: Schema.Attribute.Relation<'oneToMany', 'api::question.question'>;
     title: Schema.Attribute.String;

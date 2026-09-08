@@ -8,6 +8,7 @@ import {
     PlayCircle,
     CheckCircle,
     TrendingUp,
+    Loader,
 } from "lucide-react";
 import ProtectedRoute from "@/components/auth/ProtectedRoute";
 import { useEffect, useState } from "react";
@@ -24,6 +25,7 @@ export default function StudentDashboard() {
     async function FetchEnrolledCourses() {
         try {
             const response = await api.get("/enrolled-courses");
+            console.log(response)
             setCourses(response.data.courses);
         }
         catch (err) {
@@ -148,7 +150,7 @@ export default function StudentDashboard() {
                 <div className="mt-6 space-y-5">
 
                     {
-                        courses.map((course) => (
+                        courses?.map((course) => (
 
                             <div
                                 key={course.id}

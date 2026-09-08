@@ -29,7 +29,6 @@ export default function AddLesson({ }: AddLessonProps) {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
 
-
     const [formData, setFormData] = useState<Lesson>({
         title: "",
         videoURL: "",
@@ -126,36 +125,6 @@ export default function AddLesson({ }: AddLessonProps) {
                             </div>
 
                         </div>
-
-
-                        {/* Order */}
-                        <div>
-
-                            <label className="mb-2 block font-medium">
-                                Lesson Order
-                            </label>
-
-                            <div className="flex items-center rounded-xl border px-4">
-
-                                <BookOpen
-                                    size={18}
-                                    className="text-slate-400"
-                                />
-
-                                <input
-                                    type="number"
-                                    name="order"
-                                    value={formData.order}
-                                    onChange={handleChange}
-                                    placeholder="1"
-                                    className="w-full p-4 outline-none"
-                                    required
-                                />
-
-                            </div>
-
-                        </div>
-
 
                         {/* Content */}
                         <div>

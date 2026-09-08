@@ -94,13 +94,11 @@ export default async function CourseAnalyticsPage({
 
                     </Link>
 
-                    <h1 className="text-4xl font-bold">
+                    <h1 className="text-xl font-bold">
                         Course Analytics
                     </h1>
 
-                    <p className="mt-2 text-slate-500">
-                        {analytics.title}
-                    </p>
+
 
                 </div>
 

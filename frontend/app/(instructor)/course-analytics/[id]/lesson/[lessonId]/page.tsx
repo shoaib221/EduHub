@@ -66,7 +66,7 @@ export default function UpdateLesson({ }: AddLessonProps) {
     useEffect(() => {
         if (!lessonId) return;
 
-        FetchLesson()
+        FetchLesson();
 
     }, [lessonId])
 
@@ -130,7 +130,7 @@ export default function UpdateLesson({ }: AddLessonProps) {
         <main className="mx-auto max-w-4xl p-8">
 
             <h1 className="mb-8 text-4xl font-bold">
-                Add Lesson
+                Edit Lesson
             </h1>
 
             <form
@@ -162,35 +162,6 @@ export default function UpdateLesson({ }: AddLessonProps) {
                                     value={formData.title}
                                     onChange={handleChange}
                                     placeholder="Introduction"
-                                    className="w-full p-4 outline-none"
-                                    required
-                                />
-
-                            </div>
-
-                        </div>
-
-
-                        {/* Order */}
-                        <div>
-
-                            <label className="mb-2 block font-medium">
-                                Lesson Order
-                            </label>
-
-                            <div className="flex items-center rounded-xl border px-4">
-
-                                <BookOpen
-                                    size={18}
-                                    className="text-slate-400"
-                                />
-
-                                <input
-                                    type="number"
-                                    name="order"
-                                    value={formData.order}
-                                    onChange={handleChange}
-                                    placeholder="1"
                                     className="w-full p-4 outline-none"
                                     required
                                 />

@@ -99,34 +99,17 @@ export default function AddQuizPage() {
                             Description
                         </label>
 
-                        <input
+                        <textarea
                             value={description}
                             onChange={(e) =>
                                 setDescription(e.target.value)
                             }
+                            rows={5}
                             className="w-full rounded-xl border p-4"
                             placeholder="Quiz 1"
                             required
                         />
 
-                    </div>
-
-
-                    <div>
-
-                        <label className="mb-2 block font-semibold">
-                            Order
-                        </label>
-
-                        <input
-                            value={order}
-                            onChange={(e) =>
-                                setOrder(parseInt(e.target.value) || 0)
-                            }
-                            className="w-full rounded-xl border p-4"
-                            placeholder="Quiz 1"
-                            required
-                        />
                     </div>
 
 

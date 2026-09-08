@@ -15,43 +15,33 @@ import {
 import api from "@/lib/axios";
 import { Lesson } from "@/types/lesson";
 import { Quiz } from "@/types/quiz";
+import { Course } from "@/types/course";
+import { NotFound } from "../auth/NotFound";
 
 interface CourseSidebarProps {
-    courseId: string;
+    course: Course
 }
 
 
 
 export default function CourseSidebar({
-    courseId,
+    course: coursePara
 }: CourseSidebarProps) {
+
+
+    const [course, setCourse] = useState<Course | null>(coursePara ?? null)
     const pathname = usePathname();
     const [sidebarOpen, setSidebarOpen] = useState(true);
     const [lessonOpen, setLessonOpen] = useState(true);
     const [quizOpen, setQuizOpen] = useState(true);
     const isActive = (href: string) => pathname === href;
 
-    const [lessons, setLessons] = useState<Lesson[]>([]);
-    const [quizzes, setQuizzes] = useState<Quiz[]>([]);
+    const [lessons, setLessons] = useState<Lesson[]>(coursePara.lessons ?? []);
+    const [quizzes, setQuizzes] = useState<Quiz[]>(coursePara.quizzes ?? []);
 
+    if (!course) return <NotFound />;
 
-    useEffect(() => {
-        // Fetch lessons and quizzes for the course
-        const fetchData = async () => {
-            try {
-                const lessonsResponse = await api.get(`/course/${courseId}/lessons`);
-                setLessons(lessonsResponse.data.lessons);
-                const quizzesResponse = await api.get(`/course/${courseId}/quizzes`);
-                setQuizzes(quizzesResponse.data.quizzes);
-            }
-            catch (error) {
-                console.error("Error fetching lessons and quizzes:", error);
-            }
-        };
-
-        fetchData();
-    }, [courseId]);
-
+    console.log(course)
 
     return (
         <>
@@ -75,10 +65,8 @@ export default function CourseSidebar({
                     bg-white
                     transition-transform
                     duration-300
-
                     lg:static
                     lg:translate-x-0
-
                     ${sidebarOpen
                         ? "translate-x-0"
                         : "-translate-x-full"
@@ -89,13 +77,13 @@ export default function CourseSidebar({
 
                     {/* Course */}
                     <h2 className="mb-6 text-xl font-bold text-slate-900">
-                        JavaScript Mastery
+                        {course.title}
                     </h2>
 
                     {/* Home */}
                     <Link
-                        href={`/course-analytics/${courseId}`}
-                        className={`mb-3 flex items-center gap-3 rounded-xl px-4 py-3 transition ${isActive(`/course-analytics/${courseId}`)
+                        href={`/course-analytics/${course.id}`}
+                        className={`mb-3 flex items-center gap-3 rounded-xl px-4 py-3 transition ${isActive(`/course-analytics/${course.id}`)
                             ? "bg-blue-600 text-white"
                             : "text-slate-700 hover:bg-slate-100"
                             }`}
@@ -106,8 +94,8 @@ export default function CourseSidebar({
 
                     {/* Home */}
                     <Link
-                        href={`/course-analytics/${courseId}/add-lesson`}
-                        className={`mb-3 flex items-center gap-3 rounded-xl px-4 py-3 transition ${isActive(`/course-analytics/${courseId}/add-lesson`)
+                        href={`/course-analytics/${course.id}/add-lesson`}
+                        className={`mb-3 flex items-center gap-3 rounded-xl px-4 py-3 transition ${isActive(`/course-analytics/${course.id}/add-lesson`)
                             ? "bg-blue-600 text-white"
                             : "text-slate-700 hover:bg-slate-100"
                             }`}
@@ -117,8 +105,8 @@ export default function CourseSidebar({
                     </Link>
 
                     <Link
-                        href={`/course-analytics/${courseId}/add-quiz`}
-                        className={`mb-3 flex items-center gap-3 rounded-xl px-4 py-3 transition ${isActive(`/course-analytics/${courseId}/add-quiz`)
+                        href={`/course-analytics/${course.id}/add-quiz`}
+                        className={`mb-3 flex items-center gap-3 rounded-xl px-4 py-3 transition ${isActive(`/course-analytics/${course.id}/add-quiz`)
                             ? "bg-blue-600 text-white"
                             : "text-slate-700 hover:bg-slate-100"
                             }`}
@@ -152,7 +140,7 @@ export default function CourseSidebar({
                             {lessons && lessons.map((lesson) => {
 
                                 const href =
-                                    `/course-analytics/${courseId}/lesson/${lesson.id}`;
+                                    `/course-analytics/${course.id}/lesson/${lesson.id}`;
 
                                 return (
                                     <Link
@@ -196,7 +184,7 @@ export default function CourseSidebar({
                             {quizzes.map((quiz) => {
 
                                 const href =
-                                    `/course-analytics/${courseId}/quiz/${quiz.id}`;
+                                    `/course-analytics/${course.id}/quiz/${quiz.id}`;
 
                                 return (
                                     <Link

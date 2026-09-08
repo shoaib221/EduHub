@@ -55,7 +55,7 @@ export default {
 
             const { quizId } = ctx.params;
 
-            // Create the quiz
+
             const quiz = await strapi.db
                 .query("api::quiz.quiz")
                 .findOne({
@@ -73,7 +73,7 @@ export default {
                         }
                     },
                     orderBy: {
-                        order: "asc"
+                        id: "asc"
                     }
 
                 });

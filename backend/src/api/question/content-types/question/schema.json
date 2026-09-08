@@ -20,11 +20,6 @@
       "target": "api::quiz.quiz",
       "inversedBy": "questions"
     },
-    "order": {
-      "type": "integer",
-      "required": true,
-      "unique": true
-    },
     "correctAnswer": {
       "type": "integer"
     },

@@ -17,9 +17,6 @@
     "videoURL": {
       "type": "string"
     },
-    "order": {
-      "type": "integer"
-    },
     "course": {
       "type": "relation",
       "relation": "manyToOne",
