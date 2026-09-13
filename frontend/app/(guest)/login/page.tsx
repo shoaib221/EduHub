@@ -9,6 +9,8 @@ import { useAuth } from "@/hooks/useAuth";
 import GuestRoute from "@/components/auth/GuestRoute";
 
 
+
+
 export default function LoginPage() {
     const [showPassword, setShowPassword] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
@@ -33,6 +35,8 @@ export default function LoginPage() {
         e.preventDefault();
 
         console.log(formData);
+
+        console.log(api)
 
         setErrorMessage("");
 

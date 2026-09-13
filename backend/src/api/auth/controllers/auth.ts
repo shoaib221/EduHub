@@ -132,6 +132,14 @@ export default {
                 path: "/",
             });
 
+            ctx.cookies.set("userRole", user.user_role, {
+                httpOnly: true,
+                secure: process.env.NODE_ENV === "production",
+                sameSite: "lax",
+                maxAge: 7 * 24 * 60 * 60 * 1000,
+                path: "/",
+            });
+
             ctx.body = {
                 user
             };
@@ -210,6 +218,13 @@ export default {
             console.log("logout");
 
             ctx.cookies.set("jwtAuthToken", null, {
+                httpOnly: true,
+                expires: new Date(0),
+                sameSite: "lax",
+                secure: process.env.NODE_ENV === "production",
+            });
+
+            ctx.cookies.set("userRole", null, {
                 httpOnly: true,
                 expires: new Date(0),
                 sameSite: "lax",

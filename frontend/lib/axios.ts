@@ -1,7 +1,10 @@
 import axios from "axios";
+import { envVariables } from "./variables";
+
+console.log("api ", envVariables);
 
 const api = axios.create({
-    baseURL: process.env.NEXT_PUBLIC_API_URL,
+    baseURL: process.env.NEXT_PUBLIC_LOCAL_BACKEND_API_URL,
     headers: {
         "Content-Type": "application/json",
     },
