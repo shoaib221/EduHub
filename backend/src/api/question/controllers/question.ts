@@ -35,6 +35,20 @@ export default {
                     },
                 });
 
+            let correctAnswers = quiz.correctAnswers;
+            correctAnswers[createdQuestion.id] = createdQuestion.correctAnswer;
+
+            await strapi.db
+                .query("api::quiz.quiz")
+                .update({
+                    where: {
+                        id: Number(quizId),
+                    },
+                    data: {
+                        correctAnswers
+                    }
+                });
+
 
             ctx.body = {
                 createdQuestion

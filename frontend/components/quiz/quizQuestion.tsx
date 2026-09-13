@@ -43,8 +43,8 @@ export default function Page({ quiz, answers, optionSelect, onSubmit }: { quiz: 
                                         <input
                                             type="radio"
                                             name={`question-${question.id}`}
-                                            checked={answers[questionIndex] === optionIndex}
-                                            onChange={() => optionSelect(questionIndex, optionIndex)}
+                                            checked={answers[question.id!] === optionIndex}
+                                            onChange={() => optionSelect(question.id!, optionIndex)}
                                         />
 
                                         <span>

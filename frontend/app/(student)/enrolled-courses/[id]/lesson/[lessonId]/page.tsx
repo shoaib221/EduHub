@@ -1,4 +1,4 @@
-
+"use client"
 
 import Link from "next/link";
 import {
@@ -9,12 +9,16 @@ import {
     Clock,
     Download,
     FileText,
+    Loader,
     PlayCircle,
 } from "lucide-react";
 
 import { Lesson } from "@/types/lesson";
-import { serverApi } from "@/lib/server-api";
 import BlocknoteViewer from "@/components/blocknote/BlocknoteViewer";
+import ErrorProcessor from "@/lib/ErrorProcessor";
+import { useParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import api from "@/lib/axios";
 
 interface PageProps {
     params: Promise<{
@@ -27,17 +31,40 @@ interface PageProps {
     }>;
 }
 
-export default async function LessonPage({
+export default function LessonPage({
     params, searchParams
 }: PageProps) {
 
-    const { id, lessonId } = await params;
-    const { tab } = await searchParams;
+    const { id: courseId, lessonId } = useParams();
+    const [lesson, setLesson] = useState<Lesson | null>(null)
 
-    console.log(lessonId)
 
-    const { lesson }: { lesson: Lesson } = await serverApi(`/lesson/${lessonId}`)
 
+    async function fetchLesson() {
+        try {
+            const response = await api.get(`/lesson/${lessonId}`);
+            setLesson(response.data.lesson)
+        } catch (err) {
+            ErrorProcessor(err);
+        }
+    }
+
+    useEffect(() => {
+        if (!lessonId) return;
+        fetchLesson();
+    }, [lessonId])
+
+    async function MarkComplete() {
+        try {
+            await api.get(`/complete-lesson/${lessonId}`)
+            alert("lesson completed");
+        } catch (err) {
+            ErrorProcessor(err)
+        }
+
+    }
+
+    if (!lesson) return <Loader />
 
     return (
         <div className="mx-auto max-w-5xl space-y-8">
@@ -190,7 +217,9 @@ export default async function LessonPage({
                         Previous Lesson
                     </Link> */}
 
-                    <button className="flex items-center gap-2 rounded-xl bg-green-600 px-6 py-3 font-semibold text-white hover:bg-green-700">
+                    <button
+                        onClick={MarkComplete}
+                        className="flex items-center gap-2 rounded-xl bg-green-600 px-6 py-3 font-semibold text-white hover:bg-green-700">
 
                         <CheckCircle size={18} />
 

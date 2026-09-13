@@ -23,17 +23,17 @@
       "target": "api::course.course",
       "inversedBy": "course_enrollments"
     },
-    "payment": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::payment.payment",
-      "inversedBy": "course_enrollment"
-    },
     "completedLessons": {
       "type": "json"
     },
     "quizResults": {
       "type": "json"
+    },
+    "payment": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::payment.payment",
+      "inversedBy": "course_enrollment"
     }
   }
 }

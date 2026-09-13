@@ -1,3 +1,5 @@
+import { ErrorProcessor } from "../../../lib/ErrorProcessor";
+
 export default {
 
 
@@ -77,7 +79,7 @@ export default {
 
             console.log("body", ctx.request.body)
 
-            if (!title || !content || !order || !videoURL) {
+            if (!title || !content || !videoURL) {
                 return ctx.badRequest("Invalid request body.");
             }
 
@@ -88,7 +90,6 @@ export default {
                         title,
                         content,
                         videoURL,
-                        order,
                         course: courseId, // numeric database id
                     },
                 });
@@ -99,7 +100,7 @@ export default {
             };
         }
         catch (error: any) {
-            return ctx.internalServerError(error.message);
+            return ctx.internalServerError(ErrorProcessor(error));
         }
     },
 

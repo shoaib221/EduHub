@@ -20,21 +20,19 @@ import QuizQuestion from "@/components/quiz/quizQuestion";
 
 
 export default function QuizPage() {
-    const router = useRouter()
-    const { id: courseId, quizId } = useParams()
-    const [answers, setAnswers] = useState<number[]>([])
-    const [quiz, setQuiz] = useState<Quiz | null>(null)
-    const [quizResult, setQuizResult] = useState<QuizResult | null>(null)
+    const router = useRouter();
+    const { id: courseId, quizId } = useParams();
+    const [answers, setAnswers] = useState<Record<number, number>>({});
+    const [quiz, setQuiz] = useState<Quiz | null>(null);
+    const [quizResult, setQuizResult] = useState<QuizResult | null>(null);
 
     useEffect(() => {
         async function FetchQuiz() {
-            console.log("fetch quiz")
+            // console.log("fetch quiz");
             try {
-                const response = await api.get(`/quiz/${quizId}`)
-                setQuiz(response.data.quiz)
-                console.log(response.data.quiz)
-                const totalQuestions = response.data.quiz?.questions?.length;
-                setAnswers(Array(totalQuestions).fill(0))
+                const response = await api.get(`/quiz/${quizId}`);
+                setQuiz(response.data.quiz);
+                // console.log(response.data.quiz);
             }
             catch (err) {
                 ErrorProcessor(err);
@@ -44,14 +42,15 @@ export default function QuizPage() {
         async function FetchQuizResult() {
             try {
                 const response = await api.get(`/quiz-result/${quizId}`)
-                if (response.data.quizResult) {
-                    setQuizResult(response.data.quizResult)
+                if (response.data.result) {
+                    console.log(response.data.result)
+                    setQuizResult(response.data.result)
                 }
-                await FetchQuiz();
-
             }
             catch (err) {
                 ErrorProcessor(err)
+            } finally {
+                await FetchQuiz();
             }
         }
 
@@ -64,14 +63,13 @@ export default function QuizPage() {
     }, [answers])
 
     function handleSelect(
-        questionOrder: number,
+        questionId: number,
         optionIndex: number
     ) {
-        const tmp = [...answers];
-
-        tmp[questionOrder] = optionIndex;
-
-        setAnswers(tmp);
+        setAnswers(prev => ({
+            ...prev,
+            [questionId]: optionIndex,
+        }));
     }
 
     async function handleSubmit() {

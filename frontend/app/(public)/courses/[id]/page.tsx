@@ -66,8 +66,9 @@ export default function CourseDetailsPage() {
                     courseId: id,
                 }
             );
+
             if (!res.data.payment_url)
-                throw new Error("no payment url")
+                throw new Error("no payment url");
 
             window.location.href = res.data.payment_url;
         } catch (err) {

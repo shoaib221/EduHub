@@ -72,13 +72,7 @@ export default function CoursesPage() {
                         1
                     </button>
 
-                    <button className="rounded-lg border border-slate-300 bg-white px-4 py-2 hover:bg-slate-100">
-                        2
-                    </button>
 
-                    <button className="rounded-lg border border-slate-300 bg-white px-4 py-2 hover:bg-slate-100">
-                        3
-                    </button>
 
                     <button className="rounded-lg border border-slate-300 bg-white px-4 py-2 hover:bg-slate-100">
                         Next

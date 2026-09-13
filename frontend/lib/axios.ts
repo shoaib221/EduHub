@@ -14,12 +14,13 @@ api.interceptors.response.use(
 
     (error) => {
 
-        if (error.response?.status === 401) {
-
+        if (
+            typeof window !== "undefined" &&
+            error.response?.status === 401
+        ) {
             window.dispatchEvent(
                 new Event("auth:logout")
             );
-
         }
 
         return Promise.reject(error);

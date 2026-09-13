@@ -112,7 +112,7 @@ export default function FeaturedCourses() {
 
                                 <div className="mt-8 flex items-center justify-between">
                                     <span className="text-2xl font-bold text-blue-600">
-                                        {course.price}
+                                        $ {course.price}
                                     </span>
 
                                     <Link

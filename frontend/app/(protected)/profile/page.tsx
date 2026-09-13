@@ -16,7 +16,6 @@ import ProtectedRoute from "@/components/auth/ProtectedRoute";
 
 export default function ProfilePage() {
     const { user, logout } = useAuth();
-
     const [isEditing, setIsEditing] = useState(false);
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState("");
@@ -448,7 +447,6 @@ export default function ProfilePage() {
 
 
                     <button
-                        type="button"
                         onClick={logout}
                         className="rounded-xl bg-blue-600 px-5 py-2.5 font-semibold text-white hover:bg-blue-700"
                     >

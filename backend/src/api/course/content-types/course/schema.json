@@ -14,16 +14,6 @@
     "title": {
       "type": "string"
     },
-    "Media": {
-      "type": "media",
-      "multiple": false,
-      "allowedTypes": [
-        "images",
-        "files",
-        "videos",
-        "audios"
-      ]
-    },
     "instructor": {
       "type": "relation",
       "relation": "manyToOne",

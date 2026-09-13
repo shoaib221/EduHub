@@ -56,6 +56,30 @@ export default {
                 ],
             },
         },
+        {
+            method: "POST",
+            path: "/quiz-test/:quizId",
+            handler: "quiz.submitQuizTest",
+            config: {
+                auth: false,
+                middlewares: [
+                    "global::auth",
+                    "global::authStudent"
+                ],
+            },
+        },
+        {
+            method: "GET",
+            path: "/quiz-result/:quizId",
+            handler: "quiz.getQuizResult",
+            config: {
+                auth: false,
+                middlewares: [
+                    "global::auth",
+                    "global::authStudent"
+                ],
+            },
+        },
     ],
 };
 

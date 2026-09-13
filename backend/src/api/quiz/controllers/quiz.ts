@@ -1,7 +1,121 @@
+import { ApiCourseEnrollmentCourseEnrollment } from "../../../../types/generated/contentTypes";
 import { ErrorProcessor } from "../../../lib/ErrorProcessor";
 
 
 export default {
+
+    async getQuizResult(ctx: any) {
+        try {
+            console.log("");
+
+            const user = ctx.state.user;
+            const { quizId } = ctx.params;
+
+
+            const quiz = await strapi.db
+                .query("api::quiz.quiz")
+                .findOne({
+                    where: {
+                        id: Number(quizId),
+                    },
+
+                    populate: {
+                        course: true,
+                    },
+                });
+
+            const enrollment = await strapi.db.query("api::course-enrollment.course-enrollment")
+                .findOne({
+                    where: {
+                        course: {
+                            id: quiz.course.id
+                        },
+                        student: {
+                            id: user.id
+                        }
+                    }
+                })
+
+            const quizResults = enrollment?.quizResults ?? {};
+            const result = quizResults[Number(quizId)]
+
+            result["correctAnswers"] = quiz.correctAnswers;
+
+
+            ctx.body = {
+                result
+            }
+        } catch (error) {
+            return ctx.internalServerError(ErrorProcessor(error));
+        }
+    },
+
+    async submitQuizTest(ctx: any) {
+        try {
+            console.log("submit quiz test");
+
+            const user = ctx.state.user;
+            const { quizId } = ctx.params;
+            const { answers } = ctx.request.body;
+
+            const quiz = await strapi.db
+                .query("api::quiz.quiz")
+                .findOne({
+                    where: {
+                        id: Number(quizId),
+                    },
+
+                    populate: {
+                        course: true,
+                    },
+                });
+
+            const enrollment = await strapi.db.query("api::course-enrollment.course-enrollment")
+                .findOne({
+                    where: {
+                        course: {
+                            id: quiz.course.id
+                        },
+                        student: {
+                            id: user.id
+                        }
+                    }
+                })
+
+
+            let score = 0;
+
+            for (const [key, value] of Object.entries(answers)) {
+                if (quiz.correctAnswers[key] === value) score++;
+            }
+
+            const result = { score, answers };
+
+            const quizResults = enrollment?.quizResults ?? {};
+            quizResults[Number(quizId)] = result;
+
+            await strapi.db.query("api::course-enrollment.course-enrollment")
+                .update({
+                    where: {
+                        course: {
+                            id: quiz.course.id
+                        },
+                        student: {
+                            id: user.id
+                        }
+                    },
+                    data: {
+                        quizResults
+                    }
+                })
+
+            ctx.body = {
+                "message": "quiz submitted successfully"
+            }
+        } catch (error) {
+            return ctx.internalServerError(ErrorProcessor(error));
+        }
+    },
 
     async createQuiz(ctx: any) {
 
@@ -35,6 +149,7 @@ export default {
                         title,
                         description,
                         course: course.id,
+                        correctAnswers: {}
                     },
                 });
 

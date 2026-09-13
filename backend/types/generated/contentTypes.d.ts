@@ -545,7 +545,6 @@ export interface ApiCourseCourse extends Struct.CollectionTypeSchema {
       'api::course.course'
     > &
       Schema.Attribute.Private;
-    Media: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     price: Schema.Attribute.Decimal;
     published: Schema.Attribute.Date;
     publishedAt: Schema.Attribute.DateTime;
@@ -668,6 +667,7 @@ export interface ApiQuizQuiz extends Struct.CollectionTypeSchema {
     draftAndPublish: false;
   };
   attributes: {
+    correctAnswers: Schema.Attribute.JSON;
     course: Schema.Attribute.Relation<'manyToOne', 'api::course.course'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &

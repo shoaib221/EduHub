@@ -10,35 +10,31 @@ import {
     TrendingUp,
     Loader,
 } from "lucide-react";
-import ProtectedRoute from "@/components/auth/ProtectedRoute";
-import { useEffect, useState } from "react";
-import { Course } from "@/types/course";
-import api from "@/lib/axios";
-import ErrorProcessor from "@/lib/ErrorProcessor";
 
+
+import { Course } from "@/types/course";
+import ErrorProcessor from "@/lib/ErrorProcessor";
+import api from "@/lib/axios";
+import { useEffect, useState } from "react";
+import { useAuth } from "@/hooks/useAuth";
 
 export default function StudentDashboard() {
+    const { user } = useAuth();
     const [courses, setCourses] = useState<Course[]>([]);
 
-
-
-    async function FetchEnrolledCourses() {
+    async function fetchEnrolledCourses() {
         try {
-            const response = await api.get("/enrolled-courses");
-            console.log(response)
+            const response = await api.get("/enrolled-courses")
             setCourses(response.data.courses);
-        }
-        catch (err) {
-            ErrorProcessor(err);
+        } catch (err) {
+            ErrorProcessor(err)
         }
     }
 
     useEffect(() => {
-        FetchEnrolledCourses();
-    }, [])
+        if (user) fetchEnrolledCourses();
 
-
-
+    }, [user])
 
     return (
 
@@ -56,8 +52,6 @@ export default function StudentDashboard() {
                 </p>
 
             </section>
-
-
 
             {/* Stats */}
             <section className="grid gap-6 md:grid-cols-4">

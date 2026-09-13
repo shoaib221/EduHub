@@ -62,6 +62,14 @@ export default {
             path: "/",
         });
 
+        ctx.cookies.set("userRole", user.user_role, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            sameSite: "lax",
+            maxAge: 7 * 24 * 60 * 60 * 1000,
+            path: "/",
+        });
+
         ctx.body = {
             message: "Registered successfully",
             user,

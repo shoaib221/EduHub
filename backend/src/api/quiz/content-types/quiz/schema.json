@@ -28,6 +28,9 @@
     },
     "description": {
       "type": "text"
+    },
+    "correctAnswers": {
+      "type": "json"
     }
   }
 }

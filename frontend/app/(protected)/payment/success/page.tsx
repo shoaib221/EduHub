@@ -13,26 +13,25 @@ export default function PaymentSuccessPage() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
 
-    useEffect(() => {
-        async function verifyPayment() {
-            if (!stripeSessionId) {
-                setError("Missing payment session.");
-                setLoading(false);
-                return;
-            }
-
-            try {
-                await api.post("/payment/verify", {
-                    stripeSessionId,
-                });
-            } catch (err: any) {
-                setError(ErrorProcessor(err));
-            }
-            finally {
-                setLoading(false);
-            }
+    async function verifyPayment() {
+        try {
+            await api.post("/payment/verify", {
+                stripeSessionId,
+            });
+        } catch (err: any) {
+            setError(ErrorProcessor(err));
         }
+        finally {
+            setLoading(false);
+        }
+    }
 
+    useEffect(() => {
+        if (!stripeSessionId) {
+            setError("Missing payment session.");
+            setLoading(false);
+            return;
+        }
         verifyPayment();
     }, [stripeSessionId]);
 

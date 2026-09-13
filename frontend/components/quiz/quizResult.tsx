@@ -5,7 +5,7 @@ import { QuizResult } from "@/types/quizResult";
 
 
 
-export default function QuizResult({
+export default function Page({
     quiz, quizResult
 }: { quiz: Quiz, quizResult: QuizResult }) {
 
@@ -61,7 +61,7 @@ export default function QuizResult({
                     (question, index) => {
 
                         const correct =
-                            quizResult.answers[index] ===
+                            quizResult.answers[question.id!] ===
                             question.correctAnswer;
 
 
@@ -98,7 +98,7 @@ export default function QuizResult({
                                     {question.options.map(
                                         (option, optionIndex) => {
 
-                                            const isSelected = optionIndex === quizResult.answers[index];
+                                            const isSelected = optionIndex === quizResult.answers[question.id!];
 
                                             const isCorrect = optionIndex === question.correctAnswer;
 
@@ -107,27 +107,37 @@ export default function QuizResult({
                                                 <div
                                                     key={optionIndex}
                                                     className={`
-                                                        rounded-lg border p-3
+                                                        rounded-lg border p-1
                                                         ${isCorrect
-                                                            ? "border-green-500 bg-green-50"
-                                                            : isSelected
-                                                                ? "border-red-500 bg-red-50"
-                                                                : "border-slate-200"
+                                                            ? "border-green-600 bg-green-50"
+                                                            : "border-slate-200"
                                                         }
                                                     `}
                                                 >
+                                                    <div
+                                                        key={optionIndex}
+                                                        className={`
+                                                        rounded-lg border p-3
+                                                        ${isSelected
+                                                                ? "border-black bg-green-50"
+                                                                : "border-slate-200"
+                                                            }
+                                                    `}
+                                                    >
 
-                                                    <div className="flex items-center gap-2">
+                                                        <div className="flex items-center gap-2">
 
-                                                        <span>
-                                                            {String.fromCharCode(
-                                                                65 + optionIndex
-                                                            )}.
-                                                        </span>
+                                                            <span>
+                                                                {String.fromCharCode(
+                                                                    65 + optionIndex
+                                                                )}.
+                                                            </span>
 
-                                                        <span>
-                                                            {option}
-                                                        </span>
+                                                            <span>
+                                                                {option}
+                                                            </span>
+
+                                                        </div>
 
                                                     </div>
 
