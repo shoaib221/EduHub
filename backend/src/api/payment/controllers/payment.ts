@@ -1,7 +1,9 @@
-import { ENV_VAR } from "../../../../config/environment_variables";
+
 import Stripe from "stripe";
 import { ErrorProcessor } from "../../../lib/ErrorProcessor";
-const stripe = new Stripe(ENV_VAR.STRIPE_KEY);
+import { envVariables } from "../../../../config/environment_variables";
+
+const stripe = new Stripe(envVariables.stripeKey);
 
 export default {
 
@@ -47,8 +49,8 @@ export default {
                         quantity: 1,
                     },
                 ],
-                success_url: `${ENV_VAR.FRONTEND_URL}/payment/success?stripe_session_id={CHECKOUT_SESSION_ID}`,
-                cancel_url: `${ENV_VAR.FRONTEND_URL}/courses/${course.id}`,
+                success_url: `${envVariables.frontendUrl}/payment/success?stripe_session_id={CHECKOUT_SESSION_ID}`,
+                cancel_url: `${envVariables.frontendUrl}/courses/${course.id}`,
                 metadata: {
                     courseId: course.id,
                     userId: user.id,
