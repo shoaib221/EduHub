@@ -1,19 +1,35 @@
+import type { Core } from "@strapi/strapi";
+
 export default {
-  register({ strapi }) { },
 
-  bootstrap({ strapi }) {
-    process.on("uncaughtException", (err) => {
-      console.error(
-        "UNCAUGHT EXCEPTION:",
-        err
-      );
-    });
+	register({ strapi }: { strapi: Core.Strapi }) {
 
-    process.on("unhandledRejection", (err) => {
-      console.error(
-        "UNHANDLED REJECTION:",
-        err
-      );
-    });
-  },
+	},
+
+
+	bootstrap({ strapi }: { strapi: Core.Strapi }) {
+
+		process.on(
+			"uncaughtException",
+			(err) => {
+				console.error(
+					"UNCAUGHT EXCEPTION:",
+					err
+				);
+			}
+		);
+
+
+		process.on(
+			"unhandledRejection",
+			(err) => {
+				console.error(
+					"UNHANDLED REJECTION:",
+					err
+				);
+			}
+		);
+
+	},
+
 };
