@@ -5,6 +5,8 @@ import { envVariables } from "../../../../config/environment_variables";
 
 const stripe = new Stripe(envVariables.stripeKey);
 
+const name = "shoaib";
+
 export default {
 
     async createStripeSession(ctx: any) {
