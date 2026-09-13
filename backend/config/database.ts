@@ -41,7 +41,7 @@ const config = ({ env }: Core.Config.Shared.ConfigParams): Core.Config.Database 
 				database: envVariables.databaseName,
 				user: envVariables.databaseUsername,
 				password: envVariables.databasePassword,
-				ssl: envVariables.databaseSsl
+				ssl: envVariables.databaseSsl === "true"
 					? {
 						rejectUnauthorized: envVariables.databaseSslRejectUnauthorized === "true"
 					}
