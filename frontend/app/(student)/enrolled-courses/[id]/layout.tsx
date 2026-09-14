@@ -35,29 +35,29 @@ export default async function CourseLayout({
 
 
     return (
-        <ProtectedLayout>
-            <div className="flex flex-col overflow-auto bg-slate-100">
+
+        <div className="flex flex-col overflow-auto bg-slate-100">
 
 
-                <div className="flex flex-1 overflow-hidden">
+            <div className="flex flex-1 overflow-hidden">
 
 
-                    <CourseSidebar
-                        course={course}
-                    />
+                <CourseSidebar
+                    course={course}
+                />
 
 
-                    <main className="flex-1 overflow-y-auto bg-slate-50 p-6">
+                <main className="flex-1 overflow-y-auto bg-slate-50 p-6">
 
-                        {children}
+                    {children}
 
-                    </main>
-
-
-                </div>
+                </main>
 
 
             </div>
-        </ProtectedLayout>
+
+
+        </div>
+
     );
 }

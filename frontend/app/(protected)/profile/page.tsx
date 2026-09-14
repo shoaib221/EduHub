@@ -121,6 +121,7 @@ export default function ProfilePage() {
 
     return (
         <ProtectedRoute>
+
             <main className="min-h-screen bg-slate-50 py-10">
 
                 <div className="mx-auto max-w-5xl px-6">

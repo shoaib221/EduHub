@@ -10,9 +10,5 @@ export default async function LayoutPage({
 }: LayoutProps) {
 
 
-    return (
-        <Layout>
-            {children}
-        </Layout>
-    )
+    return children;
 }

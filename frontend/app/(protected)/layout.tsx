@@ -15,8 +15,8 @@ export default async function Layout({
 
 
     return (
-        <ProtectedLayout>
+        <>
             {children}
-        </ProtectedLayout>
+        </>
     )
 }

@@ -7,11 +7,6 @@ export default async function ProtectedLayout({
     children: React.ReactNode;
 }) {
 
-    const token = (await cookies()).get("jwtAuthToken")?.value;
-
-    if (!token) {
-        redirect("/login");
-    }
 
     return children;
 }

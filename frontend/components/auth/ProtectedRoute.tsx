@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/hooks/useAuth";
+import { Loader } from "lucide-react";
 
 interface ProtectedRouteProps {
     children: React.ReactNode;
@@ -14,41 +15,21 @@ export default function ProtectedRoute({
     redirectTo = "/login",
 }: ProtectedRouteProps) {
 
+    const router = useRouter()
     const { user, authenticating } = useAuth();
 
-
-    const router = useRouter();
-
-
     useEffect(() => {
-
         if (authenticating) return;
 
-        if (!user) {
-            router.replace(redirectTo);
-        }
+        if (!user) router.replace(redirectTo)
+    }, [user, authenticating])
 
-    }, [
-        user,
-        authenticating,
-        redirectTo,
-        router,
-    ]);
-
-
-    if (authenticating) {
-        return (
-            <div className="flex min-h-screen items-center justify-center">
-                Loading...
-            </div>
-        );
-    }
-
+    if (authenticating) return <Loader />
 
     if (!user) {
         return null;
     }
 
 
-    return <>{children}</>;
+    return children;
 }

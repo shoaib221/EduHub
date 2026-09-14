@@ -7,12 +7,6 @@ export default async function Layout({
     children: React.ReactNode;
 }) {
 
-    const token = (await cookies()).get("jwtAuthToken")?.value;
-
-    if (token) {
-        redirect("/profile");
-    }
-
 
     return children;
 }

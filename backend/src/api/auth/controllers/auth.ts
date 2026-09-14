@@ -6,74 +6,82 @@ export default {
 
     async register(ctx: any) {
 
-        const {
-            username,
-            email,
-            password,
-            user_role
-        } = ctx.request.body;
+        try {
 
-        if (!username || !email || !password || !user_role) {
-            return ctx.badRequest(
-                "username, email, password and user_role required"
-            );
-        }
 
-        const existingUser = await strapi
-            .query("plugin::users-permissions.user")
-            .findOne({
-                where: {
-                    email,
-                },
-            });
 
-        if (existingUser) {
-            return ctx.badRequest(
-                "Email already exists"
-            );
-        }
-
-        const user = await strapi
-            .plugin("users-permissions")
-            .service("user")
-            .add({
+            const {
                 username,
                 email,
                 password,
-                user_role,
-                confirmed: true,
-                blocked: false,
-            });
+                user_role
+            } = ctx.request.body;
 
-        const jwtToken =
-            await strapi
-                .plugin("users-permissions")
-                .service("jwt")
-                .issue({
-                    username: user.username,
-                    email: user.email
+            if (!username || !email || !password || !user_role) {
+                return ctx.badRequest(
+                    "username, email, password and user_role required"
+                );
+            }
+
+            const existingUser = await strapi
+                .query("plugin::users-permissions.user")
+                .findOne({
+                    where: {
+                        email,
+                    },
                 });
 
-        ctx.cookies.set("jwtAuthToken", jwtToken, {
-            httpOnly: true,
-            secure: process.env.NODE_ENV === "production",
-            sameSite: "lax",
-            maxAge: 7 * 24 * 60 * 60 * 1000,
-            path: "/",
-        });
+            if (existingUser) {
+                return ctx.badRequest(
+                    "Email already exists"
+                );
+            }
 
-        ctx.cookies.set("userRole", user.user_role, {
-            httpOnly: true,
-            secure: process.env.NODE_ENV === "production",
-            sameSite: "lax",
-            maxAge: 7 * 24 * 60 * 60 * 1000,
-            path: "/",
-        });
+            const user = await strapi
+                .plugin("users-permissions")
+                .service("user")
+                .add({
+                    username,
+                    email,
+                    password,
+                    user_role,
+                    confirmed: true,
+                    blocked: false,
+                });
 
-        ctx.body = {
-            message: "Registered successfully",
-            user,
-        };
+            const jwtToken =
+                await strapi
+                    .plugin("users-permissions")
+                    .service("jwt")
+                    .issue({
+                        username: user.username,
+                        email: user.email
+                    });
+
+            ctx.cookies.set("jwtAuthToken", jwtToken, {
+                httpOnly: true,
+                secure: process.env.NODE_ENV === "production",
+                sameSite: "lax",
+                maxAge: 7 * 24 * 60 * 60 * 1000,
+                path: "/",
+            });
+
+            ctx.cookies.set("userRole", user.user_role, {
+                httpOnly: true,
+                secure: process.env.NODE_ENV === "production",
+                sameSite: "lax",
+                maxAge: 7 * 24 * 60 * 60 * 1000,
+                path: "/",
+            });
+
+            ctx.body = {
+                message: "Registered successfully",
+                user,
+            };
+
+        } catch (error) {
+            return ctx.InternalServerError(ErrorProcessor(error))
+        }
     },
 
     async login(ctx: any) {
@@ -98,7 +106,7 @@ export default {
                 return ctx.badRequest(
                     "Invalid email"
                 );
-            }
+            };
 
             const validPassword =
                 await strapi
@@ -123,6 +131,12 @@ export default {
                         email: user.email,
                         username: user.username
                     });
+
+            console.log({
+                protocol: ctx.protocol,
+                secure: ctx.secure,
+                forwarded: ctx.request.headers["x-forwarded-proto"],
+            });
 
             ctx.cookies.set("jwtAuthToken", jwtToken, {
                 httpOnly: true,
