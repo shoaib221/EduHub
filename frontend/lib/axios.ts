@@ -1,5 +1,5 @@
 import axios from "axios";
-import { clientVariables, getEnvVar } from "./clientVariables";
+import { clientVariables } from "./clientVariables";
 
 
 
