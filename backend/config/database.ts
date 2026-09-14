@@ -16,7 +16,7 @@ const config = ({ env }: Core.Config.Shared.ConfigParams): Core.Config.Database 
 		mysql: {
 			client: 'mysql',
 			connection: {
-				host: envVariables.databaseHost,
+				host: env("DATABASE_HOST", "strapi"),
 				port: env.int('DATABASE_PORT', 3306),
 				database: env('DATABASE_NAME', 'strapi'),
 				user: env('DATABASE_USERNAME', 'strapi'),
@@ -35,19 +35,16 @@ const config = ({ env }: Core.Config.Shared.ConfigParams): Core.Config.Database 
 		postgres: {
 			client: 'postgres',
 			connection: {
-				connectionString: envVariables.databaseUrl,
-				host: envVariables.databaseHost,
-				port: Number(envVariables.port),
-				database: envVariables.databaseName,
-				user: envVariables.databaseUsername,
-				password: envVariables.databasePassword,
-				ssl: envVariables.databaseSsl === "true"
-					? {
-						rejectUnauthorized: envVariables.databaseSslRejectUnauthorized === "true"
-					}
-					: false,
-
-				schema: envVariables.databaseSchema,
+				connectionString: env("DATABASE_URL"),
+				host: env("DATABASE_HOST", "strapi"),
+				port: env.int('DATABASE_PORT', 5432),
+				database: env('DATABASE_NAME', 'strapi'),
+				user: env('DATABASE_USERNAME', 'strapi'),
+				password: env('DATABASE_PASSWORD', 'strapi'),
+				ssl: {
+					rejectUnauthorized: false
+				},
+				schema: "public",
 			},
 			pool: { min: env.int('DATABASE_POOL_MIN', 2), max: env.int('DATABASE_POOL_MAX', 10) },
 		},

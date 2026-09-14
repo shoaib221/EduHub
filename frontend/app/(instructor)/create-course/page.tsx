@@ -53,7 +53,7 @@ export default function CreateCoursePage() {
             setError("");
 
             const response = await api.post(
-                "/courses",
+                "/course",
                 formData
             );
 
