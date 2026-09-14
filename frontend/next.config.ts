@@ -19,6 +19,10 @@ const nextConfig: NextConfig = {
 				protocol: "https",
 				hostname: "www.jvbruni.com"
 			},
+			{
+				protocol: "https",
+				hostname: "wp.sfdcdigital.com"
+			},
 
 		],
 	},

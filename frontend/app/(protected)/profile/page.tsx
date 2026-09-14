@@ -120,342 +120,342 @@ export default function ProfilePage() {
 
 
     return (
-        <ProtectedRoute>
-            <main className="min-h-screen bg-slate-50 py-10">
 
-                <div className="mx-auto max-w-5xl px-6">
+        <main className="min-h-screen bg-slate-50 py-10">
 
-                    {/* Header */}
-                    <div className="mb-8">
+            <div className="mx-auto max-w-5xl px-6">
 
-
-                        <p className="mt-2 text-slate-500">
-                            Manage your personal information and profile.
-                        </p>
-                    </div>
+                {/* Header */}
+                <div className="mb-8">
 
 
-                    <form onSubmit={handleSubmit}>
-
-                        {/* Profile Header */}
-                        <section className="rounded-3xl bg-white p-8 shadow-sm">
-
-                            <div className="flex flex-col gap-6 sm:flex-row sm:items-center">
-
-                                {/* Profile Photo */}
-                                <div className="relative">
-
-                                    <div className="flex h-32 w-32 items-center justify-center overflow-hidden rounded-full bg-blue-600 text-5xl font-bold text-white">
-
-                                        {profileImage ? (
-                                            <img
-                                                src={profileImage}
-                                                alt="Profile"
-                                                className="h-full w-full object-cover"
-                                            />
-                                        ) : (
-                                            user?.username
-                                                ?.charAt(0)
-                                                .toUpperCase() || "U"
-                                        )}
-
-                                    </div>
+                    <p className="mt-2 text-slate-500">
+                        Manage your personal information and profile.
+                    </p>
+                </div>
 
 
-                                    {isEditing && (
-                                        <label
-                                            htmlFor="profile-image"
-                                            className="absolute bottom-1 right-1 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-slate-900 text-white shadow-lg hover:bg-slate-700"
-                                        >
-                                            <Camera size={18} />
+                <form onSubmit={handleSubmit}>
 
-                                            <input
-                                                id="profile-image"
-                                                type="file"
-                                                accept="image/*"
-                                                onChange={handleImageChange}
-                                                className="hidden"
-                                            />
-                                        </label>
+                    {/* Profile Header */}
+                    <section className="rounded-3xl bg-white p-8 shadow-sm">
+
+                        <div className="flex flex-col gap-6 sm:flex-row sm:items-center">
+
+                            {/* Profile Photo */}
+                            <div className="relative">
+
+                                <div className="flex h-32 w-32 items-center justify-center overflow-hidden rounded-full bg-blue-600 text-5xl font-bold text-white">
+
+                                    {profileImage ? (
+                                        <img
+                                            src={profileImage}
+                                            alt="Profile"
+                                            className="h-full w-full object-cover"
+                                        />
+                                    ) : (
+                                        user?.username
+                                            ?.charAt(0)
+                                            .toUpperCase() || "U"
                                     )}
 
                                 </div>
 
 
-                                {/* User */}
-                                <div>
-
-                                    <h2 className="text-2xl font-bold text-slate-900">
-                                        {user?.first_name || "Mr"} {user?.last_name}
-                                    </h2>
-
-                                    <p className="mt-1 text-sm text-slate-500">
-                                        {user?.user_role === 'student' ? <>Student</> : <>Instructor</>}
-                                    </p>
-
-                                </div>
-
-                            </div>
-
-                        </section>
-
-
-                        {/* Personal Information */}
-                        <section className="mt-8 rounded-3xl bg-white p-8 shadow-sm">
-
-                            <div className="flex items-center justify-between">
-
-                                <div>
-                                    <h2 className="text-2xl font-bold text-slate-900">
-                                        Personal Information
-                                    </h2>
-
-                                    <p className="mt-1 text-sm text-slate-500">
-                                        Update your personal details.
-                                    </p>
-                                </div>
-
-
-                                {!isEditing && (
-                                    <button
-                                        type="button"
-                                        onClick={() => setIsEditing(true)}
-                                        className="rounded-xl bg-blue-600 px-5 py-2.5 font-semibold text-white hover:bg-blue-700"
+                                {isEditing && (
+                                    <label
+                                        htmlFor="profile-image"
+                                        className="absolute bottom-1 right-1 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-slate-900 text-white shadow-lg hover:bg-slate-700"
                                     >
-                                        Edit Profile
-                                    </button>
+                                        <Camera size={18} />
+
+                                        <input
+                                            id="profile-image"
+                                            type="file"
+                                            accept="image/*"
+                                            onChange={handleImageChange}
+                                            className="hidden"
+                                        />
+                                    </label>
                                 )}
 
                             </div>
 
 
-                            <div className="mt-8 grid gap-6 md:grid-cols-2">
+                            {/* User */}
+                            <div>
+
+                                <h2 className="text-2xl font-bold text-slate-900">
+                                    {user?.first_name || "Mr"} {user?.last_name}
+                                </h2>
+
+                                <p className="mt-1 text-sm text-slate-500">
+                                    {user?.user_role === 'student' ? <>Student</> : <>Instructor</>}
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </section>
 
 
-                                {/* Username */}
-                                <div>
+                    {/* Personal Information */}
+                    <section className="mt-8 rounded-3xl bg-white p-8 shadow-sm">
 
-                                    <label
-                                        htmlFor="username"
-                                        className="mb-2 block text-sm font-medium text-slate-700"
-                                    >
-                                        Username
-                                    </label>
+                        <div className="flex items-center justify-between">
 
-                                    <div className="flex items-center rounded-xl border border-slate-300 bg-white">
+                            <div>
+                                <h2 className="text-2xl font-bold text-slate-900">
+                                    Personal Information
+                                </h2>
 
-                                        <User
-                                            size={19}
-                                            className="ml-4 text-slate-400"
-                                        />
-
-                                        <input
-                                            id="username"
-                                            name="username"
-                                            type="text"
-                                            value={formData.username}
-                                            onChange={handleChange}
-                                            disabled={!isEditing}
-                                            className="w-full rounded-xl bg-transparent px-3 py-3 text-slate-900 outline-none disabled:bg-slate-50 disabled:text-slate-500"
-                                        />
-
-                                    </div>
-
-                                </div>
+                                <p className="mt-1 text-sm text-slate-500">
+                                    Update your personal details.
+                                </p>
+                            </div>
 
 
-                                {/* Email */}
-                                <div>
+                            {!isEditing && (
+                                <button
+                                    type="button"
+                                    onClick={() => setIsEditing(true)}
+                                    className="rounded-xl bg-blue-600 px-5 py-2.5 font-semibold text-white hover:bg-blue-700"
+                                >
+                                    Edit Profile
+                                </button>
+                            )}
 
-                                    <label
-                                        htmlFor="email"
-                                        className="mb-2 block text-sm font-medium text-slate-700"
-                                    >
-                                        Email
-                                    </label>
-
-                                    <div className="flex items-center rounded-xl border border-slate-300 bg-white">
-
-                                        <Mail
-                                            size={19}
-                                            className="ml-4 text-slate-400"
-                                        />
-
-                                        <input
-                                            id="email"
-                                            name="email"
-                                            type="email"
-                                            value={formData.email}
-                                            onChange={handleChange}
-                                            disabled={!isEditing}
-                                            className="w-full rounded-xl bg-transparent px-3 py-3 text-slate-900 outline-none disabled:bg-slate-50 disabled:text-slate-500"
-                                        />
-
-                                    </div>
-
-                                </div>
+                        </div>
 
 
-                                {/* First Name */}
-                                <div>
+                        <div className="mt-8 grid gap-6 md:grid-cols-2">
 
-                                    <label
-                                        htmlFor="firstName"
-                                        className="mb-2 block text-sm font-medium text-slate-700"
-                                    >
-                                        First Name
-                                    </label>
 
-                                    <input
-                                        id="firstName"
-                                        name="firstName"
-                                        type="text"
-                                        value={formData.firstName}
-                                        onChange={handleChange}
-                                        disabled={!isEditing}
-                                        placeholder="Enter first name"
-                                        className="w-full rounded-xl border border-slate-300 px-4 py-3 text-slate-900 outline-none placeholder:text-slate-400 focus:border-blue-600 disabled:bg-slate-50 disabled:text-slate-500"
+                            {/* Username */}
+                            <div>
+
+                                <label
+                                    htmlFor="username"
+                                    className="mb-2 block text-sm font-medium text-slate-700"
+                                >
+                                    Username
+                                </label>
+
+                                <div className="flex items-center rounded-xl border border-slate-300 bg-white">
+
+                                    <User
+                                        size={19}
+                                        className="ml-4 text-slate-400"
                                     />
 
-                                </div>
-
-
-                                {/* Last Name */}
-                                <div>
-
-                                    <label
-                                        htmlFor="lastName"
-                                        className="mb-2 block text-sm font-medium text-slate-700"
-                                    >
-                                        Last Name
-                                    </label>
-
                                     <input
-                                        id="lastName"
-                                        name="lastName"
+                                        id="username"
+                                        name="username"
                                         type="text"
-                                        value={formData.lastName}
+                                        value={formData.username}
                                         onChange={handleChange}
                                         disabled={!isEditing}
-                                        placeholder="Enter last name"
-                                        className="w-full rounded-xl border border-slate-300 px-4 py-3 text-slate-900 outline-none placeholder:text-slate-400 focus:border-blue-600 disabled:bg-slate-50 disabled:text-slate-500"
+                                        className="w-full rounded-xl bg-transparent px-3 py-3 text-slate-900 outline-none disabled:bg-slate-50 disabled:text-slate-500"
                                     />
-
-                                </div>
-
-
-                                {/* Phone */}
-                                <div>
-
-                                    <label
-                                        htmlFor="phone"
-                                        className="mb-2 block text-sm font-medium text-slate-700"
-                                    >
-                                        Phone
-                                    </label>
-
-                                    <div className="flex items-center rounded-xl border border-slate-300 bg-white">
-
-                                        <Phone
-                                            size={19}
-                                            className="ml-4 text-slate-400"
-                                        />
-
-                                        <input
-                                            id="phone"
-                                            name="phone"
-                                            type="tel"
-                                            value={formData.phone}
-                                            onChange={handleChange}
-                                            disabled={!isEditing}
-                                            placeholder="Enter phone number"
-                                            className="w-full rounded-xl bg-transparent px-3 py-3 text-slate-900 outline-none placeholder:text-slate-400 disabled:bg-slate-50 disabled:text-slate-500"
-                                        />
-
-                                    </div>
 
                                 </div>
 
                             </div>
 
 
-                            {/* Bio */}
-                            <div className="mt-6">
+                            {/* Email */}
+                            <div>
 
                                 <label
-                                    htmlFor="bio"
+                                    htmlFor="email"
                                     className="mb-2 block text-sm font-medium text-slate-700"
                                 >
-                                    Bio
+                                    Email
                                 </label>
 
-                                <textarea
-                                    id="bio"
-                                    name="bio"
-                                    rows={5}
-                                    value={formData.bio}
+                                <div className="flex items-center rounded-xl border border-slate-300 bg-white">
+
+                                    <Mail
+                                        size={19}
+                                        className="ml-4 text-slate-400"
+                                    />
+
+                                    <input
+                                        id="email"
+                                        name="email"
+                                        type="email"
+                                        value={formData.email}
+                                        onChange={handleChange}
+                                        disabled={!isEditing}
+                                        className="w-full rounded-xl bg-transparent px-3 py-3 text-slate-900 outline-none disabled:bg-slate-50 disabled:text-slate-500"
+                                    />
+
+                                </div>
+
+                            </div>
+
+
+                            {/* First Name */}
+                            <div>
+
+                                <label
+                                    htmlFor="firstName"
+                                    className="mb-2 block text-sm font-medium text-slate-700"
+                                >
+                                    First Name
+                                </label>
+
+                                <input
+                                    id="firstName"
+                                    name="firstName"
+                                    type="text"
+                                    value={formData.firstName}
                                     onChange={handleChange}
                                     disabled={!isEditing}
-                                    placeholder="Tell us a little about yourself..."
-                                    className="w-full resize-none rounded-xl border border-slate-300 px-4 py-3 text-slate-900 outline-none placeholder:text-slate-400 focus:border-blue-600 disabled:bg-slate-50 disabled:text-slate-500"
+                                    placeholder="Enter first name"
+                                    className="w-full rounded-xl border border-slate-300 px-4 py-3 text-slate-900 outline-none placeholder:text-slate-400 focus:border-blue-600 disabled:bg-slate-50 disabled:text-slate-500"
                                 />
 
                             </div>
 
 
-                            {/* Message */}
-                            {message && (
-                                <div className="mt-6 rounded-xl bg-green-50 px-4 py-3 text-sm font-medium text-green-700">
-                                    {message}
+                            {/* Last Name */}
+                            <div>
+
+                                <label
+                                    htmlFor="lastName"
+                                    className="mb-2 block text-sm font-medium text-slate-700"
+                                >
+                                    Last Name
+                                </label>
+
+                                <input
+                                    id="lastName"
+                                    name="lastName"
+                                    type="text"
+                                    value={formData.lastName}
+                                    onChange={handleChange}
+                                    disabled={!isEditing}
+                                    placeholder="Enter last name"
+                                    className="w-full rounded-xl border border-slate-300 px-4 py-3 text-slate-900 outline-none placeholder:text-slate-400 focus:border-blue-600 disabled:bg-slate-50 disabled:text-slate-500"
+                                />
+
+                            </div>
+
+
+                            {/* Phone */}
+                            <div>
+
+                                <label
+                                    htmlFor="phone"
+                                    className="mb-2 block text-sm font-medium text-slate-700"
+                                >
+                                    Phone
+                                </label>
+
+                                <div className="flex items-center rounded-xl border border-slate-300 bg-white">
+
+                                    <Phone
+                                        size={19}
+                                        className="ml-4 text-slate-400"
+                                    />
+
+                                    <input
+                                        id="phone"
+                                        name="phone"
+                                        type="tel"
+                                        value={formData.phone}
+                                        onChange={handleChange}
+                                        disabled={!isEditing}
+                                        placeholder="Enter phone number"
+                                        className="w-full rounded-xl bg-transparent px-3 py-3 text-slate-900 outline-none placeholder:text-slate-400 disabled:bg-slate-50 disabled:text-slate-500"
+                                    />
+
                                 </div>
-                            )}
+
+                            </div>
+
+                        </div>
 
 
-                            {/* Actions */}
-                            {isEditing && (
-                                <div className="mt-8 flex justify-end gap-3">
+                        {/* Bio */}
+                        <div className="mt-6">
 
-                                    <button
-                                        type="button"
-                                        onClick={handleCancel}
-                                        disabled={loading}
-                                        className="flex items-center gap-2 rounded-xl border border-slate-300 px-5 py-3 font-semibold text-slate-700 hover:bg-slate-50"
-                                    >
-                                        <X size={18} />
-                                        Cancel
-                                    </button>
+                            <label
+                                htmlFor="bio"
+                                className="mb-2 block text-sm font-medium text-slate-700"
+                            >
+                                Bio
+                            </label>
 
+                            <textarea
+                                id="bio"
+                                name="bio"
+                                rows={5}
+                                value={formData.bio}
+                                onChange={handleChange}
+                                disabled={!isEditing}
+                                placeholder="Tell us a little about yourself..."
+                                className="w-full resize-none rounded-xl border border-slate-300 px-4 py-3 text-slate-900 outline-none placeholder:text-slate-400 focus:border-blue-600 disabled:bg-slate-50 disabled:text-slate-500"
+                            />
 
-                                    <button
-                                        type="submit"
-                                        disabled={loading}
-                                        className="flex items-center gap-2 rounded-xl bg-blue-600 px-5 py-3 font-semibold text-white hover:bg-blue-700 disabled:opacity-50"
-                                    >
-                                        <Save size={18} />
-
-                                        {loading
-                                            ? "Saving..."
-                                            : "Save Changes"}
-                                    </button>
-
-                                </div>
-                            )}
-
-                        </section>
-
-                    </form>
+                        </div>
 
 
-                    <button
-                        onClick={logout}
-                        className="rounded-xl bg-blue-600 px-5 py-2.5 font-semibold text-white hover:bg-blue-700"
-                    >
-                        Logout
-                    </button>
+                        {/* Message */}
+                        {message && (
+                            <div className="mt-6 rounded-xl bg-green-50 px-4 py-3 text-sm font-medium text-green-700">
+                                {message}
+                            </div>
+                        )}
 
-                </div>
 
-            </main>
-        </ProtectedRoute>
+                        {/* Actions */}
+                        {isEditing && (
+                            <div className="mt-8 flex justify-end gap-3">
+
+                                <button
+                                    type="button"
+                                    onClick={handleCancel}
+                                    disabled={loading}
+                                    className="flex items-center gap-2 rounded-xl border border-slate-300 px-5 py-3 font-semibold text-slate-700 hover:bg-slate-50"
+                                >
+                                    <X size={18} />
+                                    Cancel
+                                </button>
+
+
+                                <button
+                                    type="submit"
+                                    disabled={loading}
+                                    className="flex items-center gap-2 rounded-xl bg-blue-600 px-5 py-3 font-semibold text-white hover:bg-blue-700 disabled:opacity-50"
+                                >
+                                    <Save size={18} />
+
+                                    {loading
+                                        ? "Saving..."
+                                        : "Save Changes"}
+                                </button>
+
+                            </div>
+                        )}
+
+                    </section>
+
+                </form>
+
+
+                <button
+                    onClick={logout}
+                    className="rounded-xl bg-blue-600 px-5 py-2.5 font-semibold text-white hover:bg-blue-700"
+                >
+                    Logout
+                </button>
+
+            </div>
+
+        </main>
+
     );
 }

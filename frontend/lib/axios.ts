@@ -1,10 +1,15 @@
 import axios from "axios";
-import { envVariables } from "./variables";
+import { clientVariables, getEnvVar } from "./clientVariables";
 
-console.log("api ", envVariables);
+
+
+// const nodeEnv = process.env["NODE_ENV"]
+// const backendUrl = (nodeEnv === "production" ? process.env["NEXT_PUBLIC_BACKEND_API_URL"] : process.env["NEXT_PUBLIC_LOCAL_BACKEND_API_URL"])
+
+console.log(clientVariables.backendApiUrl, clientVariables.nodeEnv)
 
 const api = axios.create({
-    baseURL: process.env.NEXT_PUBLIC_LOCAL_BACKEND_API_URL,
+    baseURL: clientVariables.backendApiUrl,
     headers: {
         "Content-Type": "application/json",
     },

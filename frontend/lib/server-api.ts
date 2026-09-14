@@ -1,5 +1,5 @@
 import { cookies } from "next/headers";
-import { getEnvVar } from "./variables";
+import { getEnvVar } from "./serverVariables";
 
 export async function serverApi(
     url: string,
