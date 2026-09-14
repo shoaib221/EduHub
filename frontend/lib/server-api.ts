@@ -1,4 +1,5 @@
 import { cookies } from "next/headers";
+import { getEnvVar } from "./variables";
 
 export async function serverApi(
     url: string,
@@ -16,9 +17,11 @@ export async function serverApi(
         )
         .join("; ");
 
+    const backendUrl = getEnvVar("BACKEND_API_URL");
+
 
     const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}${url}`,
+        `${backendUrl}${url}`,
         {
             ...options,
 

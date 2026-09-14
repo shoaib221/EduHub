@@ -1,4 +1,4 @@
-"use client"
+
 
 
 const envVariables = {
@@ -45,4 +45,18 @@ function loadVariables() {
 
 loadVariables();
 
-export { envVariables };
+function getEnvVar(key: string): string {
+    const nodeEnv = getEnv("NODE_ENV");
+
+    let ret;
+
+    if (nodeEnv === "production") {
+        ret = getEnv(`NEXT_PUBLIC_${key}`);
+    }
+    else {
+        ret = getEnv(`NEXT_PUBLIC_LOCAL_${key}`);
+    }
+    return ret;
+}
+
+export { envVariables, getEnvVar };
