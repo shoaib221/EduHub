@@ -1,67 +1,24 @@
 
 
-function getEnv(name: string): string {
-    const value = process.env[name];
-
-    if (!value) {
-        throw new Error(`Missing environment variable: ${name}`);
-    }
-
-    return value;
-}
-
+const nodeEnv = process.env["NODE_ENV"]!;
 
 
 export const envVariables = {
     host: "",
     port: "",
-    nodeEnv: "",
-    cloudinaryCloudName: "",
-    cloudinaryApiKey: "",
-    cloudinaryApiSecret: "",
-    appKeys: "",
-    apiTokenSalt: "",
-    adminJwtSecret: "",
-    jwtSecret: "",
-    transferTokenSalt: "",
-    encryptionKey: "",
-    stripeKey: "",
-    frontendUrl: "",
-    databaseClient: "",
-    databaseUrl: "",
-    databaseHost: "",
-    databasePort: "",
-    databaseName: "",
-    databaseUsername: "",
-    databasePassword: "",
-    databaseSsl: "",
-    databaseSslRejectUnauthorized: "",
-    databaseSchema: ""
+    nodeEnv,
+    cloudinaryCloudName: process.env["CLOUDINARY_CLOUD_NAME"]!,
+    cloudinaryApiKey: process.env["CLOUDINARY_API_KEY"]!,
+    cloudinaryApiSecret: process.env["CLOUDINARY_API_SECRET"]!,
+    appKeys: process.env["APP_KEYS"]!,
+    apiTokenSalt: process.env["API_TOKEN_SALT"]!,
+    adminJwtSecret: process.env["ADMIN_JWT_SECRET"]!,
+    jwtSecret: process.env["JWT_SECRET"]!,
+    transferTokenSalt: process.env["TRANSFER_TOKEN_SALT"]!,
+    encryptionKey: process.env["ENCRYPTION_KEY"]!,
+    stripeKey: process.env["STRIPE_KEY"]!,
+    frontendUrl: nodeEnv === "production"
+        ? process.env["FRONTEND_URL"]!
+        : process.env["LOCAL_FRONTEND_URL"]!,
 };
 
-function loadVariables() {
-    const nodeEnv = getEnv("NODE_ENV");
-
-    envVariables.cloudinaryCloudName = getEnv("CLOUDINARY_CLOUD_NAME");
-    envVariables.cloudinaryApiKey = getEnv("CLOUDINARY_API_KEY");
-    envVariables.cloudinaryApiSecret = getEnv("CLOUDINARY_API_SECRET");
-    envVariables.appKeys = getEnv("APP_KEYS");
-    envVariables.apiTokenSalt = getEnv("API_TOKEN_SALT");
-    envVariables.adminJwtSecret = getEnv("ADMIN_JWT_SECRET");
-    envVariables.jwtSecret = getEnv("JWT_SECRET");
-    envVariables.transferTokenSalt = getEnv("TRANSFER_TOKEN_SALT");
-    envVariables.encryptionKey = getEnv("ENCRYPTION_KEY");
-    envVariables.stripeKey = getEnv("STRIPE_KEY");
-
-
-
-    envVariables.nodeEnv = nodeEnv
-    if (nodeEnv === 'production') {
-        envVariables.frontendUrl = getEnv("FRONTEND_URL")
-    }
-    else {
-        envVariables.frontendUrl = getEnv("LOCAL_FRONTEND_URL")
-    }
-}
-
-loadVariables();

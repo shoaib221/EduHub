@@ -1,3 +1,5 @@
+
+
 import { ErrorProcessor } from "../lib/ErrorProcessor";
 
 export default (config: any, { strapi }: any) => {
@@ -7,12 +9,10 @@ export default (config: any, { strapi }: any) => {
 
         try {
             let token = ctx.cookies.get("jwtAuthToken");
-            // console.log("token", token)
+            console.log("cookies", ctx.cookies);
 
             if (!token) {
-
-
-                return ctx.unauthorized(
+                throw new Error(
                     "Missing authentication token ... ..."
                 );
             }
@@ -36,7 +36,7 @@ export default (config: any, { strapi }: any) => {
                     });
 
             if (!user) {
-                return ctx.unauthorized(
+                throw new Error(
                     "User not found"
                 );
             }
@@ -46,6 +46,19 @@ export default (config: any, { strapi }: any) => {
             await next();
 
         } catch (err) {
+            ctx.cookies.set("jwtAuthToken", "", {
+                httpOnly: true,
+                maxAge: 0,
+                sameSite: "lax",
+                secure: process.env.NODE_ENV === "production",
+            });
+
+            ctx.cookies.set("userRole", "", {
+                httpOnly: true,
+                maxAge: 0,
+                sameSite: "lax",
+                secure: process.env.NODE_ENV === "production",
+            });
 
             return ctx.unauthorized(
                 ErrorProcessor(err)

@@ -50,7 +50,7 @@ export default function Navbar() {
                     </Link>
                 </nav>
 
-                {/* Search */}
+                {/* Search
                 <div className="hidden lg:flex">
                     <div className="flex items-center rounded-lg border border-slate-300 px-3">
                         <Search size={18} className="text-slate-400" />
@@ -61,7 +61,7 @@ export default function Navbar() {
                             className="w-64 border-none bg-transparent px-3 py-2 text-sm outline-none"
                         />
                     </div>
-                </div>
+                </div> */}
 
                 {/* Right Side */}
                 <div className="hidden items-center gap-3 md:flex">
