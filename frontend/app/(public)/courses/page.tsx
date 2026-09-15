@@ -1,7 +1,12 @@
+"use client"
+
 import FeaturedCourses from "@/components/home/FeaturedCourses";
 import { Search } from "lucide-react";
 
 export default function CoursesPage() {
+
+
+
     return (
         <main className="min-h-screen bg-slate-50">
             {/* Hero */}
@@ -40,13 +45,6 @@ export default function CoursesPage() {
                         <option>Design</option>
                         <option>Business</option>
                         <option>AI</option>
-                    </select>
-
-                    <select className="rounded-lg border border-slate-300 px-4 py-2 outline-none focus:border-blue-500">
-                        <option>All Levels</option>
-                        <option>Beginner</option>
-                        <option>Intermediate</option>
-                        <option>Advanced</option>
                     </select>
 
                     <select className="rounded-lg border border-slate-300 px-4 py-2 outline-none focus:border-blue-500">

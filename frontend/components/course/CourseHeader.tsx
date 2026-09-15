@@ -9,8 +9,8 @@ import { Course } from "@/types/course";
 
 
 export default function CourseHeader({
-    course
-}: { course: Course }) {
+    course, progress, quizAverage
+}: { course: Course, progress: any, quizAverage: any }) {
 
 
 
@@ -58,12 +58,13 @@ export default function CourseHeader({
                         />
 
                         <span className="font-semibold">
-                            Progress
+                            Lessons completed {progress}%
+
                         </span>
 
                     </div>
 
-                    {/* <div className="mb-3 h-3 overflow-hidden rounded-full bg-slate-200">
+                    <div className="mb-3 h-3 overflow-hidden rounded-full bg-slate-200">
 
                         <div
                             className="h-full rounded-full bg-blue-600 transition-all"
@@ -72,15 +73,9 @@ export default function CourseHeader({
                             }}
                         />
 
-                    </div> */}
+                    </div>
 
-                    {/* <p className="text-sm text-slate-600">
-                        {completedLessons} of {totalLessons} lessons completed
-                    </p>
 
-                    <p className="mt-2 text-xl font-bold">
-                        {progress}%
-                    </p> */}
 
                 </div>
 
@@ -88,49 +83,33 @@ export default function CourseHeader({
 
                     <div className="mb-2 flex items-center gap-2">
 
-                        <PlayCircle
+                        <BookOpen
                             size={20}
-                            className="text-green-600"
+                            className="text-blue-600"
                         />
 
                         <span className="font-semibold">
-                            Continue Learning
+                            Quiz Average {quizAverage}%
+
                         </span>
 
                     </div>
 
-                    {/* <p className="text-slate-700">
-                        {currentLesson}
-                    </p> */}
+                    <div className="mb-3 h-3 overflow-hidden rounded-full bg-slate-200">
 
-                    <button
-                        className="mt-5 rounded-xl bg-blue-600 px-5 py-3 font-medium text-white transition hover:bg-blue-700"
-                    >
-                        Resume Course
-                    </button>
-
-                </div>
-
-                <div className="rounded-2xl bg-slate-50 p-5">
-
-                    <div className="mb-2 flex items-center gap-2">
-
-                        <Trophy
-                            size={20}
-                            className="text-yellow-500"
+                        <div
+                            className="h-full rounded-full bg-blue-600 transition-all"
+                            style={{
+                                width: `${quizAverage}%`,
+                            }}
                         />
-
-                        <span className="font-semibold">
-                            Completion
-                        </span>
 
                     </div>
 
-                    <p className="text-slate-700">
-                        Finish every lesson and quiz to earn your certificate.
-                    </p>
+
 
                 </div>
+
 
             </div>
 

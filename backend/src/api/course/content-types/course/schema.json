@@ -52,6 +52,12 @@
       "relation": "oneToMany",
       "target": "api::course-enrollment.course-enrollment",
       "mappedBy": "course"
+    },
+    "totalQuizzes": {
+      "type": "integer"
+    },
+    "totalLessons": {
+      "type": "integer"
     }
   }
 }

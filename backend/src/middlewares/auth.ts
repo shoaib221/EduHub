@@ -9,7 +9,7 @@ export default (config: any, { strapi }: any) => {
 
         try {
             let token = ctx.cookies.get("jwtAuthToken");
-            console.log("cookies", ctx.cookies);
+            // console.log("cookies", ctx.cookies);
 
             if (!token) {
                 throw new Error(

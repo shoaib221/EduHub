@@ -14,6 +14,17 @@ export default {
         },
         {
             method: "GET",
+            path: "/enrolled-course/:courseId",
+            handler: "course-enrollment.getEnrolledCourse",
+            config: {
+                auth: false,
+                middlewares: [
+                    "global::auth"
+                ],
+            },
+        },
+        {
+            method: "GET",
             path: "/complete-lesson/:lessonId",
             handler: "course-enrollment.completeLesson",
             config: {

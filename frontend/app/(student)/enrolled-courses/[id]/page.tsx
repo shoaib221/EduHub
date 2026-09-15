@@ -3,6 +3,9 @@ import CourseHeader from "@/components/course/CourseHeader";
 import { serverApi } from "@/lib/server-api";
 import { Course } from "@/types/course";
 import { notFound } from "next/navigation";
+import Link from "next/link";
+import { CourseEnrollment } from "@/types/courseEnrollment";
+import ErrorProcessor from "@/lib/ErrorProcessor";
 
 
 interface PageProps {
@@ -22,16 +25,159 @@ export default async function DashboardPage({
         notFound();
     }
 
-    console.log(courseId)
-    const { course }: { course: Course } = await serverApi(`/course/${courseId}`);
+    let payload;
 
-    if (!course) {
-        notFound();
+
+
+    try {
+        payload = await serverApi(`/enrolled-course/${courseId}`);
+
+    } catch (err) {
+        ErrorProcessor(err)
     }
 
+    const { course, enrollment, totalLessons,
+        completedLessons,
+        progress,
+        lessons, totalQuizzes, quizAverage,
+        quizzes } = payload
+
+
+
+    console.log(payload)
+
+
+
     return (
-        <CourseHeader
-            course={course}
-        />
+        <div>
+            <CourseHeader
+                course={payload?.course} progress={payload?.progress} quizAverage={quizAverage}
+            />
+
+
+            <div className="mb-8">
+
+
+
+
+                <div className="mt-4">
+
+                    <div className="flex justify-between">
+                        <h2 className="text-xl font-semibold mb-4">
+                            Lessons
+                        </h2>
+
+                        <span>
+                            completed {payload?.completedLessons}/{payload?.totalLessons}
+                        </span>
+                    </div>
+
+
+
+                </div>
+
+            </div>
+
+
+
+            {/* Lessons */}
+
+            <section>
+
+
+
+
+                <div className="space-y-3">
+
+                    {
+                        payload?.lessons?.map(
+                            (lesson: any) => (
+
+                                <div
+                                    key={lesson.id}
+                                    className="flex justify-between border p-4 rounded"
+                                >
+
+
+                                    {lesson.title}
+
+
+
+                                    {
+                                        lesson?.completed
+                                            ?
+                                            <span className="text-green-600">
+                                                Completed
+                                            </span>
+                                            :
+                                            <span className="text-gray-400">
+                                                Not completed
+                                            </span>
+                                    }
+
+
+                                </div>
+
+                            )
+                        )
+                    }
+
+                </div>
+
+            </section>
+
+
+
+
+            {/* Quiz Results */}
+
+            <section className="mt-10">
+
+                <h2 className="text-xl font-semibold mb-4">
+                    Quiz Results
+                </h2>
+
+
+                <div className="space-y-3">
+
+                    {
+                        quizzes && quizzes.map(
+                            (quiz: any) => (
+
+                                <div
+                                    key={quiz.title}
+                                    className="border rounded p-4 flex justify-between"
+                                >
+
+                                    <span>
+                                        {quiz.title}
+                                    </span>
+
+
+                                    {quiz.score >= 0 && <span>{quiz.score}</span>}
+
+
+                                </div>
+
+                            )
+                        )
+                    }
+
+
+                </div>
+
+
+            </section>
+
+        </div>
+
     );
+
+
 }
+
+
+
+
+
+

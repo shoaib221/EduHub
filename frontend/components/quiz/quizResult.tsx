@@ -107,39 +107,30 @@ export default function Page({
                                                 <div
                                                     key={optionIndex}
                                                     className={`
-                                                        rounded-lg border p-1
+                                                        rounded-lg border p-2
                                                         ${isCorrect
                                                             ? "border-green-600 bg-green-50"
-                                                            : "border-slate-200"
+                                                            : isSelected ? "border-red-600" : "border-slate-200"
                                                         }
                                                     `}
                                                 >
-                                                    <div
-                                                        key={optionIndex}
-                                                        className={`
-                                                        rounded-lg border p-3
-                                                        ${isSelected
-                                                                ? "border-black bg-green-50"
-                                                                : "border-slate-200"
-                                                            }
-                                                    `}
-                                                    >
 
-                                                        <div className="flex items-center gap-2">
 
-                                                            <span>
-                                                                {String.fromCharCode(
-                                                                    65 + optionIndex
-                                                                )}.
-                                                            </span>
+                                                    <div className="flex items-center gap-2">
 
-                                                            <span>
-                                                                {option}
-                                                            </span>
+                                                        <span>
+                                                            {String.fromCharCode(
+                                                                65 + optionIndex
+                                                            )}.
+                                                        </span>
 
-                                                        </div>
+                                                        <span>
+                                                            {option}
+                                                        </span>
 
                                                     </div>
+
+
 
                                                 </div>
                                             );

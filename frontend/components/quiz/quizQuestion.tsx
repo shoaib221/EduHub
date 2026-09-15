@@ -34,7 +34,7 @@ export default function Page({ quiz, answers, optionSelect, onSubmit }: { quiz: 
                                     <label
                                         key={optionIndex}
                                         className={`flex cursor-pointer items-center gap-4 rounded-xl border p-4 transition 
-                                            ${answers[questionIndex] === optionIndex
+                                            ${answers[question.id!] === optionIndex
                                                 ? "border-blue-600 bg-blue-50"
                                                 : "border-slate-200 hover:bg-slate-50"
                                             }`}

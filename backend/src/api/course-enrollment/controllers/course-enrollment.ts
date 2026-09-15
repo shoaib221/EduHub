@@ -1,4 +1,60 @@
+import { ErrorProcessor } from "../../../lib/ErrorProcessor";
+
 export default {
+
+
+    async getEnrolledCourse(ctx: any) {
+
+        try {
+
+            const user = ctx.state.user;
+            const { courseId } = ctx.params;
+
+            console.log("enrolledCourse");
+
+            const enrollment = await strapi.db
+                .query("api::course-enrollment.course-enrollment")
+                .findOne({
+                    where: {
+                        student: {
+                            id: user.id,
+                        },
+                        course: {
+                            id: Number(courseId)
+                        }
+                    }
+                });
+
+            const course = await strapi.db
+                .query("api::course.course")
+                .findOne({
+                    where: {
+                        id: Number(courseId)
+                    },
+                    populate: {
+                        lessons: true,
+                        quizzes: true
+                    }
+                });
+
+            const lessonData = await strapi
+                .service("api::course-enrollment.course-enrollment")
+                .getEnrolledLessons(strapi, enrollment, course);
+
+            const quizData = await strapi
+                .service("api::course-enrollment.course-enrollment")
+                .getEnrolledQuizzes(strapi, enrollment, course);
+
+
+            ctx.body = {
+                course, ...lessonData, enrollment, ...quizData
+            }
+
+        }
+        catch (error: any) {
+            return ctx.internalServerError(ErrorProcessor(error));
+        }
+    },
 
 
 

@@ -8,6 +8,41 @@ import {
     Trophy,
     Users,
 } from "lucide-react";
+import { serverApi } from "@/lib/server-api";
+import { Lesson } from "@/types/lesson";
+
+
+interface StatCardProps {
+    icon: React.ReactNode;
+    title: string;
+    value: string | number;
+}
+
+function StatCard({
+    icon,
+    title,
+    value,
+}: StatCardProps) {
+    return (
+        <div className="rounded-3xl bg-white p-6 shadow">
+
+            <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-blue-100 text-blue-600">
+
+                {icon}
+
+            </div>
+
+            <p className="text-slate-500">
+                {title}
+            </p>
+
+            <h2 className="mt-2 text-3xl font-bold">
+                {value}
+            </h2>
+
+        </div>
+    );
+}
 
 interface PageProps {
     params: Promise<{
@@ -23,57 +58,13 @@ export default async function CourseAnalyticsPage({
     // TODO:
     // Fetch analytics from Strapi
 
-    const analytics = {
-        title: "Complete React Course",
+    const analytics = await serverApi(`/course-analytics/${id}`);
 
-        totalStudents: 245,
+    const { lessonsCompleted, quizzesSubmitted, totalEnrollments, totalCompletedCourse, totalLessons, totalQuizzes } = analytics;
 
-        completedStudents: 118,
+    console.log("course analytics", analytics);
 
-        averageProgress: 67,
-
-        averageQuizScore: 82,
-
-        totalLessons: 10,
-
-        totalQuizzes: 10,
-
-        lessonProgress: [
-            { lesson: "Lesson 1", completed: 245 },
-            { lesson: "Lesson 2", completed: 231 },
-            { lesson: "Lesson 3", completed: 220 },
-            { lesson: "Lesson 4", completed: 205 },
-            { lesson: "Lesson 5", completed: 184 },
-            { lesson: "Lesson 6", completed: 165 },
-            { lesson: "Lesson 7", completed: 140 },
-            { lesson: "Lesson 8", completed: 120 },
-            { lesson: "Lesson 9", completed: 100 },
-            { lesson: "Lesson 10", completed: 82 },
-        ],
-
-        quizScores: [
-            {
-                quiz: "Quiz 1",
-                average: 91,
-            },
-            {
-                quiz: "Quiz 2",
-                average: 88,
-            },
-            {
-                quiz: "Quiz 3",
-                average: 84,
-            },
-            {
-                quiz: "Quiz 4",
-                average: 79,
-            },
-            {
-                quiz: "Quiz 5",
-                average: 75,
-            },
-        ],
-    };
+    // return <div>Hello World</div>
 
     return (
         <main className="mx-auto max-w-7xl p-8">
@@ -111,30 +102,18 @@ export default async function CourseAnalyticsPage({
                 <StatCard
                     icon={<Users />}
                     title="Students"
-                    value={analytics.totalStudents}
+                    value={totalEnrollments}
                 />
 
                 <StatCard
                     icon={<CheckCircle2 />}
                     title="Completed"
-                    value={analytics.completedStudents}
-                />
-
-                <StatCard
-                    icon={<TrendingUp />}
-                    title="Average Progress"
-                    value={`${analytics.averageProgress}%`}
-                />
-
-                <StatCard
-                    icon={<Trophy />}
-                    title="Average Quiz"
-                    value={`${analytics.averageQuizScore}%`}
+                    value={totalCompletedCourse}
                 />
 
             </section>
 
-            {/* Lessons */}
+
 
             <section className="mt-10 rounded-3xl bg-white p-8 shadow">
 
@@ -150,48 +129,49 @@ export default async function CourseAnalyticsPage({
 
                 <div className="space-y-5">
 
-                    {analytics.lessonProgress.map((lesson) => {
+                    {Object.entries(lessonsCompleted as Record<string, { title: string, completed: number }>).map(
+                        ([lessonId, lesson]) => {
 
-                        const percentage =
-                            (lesson.completed /
-                                analytics.totalStudents) *
-                            100;
+                            const percentage = (lesson.completed / totalEnrollments) * 100;
 
-                        return (
-                            <div key={lesson.lesson}>
 
-                                <div className="mb-2 flex justify-between">
+                            return (
+                                <div key={lessonId}>
 
-                                    <span className="font-medium">
-                                        {lesson.lesson}
-                                    </span>
+                                    <div className="mb-2 flex justify-between">
 
-                                    <span>
-                                        {lesson.completed} students
-                                    </span>
+                                        <span className="font-medium">
+                                            {lesson.title}
+                                        </span>
+
+                                        <span>
+                                            {lesson.completed} students
+                                        </span>
+
+                                    </div>
+
+
+                                    <div className="h-3 overflow-hidden rounded-full bg-slate-200">
+
+                                        <div
+                                            className="h-full rounded-full bg-blue-600"
+                                            style={{
+                                                width: `${percentage}%`,
+                                            }}
+                                        />
+
+                                    </div>
 
                                 </div>
-
-                                <div className="h-3 overflow-hidden rounded-full bg-slate-200">
-
-                                    <div
-                                        className="h-full rounded-full bg-blue-600"
-                                        style={{
-                                            width: `${percentage}%`,
-                                        }}
-                                    />
-
-                                </div>
-
-                            </div>
-                        );
-                    })}
+                            );
+                        }
+                    )}
 
                 </div>
 
             </section>
 
-            {/* Quiz Scores */}
+
 
             <section className="mt-10 rounded-3xl bg-white p-8 shadow">
 
@@ -218,7 +198,11 @@ export default async function CourseAnalyticsPage({
                                 </th>
 
                                 <th className="px-6 py-4 text-left">
-                                    Average Score
+                                    Submitted
+                                </th>
+
+                                <th className="px-6 py-4 text-left">
+                                    Average Percentage
                                 </th>
 
                             </tr>
@@ -227,26 +211,31 @@ export default async function CourseAnalyticsPage({
 
                         <tbody>
 
-                            {analytics.quizScores.map((quiz) => (
+                            {Object.entries(quizzesSubmitted as Record<string, { title: string, completed: number, averageScore: number }>).map(
+                                ([quizId, quiz]) => {
 
-                                <tr
-                                    key={quiz.quiz}
-                                    className="border-t"
-                                >
+                                    return (
 
-                                    <td className="px-6 py-4">
-                                        {quiz.quiz}
-                                    </td>
+                                        <tr
+                                            key={quiz.title}
+                                            className="border-t"
+                                        >
 
-                                    <td className="px-6 py-4 font-semibold">
+                                            <td className="px-6 py-4">
+                                                {quiz.title}
+                                            </td>
 
-                                        {quiz.average}%
+                                            <td className="px-6 py-4 font-semibold">
+                                                {quiz.completed}
+                                            </td>
 
-                                    </td>
+                                            <td className="px-6 py-4 font-semibold">
+                                                {quiz.averageScore ?? 0} %
+                                            </td>
 
-                                </tr>
-
-                            ))}
+                                        </tr>)
+                                }
+                            )}
 
                         </tbody>
 
@@ -257,37 +246,5 @@ export default async function CourseAnalyticsPage({
             </section>
 
         </main>
-    );
-}
-
-interface StatCardProps {
-    icon: React.ReactNode;
-    title: string;
-    value: string | number;
-}
-
-function StatCard({
-    icon,
-    title,
-    value,
-}: StatCardProps) {
-    return (
-        <div className="rounded-3xl bg-white p-6 shadow">
-
-            <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-blue-100 text-blue-600">
-
-                {icon}
-
-            </div>
-
-            <p className="text-slate-500">
-                {title}
-            </p>
-
-            <h2 className="mt-2 text-3xl font-bold">
-                {value}
-            </h2>
-
-        </div>
     );
 }

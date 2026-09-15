@@ -1,14 +1,13 @@
 
 import { apiRoutes } from "../../../extra/apiRoutes";
 import { ErrorProcessor } from "../../../lib/ErrorProcessor";
+import { envVariables } from "../../../../config/environment_variables";
 
 export default {
 
     async register(ctx: any) {
 
         try {
-
-
 
             const {
                 username,
@@ -60,7 +59,7 @@ export default {
 
             ctx.cookies.set("jwtAuthToken", jwtToken, {
                 httpOnly: true,
-                secure: process.env.NODE_ENV === "production",
+                secure: envVariables.nodeEnv === "production",
                 sameSite: "lax",
                 maxAge: 7 * 24 * 60 * 60 * 1000,
                 path: "/",
@@ -68,7 +67,7 @@ export default {
 
             ctx.cookies.set("userRole", user.user_role, {
                 httpOnly: true,
-                secure: process.env.NODE_ENV === "production",
+                secure: envVariables.nodeEnv === "production",
                 sameSite: "lax",
                 maxAge: 7 * 24 * 60 * 60 * 1000,
                 path: "/",

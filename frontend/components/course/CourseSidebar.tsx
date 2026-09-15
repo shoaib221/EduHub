@@ -67,10 +67,7 @@ export default function CourseSidebar({
             >
                 <div className="p-5">
 
-                    {/* Course */}
-                    <h2 className="mb-6 text-xl font-bold text-slate-900">
-                        JavaScript Mastery
-                    </h2>
+
 
                     {/* Home */}
                     <Link

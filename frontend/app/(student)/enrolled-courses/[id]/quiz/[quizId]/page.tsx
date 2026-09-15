@@ -79,6 +79,7 @@ export default function QuizPage() {
             });
             console.log("quiz submitted successfully")
             setQuizResult(response.data.quizResult);
+            window.location.reload();
         }
         catch (err) {
             ErrorProcessor(err)

@@ -89,6 +89,8 @@ export default {
                 if (quiz.correctAnswers[key] === value) score++;
             }
 
+            score = Math.round(score / quiz.totalQuestions * 100);
+
             const result = { score, answers };
 
             const quizResults = enrollment?.quizResults ?? {};

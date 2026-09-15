@@ -1,6 +1,5 @@
 export default {
     routes: [
-
         {
             method: "GET",
             path: "/instructed-courses",
@@ -39,9 +38,17 @@ export default {
                 auth: false,
             },
         },
-
-
-
+        {
+            method: "GET",
+            path: "/course-analytics/:courseId",
+            handler: "course.courseAnalytics",
+            config: {
+                auth: false,
+                middlewares: [
+                    "global::auth",
+                ],
+            },
+        },
     ],
 };
 

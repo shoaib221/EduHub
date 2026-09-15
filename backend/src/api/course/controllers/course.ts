@@ -131,6 +131,50 @@ export default {
 
     },
 
+    async courseAnalytics(ctx: any) {
+
+        try {
+            console.log("course analytics");
+            const user = ctx.state.user;
+
+
+
+            if (user.user_role === "student") {
+                return ctx.unauthorized("Unauthorized action.");
+            }
+
+
+            const { courseId } = ctx.params;
+
+
+
+
+            const course = await strapi.db
+                .query("api::course.course")
+                .findOne({
+                    where: {
+                        id: Number(courseId),
+                    }
+                });
+
+            const data = await strapi
+                .service("api::course.course")
+                .courseInstructorAnalytics(strapi, course);
+
+            console.log(data)
+
+
+            ctx.body = {
+                message: "Course Analytics",
+                ...data
+            };
+        }
+        catch (error: any) {
+            return ctx.internalServerError(error.message);
+        }
+
+    },
+
     async test(ctx: any) {
         console.log("test");
         const user = ctx.state.user;

@@ -489,6 +489,7 @@ export interface ApiCourseEnrollmentCourseEnrollment
     draftAndPublish: false;
   };
   attributes: {
+    completed: Schema.Attribute.Boolean;
     completedLessons: Schema.Attribute.JSON;
     course: Schema.Attribute.Relation<'manyToOne', 'api::course.course'>;
     createdAt: Schema.Attribute.DateTime;
@@ -550,6 +551,8 @@ export interface ApiCourseCourse extends Struct.CollectionTypeSchema {
     publishedAt: Schema.Attribute.DateTime;
     quizzes: Schema.Attribute.Relation<'oneToMany', 'api::quiz.quiz'>;
     title: Schema.Attribute.String;
+    totalLessons: Schema.Attribute.Integer;
+    totalQuizzes: Schema.Attribute.Integer;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -679,6 +682,7 @@ export interface ApiQuizQuiz extends Struct.CollectionTypeSchema {
     publishedAt: Schema.Attribute.DateTime;
     questions: Schema.Attribute.Relation<'oneToMany', 'api::question.question'>;
     title: Schema.Attribute.String;
+    totalQuestions: Schema.Attribute.Integer;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;

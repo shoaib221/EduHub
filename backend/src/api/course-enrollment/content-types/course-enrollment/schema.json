@@ -34,6 +34,9 @@
       "relation": "oneToOne",
       "target": "api::payment.payment",
       "inversedBy": "course_enrollment"
+    },
+    "completed": {
+      "type": "boolean"
     }
   }
 }
