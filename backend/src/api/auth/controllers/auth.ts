@@ -2,6 +2,8 @@
 import { apiRoutes } from "../../../extra/apiRoutes";
 import { ErrorProcessor } from "../../../lib/ErrorProcessor";
 import { envVariables } from "../../../../config/environment_variables";
+import { SetHttpCookie } from "../../../lib/SetHttpCookie";
+import { JwtTokenGenerate } from "../../../lib/JwtToken";
 
 export default {
 
@@ -48,30 +50,12 @@ export default {
                     blocked: false,
                 });
 
-            const jwtToken =
-                await strapi
-                    .plugin("users-permissions")
-                    .service("jwt")
-                    .issue({
-                        username: user.username,
-                        email: user.email
-                    });
+            const jwtToken = await JwtTokenGenerate(strapi, {
+                email: user.email,
+                username: user.username
+            })
 
-            ctx.cookies.set("jwtAuthToken", jwtToken, {
-                httpOnly: true,
-                secure: envVariables.nodeEnv === "production",
-                sameSite: "lax",
-                maxAge: 7 * 24 * 60 * 60 * 1000,
-                path: "/",
-            });
-
-            ctx.cookies.set("userRole", user.user_role, {
-                httpOnly: true,
-                secure: envVariables.nodeEnv === "production",
-                sameSite: "lax",
-                maxAge: 7 * 24 * 60 * 60 * 1000,
-                path: "/",
-            });
+            SetHttpCookie(ctx, 7, "jwtAuthToken", jwtToken)
 
             ctx.body = {
                 message: "Registered successfully",
@@ -87,14 +71,6 @@ export default {
 
         try {
             console.log("login");
-
-            console.log({
-                protocol: ctx.protocol,
-                secure: ctx.secure,
-                forwarded: ctx.request.headers["x-forwarded-proto"],
-                host: ctx.request.headers.host,
-                nodeEnv: envVariables.nodeEnv
-            });
 
             const {
                 email,
@@ -130,43 +106,23 @@ export default {
                 );
             }
 
-            const jwtToken =
-                await strapi
-                    .plugin("users-permissions")
-                    .service("jwt")
-                    .issue({
-                        email: user.email,
-                        username: user.username
-                    });
+            const jwtToken = await JwtTokenGenerate(strapi, {
+                email: user.email,
+                username: user.username
+            })
 
-            ctx.cookies.set("jwtAuthToken", jwtToken, {
-                httpOnly: true,
-                secure: envVariables.nodeEnv === "production",
-                sameSite: "lax",
-                maxAge: 7 * 24 * 60 * 60 * 1000,
-                path: "/",
-            });
-
-            ctx.cookies.set("userRole", user.user_role, {
-                httpOnly: true,
-                secure: envVariables.nodeEnv === "production",
-                sameSite: "lax",
-                maxAge: 7 * 24 * 60 * 60 * 1000,
-                path: "/",
-            });
+            SetHttpCookie(ctx, 7, "jwtAuthToken", jwtToken)
 
             ctx.body = {
+                message: "logged in successfully",
                 user
             };
         }
         catch (error) {
-
             return ctx.internalServerError(
                 ErrorProcessor((error))
             );
-
         }
-
     },
 
     async me(ctx: any) {
@@ -227,12 +183,18 @@ export default {
             forwarded: ctx.request.headers["x-forwarded-proto"] ?? "missing",
             host: ctx.request.headers.host ?? "missing",
             origin: ctx.request.origin ?? "missing",
+            socketEncrypted: !!(ctx.socket.encrypted ?? false),
+            proxy: strapi.config.get("server.proxy"),
+            headers: {
+                "x-forwarded-proto": ctx.headers["x-forwarded-proto"],
+                "x-forwarded-host": ctx.headers["x-forwarded-host"],
+            },
         };
 
         ctx.body = {
             updated: true,
             message: "Welcome to Learing Management System",
-            apiRoutes, envVariables, network
+            apiRoutes, network
         };
     },
 
@@ -241,28 +203,13 @@ export default {
         try {
             console.log("logout");
 
-            ctx.cookies.set("jwtAuthToken", "", {
-                httpOnly: true,
-                secure: envVariables.nodeEnv === "production",
-                sameSite: "lax",
-                maxAge: 0,
-                path: "/",
-            });
-
-            ctx.cookies.set("userRole", "", {
-                httpOnly: true,
-                secure: envVariables.nodeEnv === "production",
-                sameSite: "lax",
-                maxAge: 0,
-                path: "/",
-            });
+            SetHttpCookie(ctx, 0, "jwtAuthToken", null);
 
             ctx.body = {
                 message: "logged out successfully"
             };
         }
         catch (error) {
-
             return ctx.internalServerError(
                 ErrorProcessor((error))
             );

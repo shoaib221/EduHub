@@ -1,6 +1,8 @@
 
 
 import { ErrorProcessor } from "../lib/ErrorProcessor";
+import { JwtTokenValidate } from "../lib/JwtToken";
+import { GetHttpCookie, SetHttpCookie } from "../lib/SetHttpCookie";
 
 export default (config: any, { strapi }: any) => {
 
@@ -8,20 +10,13 @@ export default (config: any, { strapi }: any) => {
         console.log("authMiddleware ", ctx.url);
 
         try {
-            let token = ctx.cookies.get("jwtAuthToken");
-            // console.log("cookies", ctx.cookies);
+            let token = GetHttpCookie(ctx, "jwtAuthToken");
 
-            if (!token) {
-                throw new Error(
-                    "Missing authentication token ... ..."
-                );
+            let userPayload = await JwtTokenValidate(strapi, token)
+
+            if (!userPayload) {
+                throw new Error("Authentication token missing");
             }
-
-            const payload =
-                await strapi
-                    .plugin("users-permissions")
-                    .service("jwt")
-                    .verify(token);
 
             // console.log("payload", payload)
             const user =
@@ -31,7 +26,7 @@ export default (config: any, { strapi }: any) => {
                     )
                     .findOne({
                         where: {
-                            email: payload.email
+                            email: userPayload.email
                         },
                     });
 
@@ -42,23 +37,12 @@ export default (config: any, { strapi }: any) => {
             }
 
             ctx.state.user = user;
-            // console.log("user ", user)
             await next();
 
         } catch (err) {
-            ctx.cookies.set("jwtAuthToken", "", {
-                httpOnly: true,
-                maxAge: 0,
-                sameSite: "lax",
-                secure: process.env.NODE_ENV === "production",
-            });
 
-            ctx.cookies.set("userRole", "", {
-                httpOnly: true,
-                maxAge: 0,
-                sameSite: "lax",
-                secure: process.env.NODE_ENV === "production",
-            });
+
+            SetHttpCookie(ctx, 0, "jwtAuthToken", null);
 
             return ctx.unauthorized(
                 ErrorProcessor(err)

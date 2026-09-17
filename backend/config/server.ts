@@ -7,7 +7,7 @@ export default ({ env }: Core.Config.Shared.ConfigParams) => ({
 	proxy: true,
 	url: envVariables.publicUrl,
 	app: {
-		keys: envVariables.appKeys,
+		keys: env.array("APP_KEYS"),
 	},
 });
 
