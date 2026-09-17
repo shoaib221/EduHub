@@ -1,17 +1,15 @@
 import type { Core } from '@strapi/strapi';
+import { envVariables } from './environment_variables';
 
-const config = ({ env }: Core.Config.Shared.ConfigParams): Core.Config.Server => ({
-	host: env('HOST', '0.0.0.0'),
-	port: env.int('PORT', 1337),
+export default ({ env }: Core.Config.Shared.ConfigParams) => ({
+	host: envVariables.host,
+	port: envVariables.port,
 	proxy: true,
-	url: env("PUBLIC_URL", ""),
+	url: envVariables.publicUrl,
 	app: {
-		keys: env.array('APP_KEYS')!,
-	},
-	webhooks: {
-		populateRelations: env.bool('WEBHOOKS_POPULATE_RELATIONS', false),
+		keys: envVariables.appKeys,
 	},
 });
 
-export default config;
+
 

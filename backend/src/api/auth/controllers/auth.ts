@@ -88,6 +88,14 @@ export default {
         try {
             console.log("login");
 
+            console.log({
+                protocol: ctx.protocol,
+                secure: ctx.secure,
+                forwarded: ctx.request.headers["x-forwarded-proto"],
+                host: ctx.request.headers.host,
+                nodeEnv: envVariables.nodeEnv
+            });
+
             const {
                 email,
                 password,
@@ -131,15 +139,9 @@ export default {
                         username: user.username
                     });
 
-            console.log({
-                protocol: ctx.protocol,
-                secure: ctx.secure,
-                forwarded: ctx.request.headers["x-forwarded-proto"],
-            });
-
             ctx.cookies.set("jwtAuthToken", jwtToken, {
                 httpOnly: true,
-                secure: process.env.NODE_ENV === "production",
+                secure: envVariables.nodeEnv === "production",
                 sameSite: "lax",
                 maxAge: 7 * 24 * 60 * 60 * 1000,
                 path: "/",
@@ -147,7 +149,7 @@ export default {
 
             ctx.cookies.set("userRole", user.user_role, {
                 httpOnly: true,
-                secure: process.env.NODE_ENV === "production",
+                secure: envVariables.nodeEnv === "production",
                 sameSite: "lax",
                 maxAge: 7 * 24 * 60 * 60 * 1000,
                 path: "/",
@@ -219,9 +221,18 @@ export default {
 
     async home(ctx: any) {
 
+        const network = {
+            protocol: ctx.protocol ?? "missing",
+            secure: ctx.secure ?? "missing",
+            forwarded: ctx.request.headers["x-forwarded-proto"] ?? "missing",
+            host: ctx.request.headers.host ?? "missing",
+            origin: ctx.request.origin ?? "missing",
+        };
+
         ctx.body = {
+            updated: true,
             message: "Welcome to Learing Management System",
-            apiRoutes
+            apiRoutes, envVariables, network
         };
     },
 
@@ -230,18 +241,20 @@ export default {
         try {
             console.log("logout");
 
-            ctx.cookies.set("jwtAuthToken", null, {
+            ctx.cookies.set("jwtAuthToken", "", {
                 httpOnly: true,
-                expires: new Date(0),
+                secure: envVariables.nodeEnv === "production",
                 sameSite: "lax",
-                secure: process.env.NODE_ENV === "production",
+                maxAge: 0,
+                path: "/",
             });
 
-            ctx.cookies.set("userRole", null, {
+            ctx.cookies.set("userRole", "", {
                 httpOnly: true,
-                expires: new Date(0),
+                secure: envVariables.nodeEnv === "production",
                 sameSite: "lax",
-                secure: process.env.NODE_ENV === "production",
+                maxAge: 0,
+                path: "/",
             });
 
             ctx.body = {
@@ -253,11 +266,8 @@ export default {
             return ctx.internalServerError(
                 ErrorProcessor((error))
             );
-
         }
-
     },
-
 };
 
 

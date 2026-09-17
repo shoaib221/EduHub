@@ -1,12 +1,11 @@
 
 
-const nodeEnv = process.env["NODE_ENV"]!;
-
 
 export const envVariables = {
-    host: "",
-    port: "",
-    nodeEnv,
+    host: process.env["HOST"]!,
+    port: process.env["PORT"]!,
+    nodeEnv: process.env["NODE_ENV"]!,
+    publicUrl: process.env["PUBLIC_URL"]!,
     cloudinaryCloudName: process.env["CLOUDINARY_CLOUD_NAME"]!,
     cloudinaryApiKey: process.env["CLOUDINARY_API_KEY"]!,
     cloudinaryApiSecret: process.env["CLOUDINARY_API_SECRET"]!,
