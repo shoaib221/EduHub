@@ -13,6 +13,7 @@ import {
     FaLinkedinIn,
     FaXTwitter,
 } from "react-icons/fa6";
+import Logo from "./Logo";
 
 export default function Footer() {
     return (
@@ -21,12 +22,7 @@ export default function Footer() {
                 <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
                     {/* Brand */}
                     <div>
-                        <Link
-                            href="/"
-                            className="text-3xl font-bold text-white"
-                        >
-                            LMS
-                        </Link>
+                        <Logo />
 
                         <p className="mt-5 text-sm leading-7 text-slate-400">
                             Learn from industry experts, build practical skills, and
@@ -73,7 +69,7 @@ export default function Footer() {
 
                     {/* Explore */}
                     <div>
-                        <h3 className="mb-5 text-lg font-semibold text-white">
+                        <h3 className="mb-5 text-lg font-semibold text-(--color1)">
                             Explore
                         </h3>
 
@@ -112,7 +108,7 @@ export default function Footer() {
 
                     {/* Support */}
                     <div>
-                        <h3 className="mb-5 text-lg font-semibold text-white">
+                        <h3 className="mb-5 text-lg font-semibold text-(--color1)">
                             Support
                         </h3>
 
@@ -151,7 +147,7 @@ export default function Footer() {
 
                     {/* Contact */}
                     <div>
-                        <h3 className="mb-5 text-lg font-semibold text-white">
+                        <h3 className="mb-5 text-lg font-semibold text-(--color1)">
                             Contact
                         </h3>
 

@@ -508,6 +508,7 @@ export interface ApiCourseEnrollmentCourseEnrollment
       'manyToOne',
       'plugin::users-permissions.user'
     >;
+    transactionId: Schema.Attribute.String & Schema.Attribute.Unique;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -620,8 +621,8 @@ export interface ApiPaymentPayment extends Struct.CollectionTypeSchema {
     >;
     provider: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
-    sessionId: Schema.Attribute.String;
-    transactionId: Schema.Attribute.String;
+    sessionId: Schema.Attribute.String & Schema.Attribute.Unique;
+    transactionId: Schema.Attribute.String & Schema.Attribute.Unique;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;

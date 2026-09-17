@@ -32,9 +32,7 @@ export default function InstructorDashboard() {
             } catch (error) {
                 console.log(error);
             }
-
         }
-
 
         fetchCourses();
 
@@ -48,7 +46,7 @@ export default function InstructorDashboard() {
 
 
             {/* Header */}
-            <section className="rounded-3xl bg-gradient-to-r from-indigo-600 to-purple-700 p-8 text-white">
+            <section className="rounded-3xl bg-(--color3) p-8 text-white">
 
                 <h1 className="text-3xl font-bold">
                     Instructor Dashboard
@@ -131,43 +129,6 @@ export default function InstructorDashboard() {
 
             </section>
 
-
-
-
-            {/* Actions */}
-            <section className="flex flex-wrap gap-4">
-
-                <Link
-                    href="/create-course"
-                    className="flex items-center gap-2 rounded-xl bg-blue-600 px-5 py-3 font-semibold text-white hover:bg-blue-700"
-                >
-                    <Plus size={18} />
-                    Create Course
-                </Link>
-
-
-                <Link
-                    href="/instructor/analytics"
-                    className="flex items-center gap-2 rounded-xl bg-white px-5 py-3 font-semibold text-slate-700 shadow-sm hover:bg-slate-50"
-                >
-                    <BarChart3 size={18} />
-                    Analytics
-                </Link>
-
-
-                <Link
-                    href="/messages"
-                    className="flex items-center gap-2 rounded-xl bg-white px-5 py-3 font-semibold text-slate-700 shadow-sm hover:bg-slate-50"
-                >
-                    <MessageSquare size={18} />
-                    Messages
-                </Link>
-
-            </section>
-
-
-
-
             {/* My Courses */}
             <section className="rounded-3xl bg-white p-8 shadow-sm">
 
@@ -175,15 +136,15 @@ export default function InstructorDashboard() {
                 <div className="flex items-center justify-between">
 
                     <h2 className="text-2xl font-bold text-slate-900">
-                        My Courses
+                        Instructed Courses
                     </h2>
 
-
                     <Link
-                        href="/courses/manage"
-                        className="text-sm font-semibold text-blue-600"
+                        href="/create-course"
+                        className="button-2 flex gap-2 items-center"
                     >
-                        View All
+                        <Plus size={18} />
+                        Create Course
                     </Link>
 
                 </div>
@@ -254,48 +215,9 @@ export default function InstructorDashboard() {
                         ))
                     }
 
-
-                </div>
-
-
-            </section>
-
-
-
-
-            {/* Recent Students */}
-            <section className="rounded-3xl bg-white p-8 shadow-sm">
-
-                <h2 className="text-2xl font-bold text-slate-900">
-                    Recent Enrollments
-                </h2>
-
-
-                <div className="mt-6 space-y-4">
-
-
-                    {
-                        [
-                            "Ahmed enrolled in React Development",
-                            "Sadia completed Node.js course",
-                            "Rahim started TypeScript course",
-                        ].map((activity) => (
-
-                            <div
-                                key={activity}
-                                className="rounded-xl bg-slate-50 p-4 text-slate-700"
-                            >
-                                {activity}
-                            </div>
-
-                        ))
-                    }
-
-
                 </div>
 
             </section>
-
 
         </div>
     );

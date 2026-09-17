@@ -4,13 +4,14 @@ import {
     Award,
     Target,
 } from "lucide-react";
+import Link from "next/link";
 
 export default function AboutPage() {
     return (
         <main className="bg-slate-50">
 
             {/* Hero Section */}
-            <section className="bg-gradient-to-r from-blue-600 to-indigo-700 px-6 py-20 text-white">
+            <section className="bg-(--color3) px-6 py-20 text-white">
                 <div className="mx-auto max-w-7xl text-center">
                     <h1 className="text-4xl font-bold md:text-5xl">
                         Empowering Learning Through Technology
@@ -30,7 +31,7 @@ export default function AboutPage() {
                 <div className="grid gap-12 md:grid-cols-2">
 
                     <div>
-                        <h2 className="text-3xl font-bold text-slate-900">
+                        <h2 className="heading-2">
                             Who We Are
                         </h2>
 
@@ -49,8 +50,8 @@ export default function AboutPage() {
                     </div>
 
 
-                    <div className="rounded-2xl bg-white p-8 shadow">
-                        <h3 className="text-xl font-semibold text-slate-900">
+                    <div className="rounded-2xl bg-white p-2 shadow">
+                        <h3 className="heading-2">
                             Our Mission
                         </h3>
 
@@ -60,7 +61,9 @@ export default function AboutPage() {
                             environment.
                         </p>
 
-                        <h3 className="mt-8 text-xl font-semibold text-slate-900">
+                        <br />
+
+                        <h3 className="heading-2">
                             Our Vision
                         </h3>
 
@@ -78,7 +81,7 @@ export default function AboutPage() {
             <section className="bg-white px-6 py-16">
                 <div className="mx-auto max-w-7xl">
 
-                    <h2 className="text-center text-3xl font-bold text-slate-900">
+                    <h2 className="heading-2 text-center">
                         Why Choose LMS?
                     </h2>
 
@@ -119,7 +122,7 @@ export default function AboutPage() {
 
 
             {/* Stats */}
-            <section className="px-6 py-16">
+            <section className="px-6 py-8">
                 <div className="mx-auto grid max-w-5xl gap-6 md:grid-cols-3">
 
                     <Stat
@@ -142,23 +145,28 @@ export default function AboutPage() {
 
 
             {/* CTA */}
-            <section className="bg-blue-600 px-6 py-16 text-center text-white">
+            <section className="bg-(--color3) py-16 text-center text-white  flex-col gap-4">
 
-                <h2 className="text-3xl font-bold">
+                <div className="text-3xl font-bold">
                     Ready to Start Learning?
-                </h2>
-
-                <p className="mx-auto mt-4 max-w-2xl text-blue-100">
+                </div>
+                <br />
+                <div className="mx-auto max-w-2xl text-blue-100">
                     Join thousands of learners and start building your future
                     with LMS.
-                </p>
+                </div>
 
-                <a
-                    href="/courses"
-                    className="mt-8 inline-block rounded-lg bg-white px-8 py-3 font-semibold text-blue-600 transition hover:bg-blue-50"
-                >
+                <br />
+                <br />
+
+                <Link href={"/courses"} className="bg-(--color1) text-(--color2) hover:text-(--color3) p-4 rounded-full px-16 font-bold text-xl">
                     Explore Courses
-                </a>
+                </Link>
+
+
+
+
+
 
             </section>
 
@@ -179,7 +187,7 @@ function FeatureCard({
     return (
         <div className="rounded-xl bg-slate-50 p-6 text-center">
 
-            <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-blue-100 text-blue-600">
+            <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-(--color31) text-(--color3)">
                 {icon}
             </div>
 
@@ -206,7 +214,7 @@ function Stat({
     return (
         <div className="rounded-xl bg-white p-8 text-center shadow">
 
-            <h3 className="text-4xl font-bold text-blue-600">
+            <h3 className="text-4xl font-bold text-(--color3)">
                 {number}
             </h3>
 

@@ -1,0 +1,90 @@
+/* Buttons */
+
+.button-1 {
+    border-radius: 1rem;
+    /* rounded-xl */
+
+    background-color: var(--color3);
+    /* bg-(--color3) */
+
+    padding: 1rem;
+    /* py-4 px-8 */
+
+    text-align: center;
+
+    font-weight: 600;
+    /* font-semibold */
+
+    color: var(--color1);
+    /* text-white */
+
+    transition: all 0.4s ease;
+    /* transition */
+}
+
+
+.button-1:hover {
+    opacity: 0.8;
+    /* hover:opacity-80 */
+}
+
+
+.button-2 {
+    border-radius: 0.75rem;
+    /* rounded-xl */
+
+    border: 1px solid #cbd5e1;
+    /* border-slate-300 */
+
+
+    /* bg-white */
+
+    padding: 1rem 2rem;
+    /* py-4 px-8 */
+
+    text-align: center;
+
+    font-weight: 600;
+    /* font-semibold */
+
+    color: var(--color2);
+    /* text-slate-700 */
+
+    transition: all 0.2s ease;
+}
+
+
+.button-2:hover {
+    border-color: var(--color3);
+    /* hover:border-blue-600 */
+
+    color: var(--color3);
+    /* hover:text-blue-600 */
+}
+
+
+.button-4 {
+    border-radius: 0.5rem;
+    /* rounded-lg */
+
+    background-color: var(--color3);
+    /* bg-blue-600 */
+
+    padding: 0.625rem 1.25rem;
+    /* py-2.5 px-5 */
+
+    font-weight: 500;
+    /* font-medium */
+
+    color: var(--color1);
+    /* text-white */
+
+    transition: all 0.4s ease;
+    /* transition */
+}
+
+
+.button-4:hover {
+    opacity: 0.8;
+    /* hover:bg-blue-700 */
+}

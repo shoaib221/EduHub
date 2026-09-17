@@ -7,13 +7,13 @@ export default function Hero() {
             <div className="mx-auto flex max-w-7xl flex-col-reverse items-center gap-12 px-6 py-20 lg:flex-row lg:py-28">
                 {/* Left */}
                 <div className="flex-1 text-center lg:text-left">
-                    <span className="inline-block rounded-full bg-blue-100 px-4 py-1 text-sm font-semibold text-blue-700">
+                    <span className="inline-block rounded-full bg-blue-100 px-4 py-1 text-sm font-semibold text-(--color3)">
                         Learn Without Limits
                     </span>
 
                     <h1 className="mt-6 text-5xl font-extrabold leading-tight text-slate-900 lg:text-6xl">
                         Master New Skills
-                        <span className="block text-blue-600">
+                        <span className="block text-(--color3)">
                             Anytime, Anywhere
                         </span>
                     </h1>
@@ -27,14 +27,14 @@ export default function Hero() {
                     <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:justify-center lg:justify-start">
                         <Link
                             href="/courses"
-                            className="rounded-xl bg-blue-600 px-8 py-4 text-center font-semibold text-white transition hover:bg-blue-700"
+                            className="button-1"
                         >
                             Explore Courses
                         </Link>
 
                         <Link
                             href="/register"
-                            className="rounded-xl border border-slate-300 bg-white px-8 py-4 text-center font-semibold text-slate-700 transition hover:border-blue-600 hover:text-blue-600"
+                            className="button-2"
                         >
                             Get Started
                         </Link>

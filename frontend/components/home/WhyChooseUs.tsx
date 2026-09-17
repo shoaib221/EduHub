@@ -51,11 +51,11 @@ export default function WhyChooseUs() {
         <section className="bg-white py-20">
             <div className="mx-auto max-w-7xl px-6">
                 <div className="mx-auto mb-14 max-w-3xl text-center">
-                    <span className="font-semibold text-blue-600">
+                    <span className="font-semibold text-(--color3)">
                         Why Choose Us
                     </span>
 
-                    <h2 className="mt-3 text-4xl font-bold text-slate-900">
+                    <h2 className="mt-3 text-4xl font-bold text-(--color2)">
                         Everything You Need to Learn Successfully
                     </h2>
 
@@ -73,9 +73,9 @@ export default function WhyChooseUs() {
                         return (
                             <div
                                 key={feature.title}
-                                className="group rounded-2xl border border-slate-200 bg-slate-50 p-8 transition-all duration-300 hover:-translate-y-1 hover:border-blue-500 hover:bg-white hover:shadow-xl"
+                                className="card-1"
                             >
-                                <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-blue-100 text-blue-600 transition group-hover:bg-blue-600 group-hover:text-white">
+                                <div className="card-2">
                                     <Icon size={32} />
                                 </div>
 
@@ -91,7 +91,7 @@ export default function WhyChooseUs() {
                     })}
                 </div>
 
-                <div className="mt-20 rounded-3xl bg-blue-600 px-8 py-12 text-white">
+                <div className="mt-20 rounded-3xl bg-(--color3) px-8 py-12 text-white">
                     <div className="grid gap-10 text-center md:grid-cols-4">
                         <div>
                             <h3 className="text-4xl font-bold">500+</h3>

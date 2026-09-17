@@ -45,6 +45,17 @@ export default {
             },
         },
         {
+            method: "GET",
+            path: "/enrollment/:enrollmentId/lesson/:lessonId",
+            handler: "lesson.getEnrolledLesson",
+            config: {
+                auth: false,
+                middlewares: [
+                    "global::auth",
+                ],
+            },
+        },
+        {
             method: "PATCH",
             path: "/lesson/:lessonId",
             handler: "lesson.updateLesson",

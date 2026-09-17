@@ -56,9 +56,10 @@ export default {
         quizzes = quizzes.map((quiz: any) => {
             let score = -1;
             // console.log(quizResults[quiz.id]?.score, quiz.totalQuestions)
-            if (quizResults[quiz.id]?.score) {
+            if (quizResults[quiz.id]?.score >= 0) {
 
                 score = Math.round(quizResults[quiz.id].score / quiz.totalQuestions * 100);
+                console.log(score);
                 quizAverage += score
             }
 
@@ -69,7 +70,8 @@ export default {
             }
         });
 
-        quizAverage /= Math.round(Object.keys(quizResults).length)
+        if (Object.keys(quizResults).length)
+            quizAverage /= Number(Object.keys(quizResults).length);
 
         console.log("enrolled quiz service", totalQuizzes, quizzes, quizAverage)
 

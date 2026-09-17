@@ -7,9 +7,14 @@ const stripe = new Stripe(envVariables.stripeKey);
 
 const name = "shoaib";
 
+const stripeSessions = new Map();
+console.log("stripeSessionMap");
+
 export default {
 
     async createStripeSession(ctx: any) {
+
+        console.log("create stripe session");
 
         try {
             const user = ctx.state.user;
@@ -70,6 +75,8 @@ export default {
 
     async paymentVerify(ctx: any) {
 
+        console.log("payment verification")
+
         try {
             const user = ctx.state.user;
 
@@ -99,35 +106,24 @@ export default {
                 return ctx.badRequest("Payment has not been successful.");
             }
 
-            // Check course exists
-            const course = await strapi.db
-                .query("api::course.course")
-                .findOne({
-                    where: {
-                        id: courseId,
-                    },
-                });
+            let payment = await strapi.db.query("api::payment.payment").findOne({
+                where: {
+                    transactionId: session.payment_intent,
+                }
+            })
 
-            if (!course) {
-                return ctx.notFound("Course not found.");
+            if (payment) {
+                ctx.body = {
+                    message: "Enrolled successfully",
+                    payment
+                };
+                return;
             }
 
-            let enrollment = await strapi.db
-                .query("api::course-enrollment.course-enrollment")
-                .create({
-                    data: {
-                        student: user.id,
-                        course: course.id,
-                        completedLessons: {},
-                        quizResults: {},
-                    },
-                });
-
-            const payment = await strapi.db
+            payment = await strapi.db
                 .query("api::payment.payment")
                 .create({
                     data: {
-                        course_enrollment: enrollment.id,
                         provider: "stripe",
                         sessionId: session.id,
                         transactionId: session.payment_intent,
@@ -136,26 +132,39 @@ export default {
                     },
                 });
 
-            await strapi.db
+            let enrollment = await strapi.db
                 .query("api::course-enrollment.course-enrollment")
-                .update({
-                    where: {
-                        id: enrollment.id,
-                    },
+                .create({
                     data: {
+                        student: user.id,
+                        course: courseId,
+                        completedLessons: {},
+                        transactionId: session.payment_intent,
+                        quizResults: {},
+                        completed: false,
                         payment: payment.id,
                     },
                 });
 
+            await strapi.db
+                .query("api::payment.payment")
+                .update({
+                    where: {
+                        id: payment.id,
+                    },
+                    data: {
+                        course_enrollment: enrollment.id,
+                    },
+                });
+
             ctx.body = {
-                message: "enrolled successfully"
+                message: "Enrolled successfully",
+                payment
             };
 
         } catch (error: any) {
             return ctx.internalServerError(ErrorProcessor(error));
         }
     },
-
-
 };
 

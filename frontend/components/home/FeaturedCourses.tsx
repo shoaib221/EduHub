@@ -34,7 +34,7 @@ export default function FeaturedCourses() {
             <div className="mx-auto max-w-7xl px-6">
                 <div className="mb-12 flex items-center justify-between">
                     <div>
-                        <p className="font-semibold text-blue-600">
+                        <p className="font-semibold text-(--color3)">
                             Featured Courses
                         </p>
 
@@ -51,7 +51,7 @@ export default function FeaturedCourses() {
 
                     <Link
                         href="/courses"
-                        className="hidden rounded-lg border border-slate-300 px-5 py-3 font-medium text-slate-700 transition hover:border-blue-600 hover:text-blue-600 md:block"
+                        className="button-2"
                     >
                         View All
                     </Link>
@@ -61,7 +61,7 @@ export default function FeaturedCourses() {
                     {courses && courses.map((course) => (
                         <div
                             key={course.id}
-                            className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl"
+                            className="group card-3"
                         >
                             <div className="relative h-56">
                                 {course.coverImage && <Image
@@ -73,11 +73,9 @@ export default function FeaturedCourses() {
                             </div>
 
                             <div className="p-6">
-                                <span className="rounded-full bg-blue-100 px-3 py-1 text-xs font-semibold text-blue-700">
-                                    Bestseller
-                                </span>
 
-                                <h3 className="mt-4 line-clamp-2 text-xl font-bold text-slate-900">
+
+                                <h3 className="mt-4 line-clamp-2 text-xl font-bold text-slate-900 group-hover:text-(--color3)">
                                     {course.title}
                                 </h3>
 
@@ -89,35 +87,28 @@ export default function FeaturedCourses() {
                                 </p>
 
                                 <div className="mt-6 grid grid-cols-3 gap-4 text-center">
-                                    <div>
-                                        <p className="font-bold text-slate-900">
-                                            {course.enrolled_users?.length}
-                                        </p>
-                                        <p className="text-xs text-slate-500">
-                                            Students
-                                        </p>
-                                    </div>
 
+                                    {/* 
                                     <div>
                                         <p className="font-bold text-slate-900">
-                                            {course.lessons?.length}
+                                            {course?.totalLessons}
                                         </p>
                                         <p className="text-xs text-slate-500">
                                             Lessons
                                         </p>
-                                    </div>
+                                    </div> */}
 
 
                                 </div>
 
                                 <div className="mt-8 flex items-center justify-between">
-                                    <span className="text-2xl font-bold text-blue-600">
+                                    <span className="text-2xl font-bold text-(--color3)">
                                         $ {course.price}
                                     </span>
 
                                     <Link
                                         href={`/courses/${course.id}`}
-                                        className="rounded-lg bg-blue-600 px-5 py-2.5 font-medium text-white transition hover:bg-blue-700"
+                                        className="button-4"
                                     >
                                         View Course
                                     </Link>

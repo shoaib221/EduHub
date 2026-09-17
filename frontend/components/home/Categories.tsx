@@ -30,18 +30,6 @@ const categories = [
         color: "bg-pink-100 text-pink-600",
     },
     {
-        title: "Data Science",
-        courses: 54,
-        icon: Database,
-        color: "bg-purple-100 text-purple-600",
-    },
-    {
-        title: "Artificial Intelligence",
-        courses: 32,
-        icon: BrainCircuit,
-        color: "bg-orange-100 text-orange-600",
-    },
-    {
         title: "Marketing",
         courses: 41,
         icon: ChartColumn,
@@ -66,7 +54,7 @@ export default function Categories() {
         <section className="bg-slate-50 py-20">
             <div className="mx-auto max-w-7xl px-6">
                 <div className="mb-12 text-center">
-                    <p className="font-semibold text-blue-600">
+                    <p className="font-semibold text-(--color3)">
                         Browse Categories
                     </p>
 
@@ -90,7 +78,7 @@ export default function Categories() {
                                 href={`/courses?category=${encodeURIComponent(
                                     category.title
                                 )}`}
-                                className="group rounded-2xl border border-slate-200 bg-white p-6 transition hover:-translate-y-1 hover:border-blue-500 hover:shadow-lg"
+                                className="card-1 group"
                             >
                                 <div
                                     className={`flex h-16 w-16 items-center justify-center rounded-2xl ${category.color}`}
@@ -98,7 +86,7 @@ export default function Categories() {
                                     <Icon size={32} />
                                 </div>
 
-                                <h3 className="mt-6 text-xl font-semibold text-slate-900 transition group-hover:text-blue-600">
+                                <h3 className="mt-6 text-xl font-semibold text-slate-900 transition group-hover:text-(--color3)">
                                     {category.title}
                                 </h3>
 
@@ -106,7 +94,7 @@ export default function Categories() {
                                     {category.courses} Courses
                                 </p>
 
-                                <div className="mt-6 flex items-center text-sm font-medium text-blue-600 opacity-0 transition group-hover:opacity-100">
+                                <div className="mt-6 flex items-center text-sm font-medium text-(--color3) opacity-0 transition group-hover:opacity-100">
                                     Explore →
                                 </div>
                             </Link>

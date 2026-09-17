@@ -1,10 +1,15 @@
-import type { Metadata } from "next";
+
 
 import "./globals.css";
+import "@/styles/button.css"
+import "@/styles/header.css"
+import "@/styles/card.css"
+
+
+import type { Metadata } from "next";
 import AuthProvider from "@/providers/AuthProvider";
 import AuthListener from "@/components/auth/AuthListener";
 import Navbar from "@/components/layout/Navbar";
-
 
 
 export const metadata: Metadata = {
@@ -23,6 +28,7 @@ export const metadata: Metadata = {
 		"Courses",
 	],
 };
+
 
 export default function RootLayout({
 	children,

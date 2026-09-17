@@ -8,7 +8,7 @@ export default {
         try {
 
             const user = ctx.state.user;
-            const { courseId } = ctx.params;
+            const { enrollmentId } = ctx.params;
 
             console.log("enrolledCourse");
 
@@ -16,12 +16,10 @@ export default {
                 .query("api::course-enrollment.course-enrollment")
                 .findOne({
                     where: {
-                        student: {
-                            id: user.id,
-                        },
-                        course: {
-                            id: Number(courseId)
-                        }
+                        id: Number(enrollmentId)
+                    },
+                    populate: {
+                        course: true
                     }
                 });
 
@@ -29,7 +27,7 @@ export default {
                 .query("api::course.course")
                 .findOne({
                     where: {
-                        id: Number(courseId)
+                        id: enrollment.course.id
                     },
                     populate: {
                         lessons: true,
@@ -45,9 +43,8 @@ export default {
                 .service("api::course-enrollment.course-enrollment")
                 .getEnrolledQuizzes(strapi, enrollment, course);
 
-
             ctx.body = {
-                course, ...lessonData, enrollment, ...quizData
+                course, ...lessonData, enrollment, ...quizData,
             }
 
         }
@@ -56,16 +53,11 @@ export default {
         }
     },
 
-
-
     async enrolledCourses(ctx: any) {
 
         try {
-
             const user = ctx.state.user;
-
             console.log("enrolledCourses", user);
-
             const enrollments = await strapi.db
                 .query("api::course-enrollment.course-enrollment")
                 .findMany({
@@ -80,12 +72,11 @@ export default {
                     },
                 });
 
-            const courses = enrollments.map(elem => elem.course);
+            const courses = enrollments;
 
             ctx.body = {
                 courses
             }
-
         }
         catch (error: any) {
             return ctx.internalServerError(error.message);
@@ -101,6 +92,7 @@ export default {
             console.log("completeLesson", user);
 
             const { lessonId } = ctx.params;
+            const { enrollmentId } = ctx.request.body;
 
             const lessson = await strapi.db
                 .query("api::lesson.lesson")
@@ -108,7 +100,6 @@ export default {
                     where: {
                         id: Number(lessonId)
                     },
-
                     populate: {
                         course: true,
                     },
@@ -118,17 +109,13 @@ export default {
                 .query("api::course-enrollment.course-enrollment")
                 .findOne({
                     where: {
-                        course: {
-                            id: lessson.course.id
-                        },
-
-                        student: {
-                            id: user.id
-                        }
+                        id: Number(enrollmentId)
                     },
-
-
                 });
+
+            if (!lessonId || !enrollmentId) {
+                throw new Error("Invalid lesson or enrollment")
+            }
 
             const completedLessons = enrollment.completedLessons ?? {};
 
@@ -138,19 +125,11 @@ export default {
                 .query("api::course-enrollment.course-enrollment")
                 .update({
                     where: {
-                        course: {
-                            id: lessson.course.id
-                        },
-
-                        student: {
-                            id: user.id
-                        }
+                        id: Number(enrollmentId)
                     },
-
                     data: {
                         completedLessons,
                     },
-
                 });
 
             ctx.body = {

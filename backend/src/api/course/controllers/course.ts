@@ -93,15 +93,11 @@ export default {
             console.log("createCourse");
             const user = ctx.state.user;
 
-
-
             if (!user || user.user_role === "student") {
                 return ctx.unauthorized("Unauthorized action.");
             }
 
-
-            const { title, description } = ctx.request.body;
-
+            const { title, description, price, category, coverImage } = ctx.request.body;
 
             if (!title) {
                 return ctx.badRequest("Title is required.");
@@ -115,10 +111,10 @@ export default {
                         title,
                         description,
                         instructor: user.id,
+                        price, category, coverImage,
                         published: today
                     },
                 });
-
 
             ctx.body = {
                 message: "Course created successfully.",

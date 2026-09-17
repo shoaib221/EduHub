@@ -1,5 +1,4 @@
 import CourseHeader from "@/components/course/CourseHeader";
-
 import { serverApi } from "@/lib/server-api";
 import { Course } from "@/types/course";
 import { notFound } from "next/navigation";
@@ -7,44 +6,39 @@ import Link from "next/link";
 import { CourseEnrollment } from "@/types/courseEnrollment";
 import ErrorProcessor from "@/lib/ErrorProcessor";
 
-
 interface PageProps {
     params: Promise<{
         id: string;
     }>;
 }
 
-
 export default async function DashboardPage({
     params,
 }: PageProps) {
 
-    const { id: courseId } = await params;
+    const { id: enrollmentId } = await params;
 
-    if (!courseId) {
+    if (!enrollmentId) {
         notFound();
     }
 
     let payload;
 
-
-
     try {
-        payload = await serverApi(`/enrolled-course/${courseId}`);
-
+        payload = await serverApi(`/enrolled-course/${enrollmentId}`);
     } catch (err) {
-        ErrorProcessor(err)
+        notFound();
     }
 
-    const { course, enrollment, totalLessons,
+    let { course, enrollment, totalLessons,
         completedLessons,
         progress,
-        lessons, totalQuizzes, quizAverage,
+        lessons, totalQuizzes, quizAverage = 0,
         quizzes } = payload
 
 
 
-    console.log(payload)
+    console.log(payload, quizAverage ?? 0)
 
 
 
@@ -54,11 +48,7 @@ export default async function DashboardPage({
                 course={payload?.course} progress={payload?.progress} quizAverage={quizAverage}
             />
 
-
             <div className="mb-8">
-
-
-
 
                 <div className="mt-4">
 
@@ -72,23 +62,15 @@ export default async function DashboardPage({
                         </span>
                     </div>
 
-
-
                 </div>
 
             </div>
-
-
 
             {/* Lessons */}
 
             <section>
 
-
-
-
                 <div className="space-y-3">
-
                     {
                         payload?.lessons?.map(
                             (lesson: any) => (
@@ -98,10 +80,7 @@ export default async function DashboardPage({
                                     className="flex justify-between border p-4 rounded"
                                 >
 
-
                                     {lesson.title}
-
-
 
                                     {
                                         lesson?.completed
@@ -114,7 +93,6 @@ export default async function DashboardPage({
                                                 Not completed
                                             </span>
                                     }
-
 
                                 </div>
 
@@ -146,7 +124,7 @@ export default async function DashboardPage({
 
                                 <div
                                     key={quiz.title}
-                                    className="border rounded p-4 flex justify-between"
+                                    className={`border rounded p-4 flex justify-between ${quiz.score >= 50 ? "border-green-700" : "border-red-700"}`}
                                 >
 
                                     <span>
@@ -154,7 +132,7 @@ export default async function DashboardPage({
                                     </span>
 
 
-                                    {quiz.score >= 0 && <span>{quiz.score}</span>}
+                                    {quiz.score >= 0 ? <span>{quiz.score}</span> : <span className="text-gray-400" >Not Attended</span>}
 
 
                                 </div>

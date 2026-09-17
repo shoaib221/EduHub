@@ -127,18 +127,18 @@ export default function UpdateLesson({ }: AddLessonProps) {
     if (loading) return <Loader2 />
 
     return (
-        <main className="mx-auto max-w-4xl p-8">
+        <main className="px-4 max-w-4xl p-8">
 
-            <h1 className="mb-8 text-4xl font-bold">
+            <h1 className="heading-1">
                 Edit Lesson
             </h1>
 
             <form
                 onSubmit={handleSubmit}
-                className="space-y-8"
+                className=""
             >
 
-                <section className="rounded-3xl bg-white p-8 shadow">
+                <section className="rounded-3xl bg-white p-2 shadow">
 
                     <div className="space-y-6">
 

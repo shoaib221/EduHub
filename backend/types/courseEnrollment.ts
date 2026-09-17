@@ -10,7 +10,7 @@ export interface CourseEnrollment {
     course?: Course;
     student?: User;
     quizResults?: object;
-    completedLessons?: object;
+    completedLessons?: Record<number, boolean>;
     payment?: Payment;
 }
 

@@ -1,3 +1,5 @@
+import { CourseEnrollment } from "../../../../types/courseEnrollment";
+import { Lesson } from "../../../../types/lesson";
 import { ErrorProcessor } from "../../../lib/ErrorProcessor";
 
 export default {
@@ -134,6 +136,45 @@ export default {
         }
     },
 
+
+    async getEnrolledLesson(ctx: any) {
+
+        try {
+
+            console.log("getLesson");
+            const user = ctx.state.user;
+
+            const { lessonId, enrollmentId } = ctx.params;
+
+            const lesson: any = await strapi.db
+                .query("api::lesson.lesson")
+                .findOne({
+                    where: {
+                        id: Number(lessonId)
+                    }
+                });
+
+            const enrollment: CourseEnrollment = await strapi.db.query("api::course-enrollment.course-enrollment")
+                .findOne({
+                    where: {
+                        id: Number(enrollmentId)
+                    }
+                })
+
+            if (!lesson || !enrollment || !enrollment.completedLessons) {
+                return ctx.notFound("Lesson not found.");
+            }
+
+            lesson["completed"] = enrollment.completedLessons[lesson.id]
+
+            ctx.body = {
+                lesson
+            };
+        }
+        catch (error: any) {
+            return ctx.internalServerError(error.message);
+        }
+    },
 
 
     async deleteLesson(ctx: any) {

@@ -68,7 +68,7 @@ export default function Page({ quiz, answers, optionSelect, onSubmit }: { quiz: 
                 <div className="flex flex-wrap items-center justify-between gap-4">
                     <button
                         onClick={onSubmit}
-                        className="flex items-center gap-2 rounded-xl bg-green-600 px-6 py-3 font-semibold text-white hover:bg-green-700"
+                        className="flex items-center gap-2 button-1"
                     >
                         <CheckCircle size={18} />
                         Submit Quiz

@@ -13,6 +13,7 @@ import {
     X,
 } from "lucide-react";
 import { Course } from "@/types/course";
+import { CourseEnrollment } from "@/types/courseEnrollment";
 
 interface CourseSidebarProps {
     courseId: string;
@@ -21,17 +22,14 @@ interface CourseSidebarProps {
 
 
 export default function CourseSidebar({
-    course
-}: { course: Course }) {
+    enrollment, course
+}: { enrollment: CourseEnrollment, course: Course }) {
     const pathname = usePathname();
-
     const [sidebarOpen, setSidebarOpen] = useState(true);
-
     const [lessonOpen, setLessonOpen] = useState(true);
-
     const [quizOpen, setQuizOpen] = useState(true);
-
     const isActive = (href: string) => pathname === href;
+
 
     return (
         <>
@@ -71,7 +69,7 @@ export default function CourseSidebar({
 
                     {/* Home */}
                     <Link
-                        href={`/enrolled-courses/${course.id}`}
+                        href={`/enrolled-courses/${enrollment.id}`}
                         className={`mb-3 flex items-center gap-3 rounded-xl px-4 py-3 transition ${isActive(`/course-analytics/${course.id}`)
                             ? "bg-blue-600 text-white"
                             : "text-slate-700 hover:bg-slate-100"
@@ -103,10 +101,10 @@ export default function CourseSidebar({
                     {lessonOpen && (
                         <div className="ml-6 mt-2 space-y-2">
 
-                            {course.lessons?.map((lesson) => {
+                            {course?.lessons?.map((lesson) => {
 
                                 const href =
-                                    `/enrolled-courses/${course.id}/lesson/${lesson.id}`;
+                                    `/enrolled-courses/${enrollment.id}/lesson/${lesson.id}`;
 
                                 return (
                                     <Link
@@ -147,10 +145,10 @@ export default function CourseSidebar({
                     {quizOpen && (
                         <div className="ml-6 mt-2 space-y-2">
 
-                            {course.quizzes?.map((quiz) => {
+                            {course?.quizzes?.map((quiz) => {
 
                                 const href =
-                                    `/enrolled-courses/${course.id}/quiz/${quiz.id}`;
+                                    `/enrolled-courses/${enrollment.id}/quiz/${quiz.id}`;
 
                                 return (
                                     <Link

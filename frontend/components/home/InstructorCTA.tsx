@@ -5,7 +5,7 @@ export default function InstructorCTA() {
     return (
         <section className="bg-slate-50 py-20">
             <div className="mx-auto max-w-7xl px-6">
-                <div className="overflow-hidden rounded-3xl bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-700">
+                <div className="overflow-hidden rounded-3xl bg-(--color3)">
                     <div className="grid items-center gap-12 p-10 md:p-16 lg:grid-cols-2">
                         {/* Left */}
                         <div className="text-white">
@@ -30,7 +30,7 @@ export default function InstructorCTA() {
                             <div className="mt-10 flex flex-col gap-4 sm:flex-row">
                                 <Link
                                     href="/register?role=instructor"
-                                    className="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-6 py-3 font-semibold text-blue-700 transition hover:bg-slate-100"
+                                    className="inline-flex items-center justify-center rounded-xl border border-white/30 px-6 py-3 font-semibold text-white transition hover:bg-white/10"
                                 >
                                     Start Teaching
                                     <ArrowRight size={18} />

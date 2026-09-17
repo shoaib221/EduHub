@@ -41,7 +41,7 @@ export default function Testimonials() {
         <section className="bg-slate-50 py-20">
             <div className="mx-auto max-w-7xl px-6">
                 <div className="mx-auto mb-14 max-w-3xl text-center">
-                    <span className="font-semibold text-blue-600">
+                    <span className="font-semibold text-(--color3)">
                         Testimonials
                     </span>
 
@@ -85,7 +85,7 @@ export default function Testimonials() {
                             </p>
 
                             <div className="mt-8 flex items-center gap-4">
-                                <div className="flex h-14 w-14 items-center justify-center rounded-full bg-blue-600 text-lg font-bold text-white">
+                                <div className="flex h-14 w-14 items-center justify-center rounded-full bg-(--color3) text-lg font-bold text-white">
                                     {testimonial.initials}
                                 </div>
 
@@ -98,7 +98,7 @@ export default function Testimonials() {
                                         {testimonial.role}
                                     </p>
 
-                                    <p className="text-sm text-blue-600">
+                                    <p className="text-sm text-(--color3)">
                                         {testimonial.company}
                                     </p>
                                 </div>
@@ -107,35 +107,6 @@ export default function Testimonials() {
                     ))}
                 </div>
 
-                <div className="mt-16 grid grid-cols-2 gap-8 rounded-3xl bg-blue-600 px-8 py-12 text-center text-white md:grid-cols-4">
-                    <div>
-                        <h3 className="text-4xl font-bold">4.9/5</h3>
-                        <p className="mt-2 text-blue-100">
-                            Average Rating
-                        </p>
-                    </div>
-
-                    <div>
-                        <h3 className="text-4xl font-bold">50K+</h3>
-                        <p className="mt-2 text-blue-100">
-                            Happy Students
-                        </p>
-                    </div>
-
-                    <div>
-                        <h3 className="text-4xl font-bold">98%</h3>
-                        <p className="mt-2 text-blue-100">
-                            Satisfaction Rate
-                        </p>
-                    </div>
-
-                    <div>
-                        <h3 className="text-4xl font-bold">500+</h3>
-                        <p className="mt-2 text-blue-100">
-                            Courses Available
-                        </p>
-                    </div>
-                </div>
             </div>
         </section>
     );

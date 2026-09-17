@@ -14,7 +14,7 @@ export default {
         },
         {
             method: "GET",
-            path: "/enrolled-course/:courseId",
+            path: "/enrolled-course/:enrollmentId",
             handler: "course-enrollment.getEnrolledCourse",
             config: {
                 auth: false,
@@ -24,7 +24,7 @@ export default {
             },
         },
         {
-            method: "GET",
+            method: "POST",
             path: "/complete-lesson/:lessonId",
             handler: "course-enrollment.completeLesson",
             config: {

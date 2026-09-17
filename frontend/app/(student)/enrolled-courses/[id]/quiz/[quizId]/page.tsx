@@ -3,9 +3,6 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import {
-    ArrowLeft,
-    ArrowRight,
-    CheckCircle,
     Clock,
     HelpCircle,
     Loader,
@@ -21,7 +18,7 @@ import QuizQuestion from "@/components/quiz/quizQuestion";
 
 export default function QuizPage() {
     const router = useRouter();
-    const { id: courseId, quizId } = useParams();
+    const { id: enrollmentId, quizId } = useParams();
     const [answers, setAnswers] = useState<Record<number, number>>({});
     const [quiz, setQuiz] = useState<Quiz | null>(null);
     const [quizResult, setQuizResult] = useState<QuizResult | null>(null);
@@ -41,7 +38,7 @@ export default function QuizPage() {
 
         async function FetchQuizResult() {
             try {
-                const response = await api.get(`/quiz-result/${quizId}`)
+                const response = await api.get(`/quiz-result/enrollment/${enrollmentId}/quiz/${quizId}`);
                 if (response.data.result) {
                     console.log(response.data.result)
                     setQuizResult(response.data.result)
@@ -74,7 +71,7 @@ export default function QuizPage() {
 
     async function handleSubmit() {
         try {
-            const response = await api.post(`/quiz-test/${quiz?.id}`, {
+            const response = await api.post(`/quiz-test/enrollment/${enrollmentId}/quiz/${quizId}`, {
                 answers
             });
             console.log("quiz submitted successfully")

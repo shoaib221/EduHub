@@ -11,7 +11,7 @@ export default function ContactPage() {
         <main className="min-h-screen bg-slate-50">
 
             {/* Hero */}
-            <section className="bg-gradient-to-r from-blue-600 to-indigo-700 py-20">
+            <section className="bg-(--color3) py-20">
 
                 <div className="mx-auto max-w-7xl px-6 text-center">
 
@@ -37,7 +37,7 @@ export default function ContactPage() {
 
                     <div className="rounded-2xl bg-white p-6 shadow-sm">
 
-                        <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-100 text-blue-600">
+                        <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-(--color31) text-(--color3)">
                             <Mail />
                         </div>
 
@@ -55,7 +55,7 @@ export default function ContactPage() {
 
                     <div className="rounded-2xl bg-white p-6 shadow-sm">
 
-                        <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-100 text-blue-600">
+                        <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-(--color31) text-(--color3)">
                             <Phone />
                         </div>
 
@@ -73,7 +73,7 @@ export default function ContactPage() {
 
                     <div className="rounded-2xl bg-white p-6 shadow-sm">
 
-                        <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-100 text-blue-600">
+                        <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-(--color31) text-(--color3)">
                             <MapPin />
                         </div>
 
@@ -94,7 +94,7 @@ export default function ContactPage() {
                 {/* Contact Form */}
                 <div className="rounded-3xl bg-white p-8 shadow-sm lg:col-span-2">
 
-                    <h2 className="text-3xl font-bold text-slate-900">
+                    <h2 className="heading-2">
                         Send Us a Message
                     </h2>
 
@@ -143,7 +143,7 @@ export default function ContactPage() {
 
                         <button
                             type="submit"
-                            className="rounded-xl bg-blue-600 px-8 py-3 font-semibold text-white transition hover:bg-blue-700"
+                            className="button-1"
                         >
                             Send Message
                         </button>

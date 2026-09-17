@@ -221,7 +221,7 @@ export default function ProfilePage() {
                                     <button
                                         type="button"
                                         onClick={() => setIsEditing(true)}
-                                        className="rounded-xl bg-blue-600 px-5 py-2.5 font-semibold text-white hover:bg-blue-700"
+                                        className="button-2"
                                     >
                                         Edit Profile
                                     </button>
@@ -420,7 +420,7 @@ export default function ProfilePage() {
                                         type="button"
                                         onClick={handleCancel}
                                         disabled={loading}
-                                        className="flex items-center gap-2 rounded-xl border border-slate-300 px-5 py-3 font-semibold text-slate-700 hover:bg-slate-50"
+                                        className="flex items-center gap-2 button-2"
                                     >
                                         <X size={18} />
                                         Cancel
@@ -430,7 +430,7 @@ export default function ProfilePage() {
                                     <button
                                         type="submit"
                                         disabled={loading}
-                                        className="flex items-center gap-2 rounded-xl bg-blue-600 px-5 py-3 font-semibold text-white hover:bg-blue-700 disabled:opacity-50"
+                                        className="flex items-center gap-2 button-1"
                                     >
                                         <Save size={18} />
 
@@ -449,7 +449,7 @@ export default function ProfilePage() {
 
                     <button
                         onClick={logout}
-                        className="rounded-xl bg-blue-600 px-5 py-2.5 font-semibold text-white hover:bg-blue-700"
+                        className="button-2"
                     >
                         Logout
                     </button>

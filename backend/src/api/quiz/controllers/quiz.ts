@@ -9,7 +9,7 @@ export default {
             console.log("");
 
             const user = ctx.state.user;
-            const { quizId } = ctx.params;
+            const { quizId, enrollmentId } = ctx.params;
 
 
             const quiz = await strapi.db
@@ -27,12 +27,7 @@ export default {
             const enrollment = await strapi.db.query("api::course-enrollment.course-enrollment")
                 .findOne({
                     where: {
-                        course: {
-                            id: quiz.course.id
-                        },
-                        student: {
-                            id: user.id
-                        }
+                        id: Number(enrollmentId)
                     }
                 })
 
@@ -55,7 +50,7 @@ export default {
             console.log("submit quiz test");
 
             const user = ctx.state.user;
-            const { quizId } = ctx.params;
+            const { quizId, enrollmentId } = ctx.params;
             const { answers } = ctx.request.body;
 
             const quiz = await strapi.db
@@ -73,12 +68,7 @@ export default {
             const enrollment = await strapi.db.query("api::course-enrollment.course-enrollment")
                 .findOne({
                     where: {
-                        course: {
-                            id: quiz.course.id
-                        },
-                        student: {
-                            id: user.id
-                        }
+                        id: Number(enrollmentId)
                     }
                 })
 
@@ -99,12 +89,7 @@ export default {
             await strapi.db.query("api::course-enrollment.course-enrollment")
                 .update({
                     where: {
-                        course: {
-                            id: quiz.course.id
-                        },
-                        student: {
-                            id: user.id
-                        }
+                        id: Number(enrollmentId)
                     },
                     data: {
                         quizResults

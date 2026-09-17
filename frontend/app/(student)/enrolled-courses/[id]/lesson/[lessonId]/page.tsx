@@ -35,14 +35,14 @@ export default function LessonPage({
     params, searchParams
 }: PageProps) {
 
-    const { id: courseId, lessonId } = useParams();
+    const { id: enrollmentId, lessonId } = useParams();
     const [lesson, setLesson] = useState<Lesson | null>(null)
 
 
 
     async function fetchLesson() {
         try {
-            const response = await api.get(`/lesson/${lessonId}`);
+            const response = await api.get(`/enrollment/${enrollmentId}/lesson/${lessonId}`);
             setLesson(response.data.lesson)
         } catch (err) {
             ErrorProcessor(err);
@@ -56,7 +56,7 @@ export default function LessonPage({
 
     async function MarkComplete() {
         try {
-            await api.get(`/complete-lesson/${lessonId}`)
+            await api.post(`/complete-lesson/${lessonId}`, { enrollmentId })
             alert("lesson completed");
         } catch (err) {
             ErrorProcessor(err)
@@ -217,15 +217,24 @@ export default function LessonPage({
                         Previous Lesson
                     </Link> */}
 
-                    <button
+                    {(lesson as any)?.completed ? <button
                         onClick={MarkComplete}
-                        className="flex items-center gap-2 rounded-xl bg-green-600 px-6 py-3 font-semibold text-white hover:bg-green-700">
+                        className="flex items-center gap-2 rounded-xl bg-green-600 px-6 py-3 font-semibold text-white">
+
+                        <CheckCircle size={18} />
+
+                        Completed
+
+                    </button> : <button
+                        onClick={MarkComplete}
+                        className="flex items-center gap-2 button-1">
 
                         <CheckCircle size={18} />
 
                         Mark as Completed
 
-                    </button>
+                    </button>}
+
 
                     {/* <Link
                         href={`/enrolled-courses/${id}/lesson/${Number(

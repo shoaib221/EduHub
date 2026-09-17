@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { Menu, Search, User } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
+import Logo from "./Logo";
+
 
 export default function Navbar() {
     const { user } = useAuth()
@@ -12,39 +14,34 @@ export default function Navbar() {
         <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/80 backdrop-blur">
             <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 lg:px-8">
                 {/* Logo */}
-                <Link
-                    href="/"
-                    className="text-2xl font-bold tracking-tight text-blue-600"
-                >
-                    LMS
-                </Link>
+                <Logo />
 
                 {/* Desktop Navigation */}
                 <nav className="hidden items-center gap-8 md:flex">
                     <Link
                         href="/courses"
-                        className="text-sm font-medium text-slate-700 transition hover:text-blue-600"
+                        className="text-sm font-medium text-slate-700 transition hover:text-(--color3)"
                     >
                         Courses
                     </Link>
 
                     {user && <Link
                         href="/dashboard"
-                        className="text-sm font-medium text-slate-700 transition hover:text-blue-600"
+                        className="text-sm font-medium text-slate-700 transition hover:text-(--color3)"
                     >
                         Dashboard
                     </Link>}
 
                     <Link
                         href="/about"
-                        className="text-sm font-medium text-slate-700 transition hover:text-blue-600"
+                        className="text-sm font-medium text-slate-700 transition hover:text-(--color3)"
                     >
                         About
                     </Link>
 
                     <Link
                         href="/contact"
-                        className="text-sm font-medium text-slate-700 transition hover:text-blue-600"
+                        className="text-sm font-medium text-slate-700 transition hover:text-(--color3)"
                     >
                         Contact
                     </Link>

@@ -14,12 +14,6 @@
     "provider": {
       "type": "string"
     },
-    "sessionId": {
-      "type": "string"
-    },
-    "transactionId": {
-      "type": "string"
-    },
     "paidAmount": {
       "type": "decimal"
     },
@@ -37,6 +31,14 @@
       "relation": "oneToOne",
       "target": "api::course-enrollment.course-enrollment",
       "mappedBy": "payment"
+    },
+    "sessionId": {
+      "type": "string",
+      "unique": true
+    },
+    "transactionId": {
+      "type": "string",
+      "unique": true
     }
   }
 }

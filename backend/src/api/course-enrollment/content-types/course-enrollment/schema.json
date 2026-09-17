@@ -37,6 +37,10 @@
     },
     "completed": {
       "type": "boolean"
+    },
+    "transactionId": {
+      "type": "string",
+      "unique": true
     }
   }
 }

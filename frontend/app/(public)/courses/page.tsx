@@ -10,7 +10,7 @@ export default function CoursesPage() {
     return (
         <main className="min-h-screen bg-slate-50">
             {/* Hero */}
-            <section className="bg-gradient-to-r from-blue-600 to-indigo-700 py-20">
+            <section className="bg-(--color3) py-20">
                 <div className="mx-auto max-w-7xl px-6 text-center">
                     <h1 className="text-5xl font-bold text-white">
                         Explore Courses

@@ -58,7 +58,7 @@ export default {
         },
         {
             method: "POST",
-            path: "/quiz-test/:quizId",
+            path: "/quiz-test/enrollment/:enrollmentId/quiz/:quizId",
             handler: "quiz.submitQuizTest",
             config: {
                 auth: false,
@@ -70,7 +70,7 @@ export default {
         },
         {
             method: "GET",
-            path: "/quiz-result/:quizId",
+            path: "/quiz-result/enrollment/:enrollmentId/quiz/:quizId",
             handler: "quiz.getQuizResult",
             config: {
                 auth: false,

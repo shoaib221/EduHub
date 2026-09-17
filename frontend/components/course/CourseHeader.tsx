@@ -10,9 +10,9 @@ import { Course } from "@/types/course";
 
 export default function CourseHeader({
     course, progress, quizAverage
-}: { course: Course, progress: any, quizAverage: any }) {
+}: { course: Course, progress: number, quizAverage: number }) {
 
-
+    console.log(quizAverage, "Course Header")
 
     return (
         <section className="overflow-hidden rounded-3xl bg-white shadow">
