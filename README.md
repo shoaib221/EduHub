@@ -211,17 +211,12 @@ Live at: https://eduhub-production-dbbd.up.railway.app/api
 
 ---
 
-# Future Improvements
+# Target problems
 
-- Course Certificates
-- Progress Tracking Dashboard
-- Assignment Submission
-- Live Classes
-- Payment Integration
-- Course Reviews & Ratings
-- Search & Filters
-- Discussion Forum
-- Admin Analytics Dashboard
+- Learning Strapi
+- Vibe Coding
+- Quiz 
+- Blog 
 
 ---
 
