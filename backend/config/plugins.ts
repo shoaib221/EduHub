@@ -26,9 +26,10 @@ const config = ({ env }: Core.Config.Shared.ConfigParams): Core.Config.Plugin =>
 	'users-permissions': {
 		config: {
 			jwtManagement: 'legacy',
+			jwtSecret: env("JWT_SECRET"),
 			jwt: {
 				expiresIn: "7d",
-				secret: env("JWT_SECRET"),
+
 			},
 		},
 	},
