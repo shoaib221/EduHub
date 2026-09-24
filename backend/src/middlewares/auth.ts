@@ -12,12 +12,14 @@ export default (config: any, { strapi }: any) => {
         try {
             let token = GetHttpCookie(ctx, "jwtAuthToken");
 
-            console.log("jwtAuthToken", token);
+            if (!token) {
+                throw new Error("jwtAuthToken token missing");
+            }
 
             let userPayload = await JwtTokenValidate(strapi, token)
 
             if (!userPayload) {
-                throw new Error("Authentication token missing");
+                throw new Error("Token validation failed");
             }
 
             // console.log("payload", payload)
