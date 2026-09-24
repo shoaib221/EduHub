@@ -1,4 +1,4 @@
-# LMS - Learning Management System
+# EduHub - An Online School
 
 A modern Learning Management System (LMS) built with **Next.js**, **Strapi CMS**, and **PostgreSQL**. The platform enables instructors to create and manage courses while allowing students to enroll, learn through lessons, and take quizzes.
 
@@ -202,7 +202,7 @@ Live at: https://lms-delta-cyan.vercel.app/
 
 ## Backend
 **Railway**.
-Live at: https://lms-production-bdc2.up.railway.app/api
+Live at: https://eduhub-production-dbbd.up.railway.app/api
 
 
 ## Database
@@ -211,17 +211,12 @@ Live at: https://lms-production-bdc2.up.railway.app/api
 
 ---
 
-# Future Improvements
+# Target problems
 
-- Course Certificates
-- Progress Tracking Dashboard
-- Assignment Submission
-- Live Classes
-- Payment Integration
-- Course Reviews & Ratings
-- Search & Filters
-- Discussion Forum
-- Admin Analytics Dashboard
+- Learning Strapi
+- Vibe Coding
+- Quiz 
+- Blog 
 
 ---
 
