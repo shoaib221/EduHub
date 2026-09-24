@@ -1,10 +1,11 @@
 
 
-export function SetHttpCookie(ctx: any, age: number, key: string, value: string | null,) {
-    const isSecure = ctx.secure || ctx.headers["x-forwarded-proto"] === "https";
+export function SetHttpCookie(ctx: any, ageDays: number, key: string, value: string | null,) {
+    const isSecure = ctx.secure;
+    console.log("SetHttpCookie isSecure", isSecure);
     ctx.cookies.set(key, value, {
         httpOnly: true,
-        maxAge: age * 24 * 60 * 60 * 1000,
+        maxAge: ageDays * 24 * 60 * 60 * 1000,
         sameSite: "lax",
         secure: isSecure,
     });

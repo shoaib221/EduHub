@@ -185,6 +185,8 @@ export default {
             origin: ctx.request.origin ?? "missing",
             socketEncrypted: !!(ctx.socket.encrypted ?? false),
             proxy: strapi.config.get("server.proxy"),
+            strapi_server_proxy: strapi.server.app.proxy,
+            PUBLIC_URL: envVariables.publicUrl,
             headers: {
                 "x-forwarded-proto": ctx.headers["x-forwarded-proto"],
                 "x-forwarded-host": ctx.headers["x-forwarded-host"],
