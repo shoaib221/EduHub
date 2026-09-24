@@ -111,6 +111,8 @@ export default {
                 username: user.username
             })
 
+            console.log("jwtAuthToken", jwtToken);
+
             SetHttpCookie(ctx, 7, "jwtAuthToken", jwtToken)
 
             ctx.body = {

@@ -12,6 +12,8 @@ export default (config: any, { strapi }: any) => {
         try {
             let token = GetHttpCookie(ctx, "jwtAuthToken");
 
+            console.log("jwtAuthToken", token);
+
             let userPayload = await JwtTokenValidate(strapi, token)
 
             if (!userPayload) {

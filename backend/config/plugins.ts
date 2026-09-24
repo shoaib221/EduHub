@@ -28,6 +28,7 @@ const config = ({ env }: Core.Config.Shared.ConfigParams): Core.Config.Plugin =>
 			jwtManagement: 'legacy',
 			jwt: {
 				expiresIn: "7d",
+				secret: env("JWT_SECRET"),
 			},
 		},
 	},
