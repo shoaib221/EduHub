@@ -176,6 +176,7 @@ export default {
     },
 
     async home(ctx: any) {
+        console.log(strapi.config.get("server"));
 
         const network = {
             protocol: ctx.protocol ?? "missing",
@@ -185,7 +186,7 @@ export default {
             origin: ctx.request.origin ?? "missing",
             socketEncrypted: !!(ctx.socket.encrypted ?? false),
             proxy: strapi.config.get("server.proxy"),
-            strapi_server_proxy: strapi.server.app.proxy,
+            koa_proxy: strapi.server.app.proxy,
             PUBLIC_URL: envVariables.publicUrl,
             headers: {
                 "x-forwarded-proto": ctx.headers["x-forwarded-proto"],

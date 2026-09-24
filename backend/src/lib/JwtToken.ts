@@ -1,11 +1,10 @@
 
 
-export async function JwtTokenGenerate(strapi: any, payload: object) {
-    const jwtToken =
-        await strapi
-            .plugin("users-permissions")
-            .service("jwt")
-            .issue(payload);
+export async function JwtTokenGenerate(strapi: any, payload: any) {
+    const jwtToken = await strapi.plugin("users-permissions")
+        .service("jwt")
+        .issue(payload);
+
     return jwtToken;
 }
 
