@@ -49,15 +49,15 @@ export default function QuestionCreator({
         <div className="space-y-6 rounded-2xl bg-white p-6 shadow">
 
             <div>
-                <label className="mb-2 block font-semibold">
-                    Statement
+                <label className="font-semibold">
+                    Question Statement
                 </label>
 
                 <textarea
                     value={formData.statement}
                     onChange={(e) => setFormData({ ...formData, statement: e.target.value })}
                     rows={3}
-                    className="w-full rounded-xl border p-3"
+                    className="input-1"
                     placeholder="Enter question..."
                 />
             </div>
@@ -91,7 +91,7 @@ export default function QuestionCreator({
                             onChange={(e) =>
                                 setFormData({ ...formData, options: formData.options.map((o, i) => i === index ? e.target.value : o) })
                             }
-                            className="flex-1 rounded-xl border p-3"
+                            className="input-1"
                             placeholder={`Option ${index + 1}`}
                         />
                     </div>
@@ -105,7 +105,7 @@ export default function QuestionCreator({
                 </div>
             )}
 
-            <button onClick={CreateQuestion} className="flex w-full items-center justify-center gap-3 rounded-xl bg-blue-600 px-8 py-4 font-semibold text-white hover:bg-blue-700">
+            <button onClick={CreateQuestion} className="button-1">
                 Create Question
             </button>
 

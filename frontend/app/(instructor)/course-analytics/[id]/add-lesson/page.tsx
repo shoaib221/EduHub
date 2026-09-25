@@ -83,20 +83,20 @@ export default function AddLesson({ }: AddLessonProps) {
     }
 
     return (
-        <main className="mx-auto max-w-4xl p-8">
+        <main className="max-w-4xl p-8">
 
-            <h1 className="mb-8 text-4xl font-bold">
-                Add Lesson
+            <h1 className="heading-1">
+                Create New Lesson
             </h1>
 
             <form
                 onSubmit={handleSubmit}
-                className="space-y-8"
+                className=""
             >
 
-                <section className="rounded-3xl bg-white p-8 shadow">
+                <section className="rounded-3xl bg-white space-y-4 shadow">
 
-                    <div className="space-y-6">
+                    <div className="">
 
                         {/* title */}
                         <div>
@@ -105,7 +105,7 @@ export default function AddLesson({ }: AddLessonProps) {
                                 Lesson Title
                             </label>
 
-                            <div className="flex items-center rounded-xl border px-4">
+                            <div className="flex items-center rounded-xl gap-2">
 
                                 <BookOpen
                                     size={18}
@@ -118,13 +118,15 @@ export default function AddLesson({ }: AddLessonProps) {
                                     value={formData.title}
                                     onChange={handleChange}
                                     placeholder="Introduction"
-                                    className="w-full p-4 outline-none"
+                                    className="input-1"
                                     required
                                 />
 
                             </div>
 
                         </div>
+
+                        <br />
 
                         {/* Content */}
                         <div>
@@ -142,16 +144,16 @@ export default function AddLesson({ }: AddLessonProps) {
                             />
 
                         </div>
-
+                        <br />
 
                         {/* Video URL */}
                         <div>
 
-                            <label className="mb-2 block font-medium">
+                            <label className="">
                                 Video URL
                             </label>
 
-                            <div className="flex items-center rounded-xl border px-4">
+                            <div className="flex items-center rounded-xl gap-2">
 
                                 <Video
                                     size={18}
@@ -164,7 +166,7 @@ export default function AddLesson({ }: AddLessonProps) {
                                     value={formData.videoURL}
                                     onChange={handleChange}
                                     placeholder="https://..."
-                                    className="w-full p-4 outline-none"
+                                    className="input-1"
                                 />
 
                             </div>
@@ -241,30 +243,32 @@ export default function AddLesson({ }: AddLessonProps) {
                     </div>
                 )}
 
-                <div className="flex justify-end">
+                <br />
 
-                    <button
-                        type="submit"
-                        disabled={loading}
-                        className="flex items-center gap-3 rounded-xl bg-blue-600 px-8 py-4 font-semibold text-white hover:bg-blue-700 disabled:opacity-60"
-                    >
-                        {loading ? (
-                            <>
-                                <Loader2
-                                    size={18}
-                                    className="animate-spin"
-                                />
-                                Saving...
-                            </>
-                        ) : (
-                            <>
-                                <Save size={18} />
-                                Add Lesson
-                            </>
-                        )}
-                    </button>
 
-                </div>
+
+                <button
+                    type="submit"
+                    disabled={loading}
+                    className="button-1 flex gap-2 items-center"
+                >
+                    {loading ? (
+                        <>
+                            <Loader2
+                                size={18}
+                                className="animate-spin"
+                            />
+                            Saving...
+                        </>
+                    ) : (
+                        <>
+                            <Save size={18} />
+                            Create
+                        </>
+                    )}
+                </button>
+
+
 
             </form>
 

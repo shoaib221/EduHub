@@ -10,9 +10,8 @@ export default function Page({
 }: { quiz: Quiz, quizResult: QuizResult }) {
 
     const totalQuestions = quiz.questions?.length ?? 1;
-    const percentage = Math.round(
-        (quizResult.score / Number(totalQuestions)) * 100
-    );
+    const percentage = quizResult.score;
+
 
     const passed = percentage >= 50;
 
@@ -27,125 +26,128 @@ export default function Page({
                     : "bg-red-50"
                     }`}
             >
-                <h1 className="text-3xl font-bold">
+
+                <h1 className="heading-1 text-center">
                     Quiz Result
                 </h1>
 
+                <br />
 
-                <p
-                    className={`mt-3 text-xl font-semibold ${passed
-                        ? "text-green-600"
-                        : "text-red-600"
-                        }`}
-                >
-                    {passed ? "Passed" : "Failed"}
-                </p>
-
-
-                <div className="mt-4 text-4xl font-bold">
-                    {percentage}%
+                <div className="heading-2" >
+                    Title
                 </div>
 
-
-                <p className="mt-2 text-slate-600">
-                    {quizResult.score} out of {totalQuestions} correct
+                <p className={`font-bold ${passed
+                    ? "text-green-600"
+                    : "text-red-600"
+                    }`}
+                >
+                    {passed ? "Passed" : "Failed"} with {percentage} % marks
                 </p>
-            </div>
+
+            </div >
 
 
 
             {/* Questions */}
-            <div className="space-y-4">
+            < div className="space-y-4" >
 
-                {quiz.questions?.map(
-                    (question, index) => {
+                {
+                    quiz.questions?.map(
+                        (question, index) => {
 
-                        const correct =
-                            quizResult.answers[question.id!] ===
-                            question.correctAnswer;
-
-
-                        return (
-                            <div
-                                key={question.id}
-                                className="rounded-2xl bg-white p-5 shadow-sm"
-                            >
-
-                                <div className="flex justify-between">
-                                    <h2 className="font-semibold">
-                                        {index + 1}. {question.statement}
-                                    </h2>
+                            const correct =
+                                quizResult.answers[question.id!] ===
+                                question.correctAnswer;
 
 
-                                    <span
-                                        className={
-                                            correct
-                                                ? "text-green-600"
-                                                : "text-red-600"
-                                        }
-                                    >
-                                        {correct
-                                            ? "Correct"
-                                            : "Wrong"}
-                                    </span>
+                            return (
+                                <div
+                                    key={question.id}
+                                    className="rounded-2xl bg-white p-5 shadow-sm"
+                                >
 
-                                </div>
+                                    <div className="flex justify-between gap-2">
 
+                                        <h2 className="font-semibold">
+                                            Q {index + 1}.
+                                        </h2>
 
-
-                                <div className="mt-4 space-y-2">
-
-                                    {question.options.map(
-                                        (option, optionIndex) => {
-
-                                            const isSelected = optionIndex === quizResult.answers[question.id!];
-
-                                            const isCorrect = optionIndex === question.correctAnswer;
+                                        <div className="grow" >
+                                            {question.statement}
+                                        </div>
 
 
-                                            return (
-                                                <div
-                                                    key={optionIndex}
-                                                    className={`
+                                        <span
+                                            className={
+                                                correct
+                                                    ? "text-green-600"
+                                                    : "text-red-600"
+                                            }
+                                        >
+                                            {correct
+                                                ? "Correct"
+                                                : "Wrong"}
+                                        </span>
+
+                                    </div>
+
+
+
+                                    <div className="mt-4 space-y-2">
+
+                                        {question.options.map(
+                                            (option, optionIndex) => {
+
+                                                const isSelected = optionIndex === quizResult.answers[question.id!];
+
+                                                const isCorrect = optionIndex === question.correctAnswer;
+
+
+                                                return (
+                                                    <div
+                                                        key={optionIndex}
+                                                        className={`
                                                         rounded-lg border p-2
                                                         ${isCorrect
-                                                            ? "border-green-600 bg-green-50"
-                                                            : isSelected ? "border-red-600" : "border-slate-200"
-                                                        }
+                                                                ? "border-green-600 bg-green-50"
+                                                                : isSelected ? "border-red-600" : "border-slate-200"
+                                                            }
                                                     `}
-                                                >
+                                                    >
 
 
-                                                    <div className="flex items-center gap-2">
+                                                        <div className="flex items-center gap-2">
 
-                                                        <span>
-                                                            {String.fromCharCode(
-                                                                65 + optionIndex
-                                                            )}.
-                                                        </span>
+                                                            <span>
+                                                                {String.fromCharCode(
+                                                                    65 + optionIndex
+                                                                )}.
+                                                            </span>
 
-                                                        <span>
-                                                            {option}
-                                                        </span>
+                                                            <span>
+                                                                {option}
+                                                            </span>
+
+                                                        </div>
+
+
 
                                                     </div>
+                                                );
+                                            }
+                                        )}
 
-
-
-                                                </div>
-                                            );
-                                        }
-                                    )}
+                                    </div>
 
                                 </div>
+                            );
+                        }
+                    )
+                }
 
-                            </div>
-                        );
-                    }
-                )}
+            </div >
 
-            </div>
-
-        </div>
+        </div >
     );
 }

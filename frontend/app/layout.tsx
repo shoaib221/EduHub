@@ -4,6 +4,7 @@ import "./globals.css";
 import "@/styles/button.css"
 import "@/styles/header.css"
 import "@/styles/card.css"
+import "@/styles/input.css"
 
 
 import type { Metadata } from "next";

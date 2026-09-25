@@ -89,7 +89,7 @@ export default function QuizPage() {
         <div className="mx-auto max-w-5xl space-y-8">
 
             {/* Header */}
-            <section className="rounded-3xl bg-white p-8 shadow-sm">
+            {/* <section className="rounded-3xl bg-white p-8 shadow-sm">
 
                 <div className="flex flex-wrap items-center justify-between gap-6">
 
@@ -116,13 +116,13 @@ export default function QuizPage() {
 
                         <Clock size={18} />
 
-                        {/* {quiz.duration} Minutes */}
+
 
                     </div>
 
                 </div>
 
-            </section>
+            </section> */}
 
             {/* Questions */}
             {

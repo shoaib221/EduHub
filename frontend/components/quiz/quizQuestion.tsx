@@ -9,6 +9,24 @@ export default function Page({ quiz, answers, optionSelect, onSubmit }: { quiz: 
 
     return (
         <>
+
+            {/* Summary */}
+            <div
+                className={`rounded-2xl p-6 text-center shadow-sm`}
+            >
+
+                <h1 className="heading-1 text-center">
+                    Quiz Test
+                </h1>
+
+                <br />
+
+                <div className="heading-2" >
+                    Title
+                </div>
+
+            </div >
+
             <div className="space-y-8">
 
                 {quiz.questions?.map((question, questionIndex) => (
@@ -71,7 +89,7 @@ export default function Page({ quiz, answers, optionSelect, onSubmit }: { quiz: 
                         className="flex items-center gap-2 button-1"
                     >
                         <CheckCircle size={18} />
-                        Submit Quiz
+                        Submit Answers
                     </button>
                 </div>
             </section>

@@ -74,31 +74,13 @@ export default function LessonPage({
 
                 <div className="flex flex-wrap items-center gap-4">
 
-                    <div className="rounded-xl bg-blue-100 p-3 text-blue-600">
+                    <div className="bg-yellow-100 p-2 text-(--color3)">
                         <BookOpen size={28} />
                     </div>
 
-                    <div>
-
-                        <h1 className="text-3xl font-bold text-slate-900">
-                            {lesson.title}
-                        </h1>
-
-                        <div className="mt-2 flex items-center gap-6 text-sm text-slate-500">
-
-                            <span className="flex items-center gap-2">
-                                <Clock size={16} />
-                                {/* {lesson.duration} */}
-                            </span>
-
-                            <span>
-                                {/* Lesson #{lesson.id} */}
-                            </span>
-
-                        </div>
-
-                    </div>
-
+                    <h1 className="heading-1">
+                        {lesson.title}
+                    </h1>
                 </div>
 
             </section>
@@ -143,10 +125,10 @@ export default function LessonPage({
 
                 <div className="flex items-center gap-3">
 
-                    <FileText className="text-blue-600" />
+                    <FileText className="text-(--color3) rounded-lg" />
 
-                    <h2 className="text-2xl font-semibold">
-                        Lesson Notes
+                    <h2 className="heading-2">
+                        Notes
                     </h2>
 
                 </div>

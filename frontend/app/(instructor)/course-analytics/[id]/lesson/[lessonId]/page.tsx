@@ -149,7 +149,7 @@ export default function UpdateLesson({ }: AddLessonProps) {
                                 Lesson Title
                             </label>
 
-                            <div className="flex items-center rounded-xl border px-4">
+                            <div className="flex items-center rounded-xl gap-2">
 
                                 <BookOpen
                                     size={18}
@@ -162,7 +162,7 @@ export default function UpdateLesson({ }: AddLessonProps) {
                                     value={formData.title}
                                     onChange={handleChange}
                                     placeholder="Introduction"
-                                    className="w-full p-4 outline-none"
+                                    className="input-1"
                                     required
                                 />
 
@@ -194,7 +194,7 @@ export default function UpdateLesson({ }: AddLessonProps) {
                                 Video URL
                             </label>
 
-                            <div className="flex items-center rounded-xl border px-4">
+                            <div className="flex items-center rounded-xl gap-2">
 
                                 <Video
                                     size={18}
@@ -207,72 +207,13 @@ export default function UpdateLesson({ }: AddLessonProps) {
                                     value={formData.videoURL}
                                     onChange={handleChange}
                                     placeholder="https://..."
-                                    className="w-full p-4 outline-none"
+                                    className="input-1"
                                 />
 
                             </div>
 
                         </div>
 
-                        {/* <div>
-
-                            <label className="mb-2 block font-medium">
-                                Duration
-                            </label>
-
-                            <div className="flex items-center rounded-xl border px-4">
-
-                                <Clock
-                                    size={18}
-                                    className="text-slate-400"
-                                />
-
-                                <input
-                                    type="text"
-                                    name="duration"
-                                    value={formData.duration}
-                                    onChange={handleChange}
-                                    placeholder="18 minutes"
-                                    className="w-full p-4 outline-none"
-                                />
-
-                            </div>
-
-                        </div>
-
-                        <div>
-
-                            <label className="mb-2 block font-medium">
-                                Lesson Notes
-                            </label>
-
-                            <div className="rounded-xl border">
-
-                                <div className="flex items-center gap-2 border-b px-4 py-3">
-
-                                    <FileText
-                                        size={18}
-                                        className="text-slate-400"
-                                    />
-
-                                    <span className="font-medium">
-                                        Notes
-                                    </span>
-
-                                </div>
-
-                                <textarea
-                                    rows={10}
-                                    name="notes"
-                                    value={formData.notes}
-                                    onChange={handleChange}
-                                    placeholder="Write lesson notes..."
-                                    className="w-full resize-none p-4 outline-none"
-                                />
-
-                            </div>
-
-                        </div> */}
 
                     </div>
 
@@ -284,25 +225,27 @@ export default function UpdateLesson({ }: AddLessonProps) {
                     </div>
                 )}
 
-                <div className="flex justify-end">
+                <br />
+
+                <div className="flex gap-4">
 
                     <button
                         type="submit"
                         disabled={loading}
-                        className="flex items-center gap-3 rounded-xl bg-blue-600 px-8 py-4 font-semibold text-white hover:bg-blue-700 disabled:opacity-60"
+                        className="button-1 flex gap-2 items-center"
                     >
                         {loading ? (
                             <>
                                 <Loader2
-                                    size={18}
+
                                     className="animate-spin"
                                 />
                                 Saving...
                             </>
                         ) : (
                             <>
-                                <Save size={18} />
-                                Add Lesson
+                                <Save />
+                                Save
                             </>
                         )}
                     </button>
@@ -310,7 +253,7 @@ export default function UpdateLesson({ }: AddLessonProps) {
                     <button
                         onClick={DeleteLesson}
                         disabled={loading}
-                        className="flex items-center gap-3 rounded-xl bg-blue-600 px-8 py-4 font-semibold text-white hover:bg-blue-700 disabled:opacity-60"
+                        className="button-2"
                     >
                         Delete
                     </button>

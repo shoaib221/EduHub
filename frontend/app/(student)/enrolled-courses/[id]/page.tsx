@@ -48,23 +48,21 @@ export default async function DashboardPage({
                 course={payload?.course} progress={payload?.progress} quizAverage={quizAverage}
             />
 
-            <div className="mb-8">
+            <div className="mt-4">
 
-                <div className="mt-4">
+                <div className="flex justify-between">
+                    <h2 className="text-xl font-semibold mb-4">
+                        Lessons
+                    </h2>
 
-                    <div className="flex justify-between">
-                        <h2 className="text-xl font-semibold mb-4">
-                            Lessons
-                        </h2>
-
-                        <span>
-                            completed {payload?.completedLessons}/{payload?.totalLessons}
-                        </span>
-                    </div>
-
+                    <span>
+                        completed {payload?.completedLessons}/{payload?.totalLessons}
+                    </span>
                 </div>
 
             </div>
+
+
 
             {/* Lessons */}
 
@@ -77,7 +75,7 @@ export default async function DashboardPage({
 
                                 <div
                                     key={lesson.id}
-                                    className="flex justify-between border p-4 rounded"
+                                    className="flex justify-between card-4"
                                 >
 
                                     {lesson.title}
@@ -111,9 +109,19 @@ export default async function DashboardPage({
 
             <section className="mt-10">
 
-                <h2 className="text-xl font-semibold mb-4">
-                    Quiz Results
-                </h2>
+                <div className="mt-4">
+
+                    <div className="flex justify-between">
+                        <h2 className="text-xl font-semibold mb-4">
+                            Quizzes
+                        </h2>
+
+                        <span>
+                            attended {payload?.completedLessons}/{payload?.totalLessons}
+                        </span>
+                    </div>
+
+                </div>
 
 
                 <div className="space-y-3">
@@ -124,7 +132,7 @@ export default async function DashboardPage({
 
                                 <div
                                     key={quiz.title}
-                                    className={`border rounded p-4 flex justify-between ${quiz.score >= 50 ? "border-green-700" : "border-red-700"}`}
+                                    className={`p-4 flex justify-between card-4`}
                                 >
 
                                     <span>
@@ -132,7 +140,7 @@ export default async function DashboardPage({
                                     </span>
 
 
-                                    {quiz.score >= 0 ? <span>{quiz.score}</span> : <span className="text-gray-400" >Not Attended</span>}
+                                    {quiz.score >= 0 ? <span className={`font-bold ${quiz.score >= 50 ? "text-green-700" : "text-red-700"}`} >{quiz.score} %</span> : <span className="text-gray-400" >Not Attended</span>}
 
 
                                 </div>

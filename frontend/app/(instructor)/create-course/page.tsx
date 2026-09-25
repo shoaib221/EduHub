@@ -81,16 +81,16 @@ export default function CreateCoursePage() {
     return (
         <main className="mx-auto max-w-5xl p-8">
 
-            <h1 className="mb-8 text-4xl font-bold">
+            <div className="heading-2 text-center">
                 Create New Course
-            </h1>
+            </div>
 
             <form
                 onSubmit={handleSubmit}
                 className="space-y-8"
             >
 
-                <section className="rounded-3xl bg-white p-8 shadow">
+                <section className="rounded-3xl bg-white px-8 shadow">
 
                     <div className="grid gap-6">
 
@@ -100,7 +100,7 @@ export default function CreateCoursePage() {
                                 Course Title
                             </label>
 
-                            <div className="flex items-center rounded-xl border px-4">
+                            <div className="flex items-center rounded-xl gap-2">
 
                                 <BookOpen
                                     size={18}
@@ -112,7 +112,7 @@ export default function CreateCoursePage() {
                                     name="title"
                                     value={formData.title}
                                     onChange={handleChange}
-                                    className="w-full p-4 outline-none"
+                                    className="input-1"
                                     placeholder="Complete React Course"
                                     required
                                 />
@@ -121,22 +121,7 @@ export default function CreateCoursePage() {
 
                         </div>
 
-                        {/* <div>
 
-                            <label className="mb-2 block font-medium">
-                                Subtitle
-                            </label>
-
-                            <input
-                                type="text"
-                                name="subtitle"
-                                value={formData.subtitle}
-                                onChange={handleChange}
-                                className="w-full rounded-xl border p-4 outline-none"
-                                placeholder="Master React from beginner to advanced"
-                            />
-
-                        </div> */}
 
                         <div>
 
@@ -149,7 +134,7 @@ export default function CreateCoursePage() {
                                 name="description"
                                 value={formData.description}
                                 onChange={handleChange}
-                                className="w-full rounded-xl border p-4 outline-none"
+                                className="input-1"
                                 placeholder="Describe your course..."
                                 required
                             />
@@ -158,143 +143,102 @@ export default function CreateCoursePage() {
 
                     </div>
 
+                    <div>
+
+                        <label className="mb-2 block">
+                            Cover Image URL
+                        </label>
+
+                        <div className="flex items-center rounded-xl gap-2">
+
+                            <ImageIcon
+                                size={18}
+                                className="text-slate-400"
+                            />
+
+                            <input
+                                type="text"
+                                name="coverImage"
+                                value={formData.coverImage}
+                                onChange={handleChange}
+                                className="input-1"
+                                placeholder="https://example.com/image.jpg"
+                            />
+
+                        </div>
+
+                    </div>
+
                 </section>
 
-                <section className="grid gap-6 md:grid-cols-2">
+                <section className="grid gap-4 md:grid-cols-2 px-8">
 
-                    <div className="rounded-3xl bg-white p-8 shadow">
 
-                        <h2 className="mb-6 text-xl font-semibold">
-                            Course Details
-                        </h2>
 
-                        <div className="space-y-5">
+                    <div className="space-y-5">
 
-                            <div>
+                        <div>
 
-                                <label className="mb-2 block">
-                                    Category
-                                </label>
+                            <label className="mb-2 block">
+                                Category
+                            </label>
 
-                                <input
-                                    type="text"
-                                    name="category"
-                                    value={formData.category}
-                                    onChange={handleChange}
-                                    className="w-full rounded-xl border p-4"
-                                />
+                            <input
+                                type="text"
+                                name="category"
+                                value={formData.category}
+                                onChange={handleChange}
+                                className="input-1"
+                                placeholder="science, business, humanity etc"
+                            />
 
-                            </div>
 
-                            {/* <div>
-
-                                <label className="mb-2 block">
-                                    Level
-                                </label>
-
-                                <select
-                                    name="level"
-                                    value={formData.level}
-                                    onChange={handleChange}
-                                    className="w-full rounded-xl border p-4"
-                                >
-                                    <option>
-                                        Beginner
-                                    </option>
-
-                                    <option>
-                                        Intermediate
-                                    </option>
-
-                                    <option>
-                                        Advanced
-                                    </option>
-
-                                </select>
-
-                            </div> */}
-
-                            {/* <div>
-
-                                <label className="mb-2 block">
-                                    Language
-                                </label>
-
-                                <input
-                                    type="text"
-                                    name="language"
-                                    value={formData.language}
-                                    onChange={handleChange}
-                                    className="w-full rounded-xl border p-4"
-                                />
-
-                            </div> */}
 
                         </div>
 
+
+
                     </div>
 
-                    <div className="rounded-3xl bg-white p-8 shadow">
 
-                        <h2 className="mb-6 text-xl font-semibold">
-                            Pricing & Media
-                        </h2>
 
-                        <div className="space-y-5">
 
-                            <div>
 
-                                <label className="mb-2 block">
-                                    Price ($)
-                                </label>
 
-                                <div className="flex items-center rounded-xl border px-4">
 
-                                    <DollarSign
-                                        size={18}
-                                        className="text-slate-400"
-                                    />
+                    <div className="space-y-5">
 
-                                    <input
-                                        type="number"
-                                        name="price"
-                                        value={formData.price}
-                                        onChange={handleChange}
-                                        className="w-full p-4 outline-none"
-                                    />
+                        <div>
 
-                                </div>
+                            <label className="mb-2 block">
+                                Price ($)
+                            </label>
 
-                            </div>
+                            <div className="flex items-center rounded-xl">
 
-                            <div>
+                                <DollarSign
+                                    size={18}
+                                    className="text-slate-400"
+                                />
 
-                                <label className="mb-2 block">
-                                    Cover Image URL
-                                </label>
-
-                                <div className="flex items-center rounded-xl border px-4">
-
-                                    <ImageIcon
-                                        size={18}
-                                        className="text-slate-400"
-                                    />
-
-                                    <input
-                                        type="text"
-                                        name="coverImage"
-                                        value={formData.coverImage}
-                                        onChange={handleChange}
-                                        className="w-full p-4 outline-none"
-                                    />
-
-                                </div>
+                                <input
+                                    type="number"
+                                    name="price"
+                                    value={formData.price}
+                                    onChange={handleChange}
+                                    className="input-1"
+                                    placeholder="Enter course peice"
+                                />
 
                             </div>
 
                         </div>
 
+
+
                     </div>
+
+
 
                 </section>
 
@@ -304,12 +248,12 @@ export default function CreateCoursePage() {
                     </div>
                 )}
 
-                <div className="flex justify-end">
+                <div className="flex justify-center">
 
                     <button
                         type="submit"
                         disabled={loading}
-                        className="flex items-center gap-3 rounded-xl bg-blue-600 px-8 py-4 font-semibold text-white hover:bg-blue-700 disabled:opacity-60"
+                        className="button-1 flex gap-1 items-center"
                     >
                         {loading ? (
                             <>

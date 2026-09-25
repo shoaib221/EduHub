@@ -70,8 +70,8 @@ export default function CourseSidebar({
                     {/* Home */}
                     <Link
                         href={`/enrolled-courses/${enrollment.id}`}
-                        className={`mb-3 flex items-center gap-3 rounded-xl px-4 py-3 transition ${isActive(`/course-analytics/${course.id}`)
-                            ? "bg-blue-600 text-white"
+                        className={`mb-3 flex items-center gap-3 rounded-xl px-4 py-3 transition ${isActive(`/enrolled-courses/${enrollment.id}`)
+                            ? "bg-(--color3) text-white"
                             : "text-slate-700 hover:bg-slate-100"
                             }`}
                     >
@@ -84,7 +84,7 @@ export default function CourseSidebar({
                         onClick={() =>
                             setLessonOpen(!lessonOpen)
                         }
-                        className="flex w-full items-center justify-between rounded-xl px-4 py-3 font-semibold text-slate-800 hover:bg-slate-100"
+                        className="flex w-full items-center justify-between button-2"
                     >
                         <div className="flex items-center gap-3">
                             <BookOpen size={20} />
@@ -111,7 +111,7 @@ export default function CourseSidebar({
                                         key={lesson.id}
                                         href={href}
                                         className={`block rounded-lg px-4 py-2 text-sm transition ${isActive(href)
-                                            ? "bg-blue-100 font-semibold text-blue-700"
+                                            ? "font-semibold button-1"
                                             : "text-slate-600 hover:bg-slate-100"
                                             }`}
                                     >
@@ -128,10 +128,10 @@ export default function CourseSidebar({
                         onClick={() =>
                             setQuizOpen(!quizOpen)
                         }
-                        className="mt-5 flex w-full items-center justify-between rounded-xl px-4 py-3 font-semibold text-slate-800 hover:bg-slate-100"
+                        className="mt-5 flex w-full items-center justify-between button-2"
                     >
                         <div className="flex items-center gap-3">
-                            <FileQuestion size={20} />
+                            <FileQuestion />
                             Quizzes
                         </div>
 
@@ -155,7 +155,7 @@ export default function CourseSidebar({
                                         key={quiz.id}
                                         href={href}
                                         className={`block rounded-lg px-4 py-2 text-sm transition ${isActive(href)
-                                            ? "bg-blue-100 font-semibold text-blue-700"
+                                            ? "font-semibold button-1"
                                             : "text-slate-600 hover:bg-slate-100"
                                             }`}
                                     >

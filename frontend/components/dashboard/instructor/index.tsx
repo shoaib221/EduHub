@@ -1,3 +1,5 @@
+"use client"
+
 import Link from "next/link";
 import {
     BookOpen,
@@ -63,68 +65,44 @@ export default function InstructorDashboard() {
             {/* Statistics */}
             <section className="grid gap-6 md:grid-cols-4">
 
-
                 <div className="rounded-2xl bg-white p-6 shadow-sm">
-
-                    <BookOpen className="text-blue-600" />
-
-                    <h2 className="mt-4 text-3xl font-bold">
-                        12
-                    </h2>
-
-                    <p className="text-slate-500">
-                        Total Courses
-                    </p>
-
-                </div>
-
-
-
-                <div className="rounded-2xl bg-white p-6 shadow-sm">
-
-                    <Users className="text-green-600" />
-
-                    <h2 className="mt-4 text-3xl font-bold">
-                        8,540
-                    </h2>
 
                     <p className="text-slate-500">
                         Total Students
                     </p>
 
+                    <br />
+
+                    <div className="flex gap-2 items-center text-2xl" >
+                        <Users className="text-(--color3)" />
+
+                        <h2 className="font-bold">
+                            8,540
+                        </h2>
+
+                    </div>
+
                 </div>
-
-
 
                 <div className="rounded-2xl bg-white p-6 shadow-sm">
 
-                    <TrendingUp className="text-purple-600" />
-
-                    <h2 className="mt-4 text-3xl font-bold">
-                        4.8
-                    </h2>
-
                     <p className="text-slate-500">
-                        Average Rating
+                        Total Income
                     </p>
+
+                    <br />
+
+                    <div className="flex gap-2 items-center text-2xl" >
+                        <DollarSign className="text-(--color3)" />
+
+                        <h2 className="font-bold">
+                            8,540
+                        </h2>
+
+                    </div>
 
                 </div>
 
-
-
-                <div className="rounded-2xl bg-white p-6 shadow-sm">
-
-                    <DollarSign className="text-orange-600" />
-
-                    <h2 className="mt-4 text-3xl font-bold">
-                        $12.5K
-                    </h2>
-
-                    <p className="text-slate-500">
-                        Total Earnings
-                    </p>
-
-                </div>
 
 
             </section>
@@ -136,7 +114,7 @@ export default function InstructorDashboard() {
                 <div className="flex items-center justify-between">
 
                     <h2 className="text-2xl font-bold text-slate-900">
-                        Instructed Courses
+                        Instructed Courses - {courses?.length}
                     </h2>
 
                     <Link
@@ -159,50 +137,24 @@ export default function InstructorDashboard() {
 
                             <div
                                 key={course.id}
-                                className="flex flex-col justify-between gap-5 rounded-xl border border-slate-200 p-5 md:flex-row md:items-center"
+                                className="flex justify-between gap-2 rounded-xl card-4"
                             >
 
-                                <div>
-
-                                    <h3 className="font-semibold text-slate-900">
-                                        {course.title}
-                                    </h3>
 
 
-                                    <div className="mt-2 flex gap-4 text-sm text-slate-500">
-
-                                        <span>
-                                            {/* {course.students} Students */}
-                                        </span>
-
-                                        <span>
-                                            {/* ⭐ {course.rating || "N/A"} */}
-                                        </span>
-
-                                        <span>
-                                            {/* {course.status} */}
-                                        </span>
-
-                                    </div>
-
-                                </div>
-
+                                <h3 className="font-bold">
+                                    {course.title}
+                                </h3>
 
 
                                 <div className="flex gap-3">
 
-                                    {/* <Link
-                                        href={`/courses/${course.id}/edit`}
-                                        className="flex items-center gap-2 rounded-lg border px-4 py-2 text-sm hover:bg-slate-50"
-                                    >
-                                        <Edit size={16} />
-                                        Edit
-                                    </Link> */}
+
 
 
                                     <Link
                                         href={`/course-analytics/${course.id}`}
-                                        className="rounded-lg bg-slate-900 px-4 py-2 text-sm text-white"
+                                        className="button-1"
                                     >
                                         Details
                                     </Link>

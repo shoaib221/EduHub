@@ -141,7 +141,7 @@ export default function EditQuizPage() {
     return (
         <main className="mx-auto max-w-6xl p-8">
 
-            <h1 className="mb-8 text-4xl font-bold">
+            <h1 className="heading-1">
                 Edit Quiz
             </h1>
 
@@ -150,9 +150,9 @@ export default function EditQuizPage() {
                 className="space-y-8"
             >
 
-                <section className="rounded-3xl bg-white p-8 shadow">
+                <section className="rounded-3xl bg-white shadow">
 
-                    <label className="mb-2 block font-semibold">
+                    <label className="">
                         Quiz Title
                     </label>
 
@@ -165,11 +165,13 @@ export default function EditQuizPage() {
                                     : null
                             )
                         }
-                        className="w-full rounded-xl border p-4"
+                        className="input-1"
                         required
                     />
 
-                    <label className="mb-2 block font-semibold">
+                    <br /> <br />
+
+                    <label className="font-semibold">
                         Description
                     </label>
 
@@ -182,7 +184,7 @@ export default function EditQuizPage() {
                                     : null
                             )
                         }
-                        className="w-full rounded-xl border p-4"
+                        className="input-1"
                         rows={5}
                         required
                     />
@@ -195,20 +197,11 @@ export default function EditQuizPage() {
                     </div>
                 )}
 
-                <div className="flex justify-end">
+                <div className="flex gap-2">
 
                     <button
                         disabled={saving}
-                        className="flex items-center gap-3 rounded-xl bg-blue-600 px-8 py-4 font-semibold text-white hover:bg-blue-700 disabled:opacity-60"
-                        onClick={deleteQuiz}
-                    >
-                        <Trash2 />
-                        Delete Quiz
-                    </button>
-
-                    <button
-                        disabled={saving}
-                        className="flex items-center gap-3 rounded-xl bg-blue-600 px-8 py-4 font-semibold text-white hover:bg-blue-700 disabled:opacity-60"
+                        className="button-1 flex gap-2 items-center"
                         type="submit"
                     >
                         {saving ? (
@@ -224,14 +217,33 @@ export default function EditQuizPage() {
                         )}
                     </button>
 
+                    <button
+                        disabled={saving}
+                        className="button-2 flex gap-2 items-center"
+                        onClick={deleteQuiz}
+                    >
+                        <Trash2 />
+                        Delete Quiz
+                    </button>
+
+
+
                 </div>
 
             </form>
 
+            <br /><br />
+
+            <div className="heading-2" >Create New Question</div>
+
             <QuestionCreator quizId={quizId} onCreation={fetchQuestions} />
 
+            <br /><br />
 
-            {questions.map((question) => (
+            <div className="heading-2" >Questions</div>
+
+
+            {questions.map((question, quesNo) => (
 
                 <div
                     key={question.id}
@@ -240,10 +252,10 @@ export default function EditQuizPage() {
 
                     <p className="flex items-center justify-between gap-3 text-lg font-semibold">
 
-                        <div>
-                            {question.statement || "Untitled Question"}
-                        </div>
 
+                        <div>
+                            Q {quesNo + 1}
+                        </div>
 
                         <button
                             onClick={() =>
@@ -254,6 +266,10 @@ export default function EditQuizPage() {
                             <Trash2 />
                         </button>
                     </p>
+
+                    <div>
+                        {question.statement || "Untitled Question"}
+                    </div>
 
 
                     <ul className="space-y-2">

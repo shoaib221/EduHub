@@ -79,7 +79,7 @@ export default function LoginPage() {
                 <div className="w-full max-w-md rounded-2xl bg-white p-8 shadow-lg">
                     {/* Header */}
                     <div className="mb-8 text-center">
-                        <h1 className="text-3xl font-bold text-slate-900">
+                        <h1 className="heading-1">
                             Welcome Back
                         </h1>
 
@@ -165,7 +165,7 @@ export default function LoginPage() {
                         <div className="flex justify-end">
                             <Link
                                 href="/forgot-password"
-                                className="text-sm text-blue-600 hover:underline"
+                                className="text-sm text-(--color3) hover:underline"
                             >
                                 Forgot password?
                             </Link>
@@ -175,7 +175,7 @@ export default function LoginPage() {
                         {/* Submit */}
                         <button
                             type="submit"
-                            className="w-full rounded-lg bg-blue-600 py-3 font-semibold text-white transition hover:bg-blue-700"
+                            className="button-1 w-full"
                         >
                             Login
                         </button>
@@ -187,7 +187,7 @@ export default function LoginPage() {
                         Don't have an account?{" "}
                         <Link
                             href="/register"
-                            className="font-medium text-blue-600 hover:underline"
+                            className="font-medium text-(--color3) hover:underline"
                         >
                             Create account
                         </Link>

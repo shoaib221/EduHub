@@ -26,19 +26,22 @@ function StatCard({
     return (
         <div className="rounded-3xl bg-white p-6 shadow">
 
-            <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-blue-100 text-blue-600">
-
-                {icon}
-
-            </div>
-
             <p className="text-slate-500">
                 {title}
             </p>
+            <br />
 
-            <h2 className="mt-2 text-3xl font-bold">
-                {value}
-            </h2>
+            <div className="flex gap-2 items-center" >
+                <div className="text-(--color3)">
+                    {icon}
+                </div>
+
+                <h2 className="font-bold text-xl">
+                    {value}
+                </h2>
+            </div>
+
+
 
         </div>
     );
@@ -77,7 +80,7 @@ export default async function CourseAnalyticsPage({
 
                     <Link
                         href="/dashboard"
-                        className="mb-4 inline-flex items-center gap-2 text-blue-600 hover:underline"
+                        className="mb-4 inline-flex items-center gap-2 text-(--color3) hover:underline"
                     >
                         <ArrowLeft size={18} />
 
@@ -85,7 +88,7 @@ export default async function CourseAnalyticsPage({
 
                     </Link>
 
-                    <h1 className="text-xl font-bold">
+                    <h1 className="heading-1 text-center">
                         Course Analytics
                     </h1>
 
@@ -119,9 +122,9 @@ export default async function CourseAnalyticsPage({
 
                 <div className="mb-8 flex items-center gap-3">
 
-                    <BookOpen className="text-blue-600" />
+                    <BookOpen className="text-(--color3)" />
 
-                    <h2 className="text-2xl font-bold">
+                    <h2 className="font-bold text-xl">
                         Lesson Completion
                     </h2>
 
@@ -154,7 +157,7 @@ export default async function CourseAnalyticsPage({
                                     <div className="h-3 overflow-hidden rounded-full bg-slate-200">
 
                                         <div
-                                            className="h-full rounded-full bg-blue-600"
+                                            className="h-full rounded-full bg-(--color3)"
                                             style={{
                                                 width: `${percentage}%`,
                                             }}
@@ -177,9 +180,9 @@ export default async function CourseAnalyticsPage({
 
                 <div className="mb-8 flex items-center gap-3">
 
-                    <Clock3 className="text-blue-600" />
+                    <Clock3 className="text-(--color3)" />
 
-                    <h2 className="text-2xl font-bold">
+                    <h2 className="text-xl font-bold">
                         Quiz Performance
                     </h2>
 
@@ -193,15 +196,15 @@ export default async function CourseAnalyticsPage({
 
                             <tr>
 
-                                <th className="px-6 py-4 text-left">
+                                <th className="px-6 py-4 text-center">
                                     Quiz
                                 </th>
 
-                                <th className="px-6 py-4 text-left">
+                                <th className="px-6 py-4 text-center">
                                     Submitted
                                 </th>
 
-                                <th className="px-6 py-4 text-left">
+                                <th className="px-6 py-4 text-center">
                                     Average Percentage
                                 </th>
 
@@ -221,15 +224,15 @@ export default async function CourseAnalyticsPage({
                                             className="border-t"
                                         >
 
-                                            <td className="px-6 py-4">
+                                            <td className="px-6 py-4 text-center">
                                                 {quiz.title}
                                             </td>
 
-                                            <td className="px-6 py-4 font-semibold">
+                                            <td className="px-6 py-4 text-center">
                                                 {quiz.completed}
                                             </td>
 
-                                            <td className="px-6 py-4 font-semibold">
+                                            <td className="px-6 py-4 text-center">
                                                 {quiz.averageScore ?? 0} %
                                             </td>
 

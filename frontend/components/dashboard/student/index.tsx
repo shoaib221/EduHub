@@ -78,7 +78,7 @@ export default function StudentDashboard() {
 
                             <div
                                 key={course.id}
-                                className="shadow-lg rounded-2xl border border-slate-200 p-5"
+                                className="card-4  p-5"
                             >
 
                                 <div className="flex flex-col justify-between gap-4 md:flex-row md:items-center">

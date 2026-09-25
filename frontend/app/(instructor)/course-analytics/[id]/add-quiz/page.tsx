@@ -17,15 +17,12 @@ import { useParams } from "next/navigation";
 export default function AddQuizPage() {
 
     const { id: courseId } = useParams<{ id: string }>();
-
-
     const router = useRouter();
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [order, setOrder] = useState(1);
-
 
     async function handleSubmit(
         e: FormEvent<HTMLFormElement>
@@ -63,18 +60,18 @@ export default function AddQuizPage() {
     }
 
     return (
-        <main className="mx-auto max-w-6xl p-8">
+        <main className="max-w-6xl p-8">
 
-            <h1 className="mb-8 text-4xl font-bold">
+            <div className="heading-1">
                 Create Quiz
-            </h1>
+            </div>
 
             <form
                 onSubmit={handleSubmit}
                 className="space-y-8"
             >
 
-                <section className="rounded-3xl bg-white p-8 shadow">
+                <section className="rounded-3xl bg-white  shadow">
 
                     <div>
                         <label className="mb-2 block font-semibold">
@@ -86,12 +83,14 @@ export default function AddQuizPage() {
                             onChange={(e) =>
                                 setTitle(e.target.value)
                             }
-                            className="w-full rounded-xl border p-4"
+                            className="input-1"
                             placeholder="Quiz 1"
                             required
                         />
 
                     </div>
+
+                    <br />
 
                     <div>
 
@@ -105,7 +104,7 @@ export default function AddQuizPage() {
                                 setDescription(e.target.value)
                             }
                             rows={5}
-                            className="w-full rounded-xl border p-4"
+                            className="input-1"
                             placeholder="Quiz 1"
                             required
                         />
@@ -123,26 +122,26 @@ export default function AddQuizPage() {
                     </div>
                 )}
 
-                <div className="flex justify-end">
 
-                    <button
-                        disabled={loading}
-                        className="flex items-center gap-3 rounded-xl bg-blue-600 px-8 py-4 font-semibold text-white"
-                    >
-                        {loading ? (
-                            <>
-                                <Loader2 className="animate-spin" />
-                                Saving...
-                            </>
-                        ) : (
-                            <>
-                                <Save />
-                                Create Quiz
-                            </>
-                        )}
-                    </button>
 
-                </div>
+                <button
+                    disabled={loading}
+                    className="button-1 flex gap-2 items-center"
+                >
+                    {loading ? (
+                        <>
+                            <Loader2 className="animate-spin" />
+                            Saving...
+                        </>
+                    ) : (
+                        <>
+                            <Save />
+                            Create
+                        </>
+                    )}
+                </button>
+
+
 
             </form>
 

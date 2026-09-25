@@ -117,11 +117,11 @@ export default function RegisterPage() {
 
                     {/* Header */}
                     <div className="mb-8 text-center">
-                        <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-blue-100 text-blue-600">
-                            <GraduationCap size={30} />
+                        <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full text-(--color3)">
+                            <GraduationCap />
                         </div>
 
-                        <h1 className="text-3xl font-bold text-slate-900">
+                        <h1 className="heading-1">
                             Create Account
                         </h1>
 
@@ -257,7 +257,7 @@ export default function RegisterPage() {
                         {/* Submit */}
                         <button
                             type="submit"
-                            className="w-full rounded-lg bg-blue-600 py-3 font-semibold text-white transition hover:bg-blue-700"
+                            className="w-full button-1"
                         >
                             Create Account
                         </button>
@@ -270,7 +270,7 @@ export default function RegisterPage() {
                         Already have an account?{" "}
                         <Link
                             href="/login"
-                            className="font-medium text-blue-600 hover:underline"
+                            className="font-medium text-(--color3) hover:underline"
                         >
                             Login
                         </Link>
