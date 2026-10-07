@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import api from "@/lib/api";
+import api from "@/lib/axios";
 
 type Course = {
     id: number;
