@@ -14,6 +14,8 @@ import {
 } from "lucide-react";
 import { Course } from "@/types/course";
 import { CourseEnrollment } from "@/types/courseEnrollment";
+import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
+
 
 interface CourseSidebarProps {
     courseId: string;
@@ -25,7 +27,7 @@ export default function CourseSidebar({
     enrollment, course
 }: { enrollment: CourseEnrollment, course: Course }) {
     const pathname = usePathname();
-    const [sidebarOpen, setSidebarOpen] = useState(true);
+    const [sidebarOpen, setSidebarOpen] = useState(false);
     const [lessonOpen, setLessonOpen] = useState(true);
     const [quizOpen, setQuizOpen] = useState(true);
     const isActive = (href: string) => pathname === href;
@@ -36,9 +38,9 @@ export default function CourseSidebar({
             {/* Mobile Toggle */}
             <button
                 onClick={() => setSidebarOpen(!sidebarOpen)}
-                className="fixed left-4 top-20 z-50 rounded-lg bg-blue-600 p-2 text-white lg:hidden"
+                className="flex gap-2 fixed left-2 top-17 z-50 rounded-lg bg-(--color1) p-2 text-(--color3) lg:hidden"
             >
-                {sidebarOpen ? <X size={20} /> : <Menu size={20} />}
+                Content {sidebarOpen ? <IoIosArrowBack size={20} /> : <IoIosArrowForward size={20} />}
             </button>
 
             {/* Sidebar */}
@@ -53,7 +55,7 @@ export default function CourseSidebar({
                     bg-white
                     transition-transform
                     duration-300
-
+                    shadow-[12px_0_24px_rgba(0,0,0,0.2)]
                     lg:static
                     lg:translate-x-0
 
@@ -63,7 +65,7 @@ export default function CourseSidebar({
                     }
                 `}
             >
-                <div className="p-5">
+                <div className="p-5 pt-12">
 
 
 

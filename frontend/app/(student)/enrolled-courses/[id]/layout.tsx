@@ -32,14 +32,15 @@ export default async function CourseLayout({
     const payload = await serverApi(`/enrolled-course/${courseId}`);
 
     return (
-        <div className="flex flex-col overflow-auto bg-slate-100">
-            <div className="flex flex-1 overflow-hidden">
-                <CourseSidebar enrollment={payload.enrollment} course={payload.course} />
 
-                <main className="flex-1 overflow-y-auto bg-slate-50 p-6">
-                    {children}
-                </main>
-            </div>
+        <div className="flex min-h-[calc(100vh-4.5rem)] max-h-[calc(100vh-4.5rem)]">
+            <CourseSidebar enrollment={payload.enrollment} course={payload.course} />
+
+
+            <main className="grow overflow-auto bg-slate-50 p-6 mt-6 h-full min-h-[calc(100vh-4.5rem)] max-h-[calc(100vh-4.5rem)]">
+                {children}
+            </main>
         </div>
+
     );
 }

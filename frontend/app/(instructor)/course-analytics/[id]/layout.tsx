@@ -26,21 +26,18 @@ export default async function CourseLayout({
     if (!course) return <NotFound />
 
     return (
-        <div className="flex flex-col overflow-auto bg-slate-100">
 
-            {/* Main */}
-            <div className="flex flex-1 overflow-hidden">
+        <div className="flex flex-1 overflow-hidden">
 
-                {/* Sidebar */}
-                <CourseSidebar course={course} />
+            {/* Sidebar */}
+            <CourseSidebar course={course} />
 
-                {/* Content */}
-                <main className="flex-1 overflow-y-auto bg-slate-50 p-6">
-                    {children}
-                </main>
-
-            </div>
+            {/* Content */}
+            <main className="flex-1 overflow-y-auto bg-slate-50 py-6 px-2 md:px-6 min-h-[calc(100vh-4.5rem)] max-h-[calc(100vh-4.5rem)] overflow-auto">
+                {children}
+            </main>
 
         </div>
+
     );
 }

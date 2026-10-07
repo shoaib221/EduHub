@@ -18,6 +18,8 @@ export default function FeaturedCourses() {
 
                 const res = await api.get("/courses");
 
+                res.data.courses.length = 6;
+
                 setCourses(res.data.courses);
             } catch (err) {
                 console.error(err);
@@ -57,7 +59,7 @@ export default function FeaturedCourses() {
                     </Link>
                 </div>
 
-                <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-3">
+                <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-3 p-8">
                     {courses && courses.map((course) => (
                         <div
                             key={course.id}

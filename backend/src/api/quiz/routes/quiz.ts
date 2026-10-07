@@ -57,6 +57,7 @@ export default {
             },
         },
         {
+            // submit quiz
             method: "POST",
             path: "/quiz-test/enrollment/:enrollmentId/quiz/:quizId",
             handler: "quiz.submitQuizTest",

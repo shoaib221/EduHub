@@ -141,9 +141,11 @@ export default function EditQuizPage() {
     return (
         <main className="mx-auto max-w-6xl p-8">
 
-            <h1 className="heading-1">
+            <h1 className="heading-1 text-center">
                 Edit Quiz
             </h1>
+
+            <br />
 
             <form
                 onSubmit={handleSubmit}
@@ -152,7 +154,7 @@ export default function EditQuizPage() {
 
                 <section className="rounded-3xl bg-white shadow">
 
-                    <label className="">
+                    <label className="font-bold">
                         Quiz Title
                     </label>
 
@@ -232,9 +234,9 @@ export default function EditQuizPage() {
 
             </form>
 
-            <br /><br />
+            <br /><br /><br />
 
-            <div className="heading-2" >Create New Question</div>
+            <div className="heading-1 text-center" >Create New Question</div>
 
             <QuestionCreator quizId={quizId} onCreation={fetchQuestions} />
 

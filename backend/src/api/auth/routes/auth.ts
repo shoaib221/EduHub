@@ -57,6 +57,41 @@ export default {
                 ],
             },
         },
+        {
+            method: "POST",
+            path: "/auth/send-verification-email",
+            handler: "auth.logout",
+            config: {
+                auth: false,
+
+            },
+        },
+        {
+            method: "GET",
+            path: "/auth/verify-email",
+            handler: "auth.logout",
+            config: {
+                auth: false,
+
+            },
+        },
+        {
+            method: "POST",
+            path: "/auth/forgot-password",
+            handler: "auth.logout",
+            config: {
+                auth: false,
+            },
+        },
+        {
+            method: "POST",
+            path: "/auth/reset-password",
+            handler: "auth.logout",
+            config: {
+                auth: false,
+
+            },
+        },
     ],
 };
 

@@ -16,6 +16,7 @@ export const envVariables = {
     transferTokenSalt: process.env["TRANSFER_TOKEN_SALT"]!,
     encryptionKey: process.env["ENCRYPTION_KEY"]!,
     stripeKey: process.env["STRIPE_KEY"]!,
-    frontendUrl: process.env["FRONTEND_URL"]!
+    frontendUrl: process.env["FRONTEND_URL"]!,
+    resendApiKey: process.env["RESEND_API_KEY"]!,
 };
 

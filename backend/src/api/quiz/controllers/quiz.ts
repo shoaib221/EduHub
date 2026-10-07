@@ -34,7 +34,10 @@ export default {
             const quizResults = enrollment?.quizResults ?? {};
             const result = quizResults[Number(quizId)]
 
-            result["correctAnswers"] = quiz.correctAnswers;
+            if (result) {
+                result["correctAnswers"] = quiz.correctAnswers;
+            }
+
 
 
             ctx.body = {
@@ -79,9 +82,12 @@ export default {
                 if (quiz.correctAnswers[key] === value) score++;
             }
 
+
             score = Math.round(score / quiz.totalQuestions * 100);
 
             const result = { score, answers };
+
+            console.log("quiz result", result);
 
             const quizResults = enrollment?.quizResults ?? {};
             quizResults[Number(quizId)] = result;
@@ -136,7 +142,8 @@ export default {
                         title,
                         description,
                         course: course.id,
-                        correctAnswers: {}
+                        correctAnswers: {},
+                        totalQuestions: 0
                     },
                 });
 

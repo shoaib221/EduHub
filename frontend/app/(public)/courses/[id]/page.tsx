@@ -84,7 +84,7 @@ export default function CourseDetailsPage() {
         <main className="min-h-screen bg-slate-50">
 
             {/* Hero */}
-            <section className="bg-gradient-to-r from-blue-600 to-indigo-700">
+            <section className="bg-(--color3)">
                 <div className="mx-auto grid max-w-7xl gap-10 px-6 py-16 lg:grid-cols-2">
 
                     <div className="text-white">
@@ -130,7 +130,7 @@ export default function CourseDetailsPage() {
 
 
                         <p className="mt-6">
-                            Instructor:
+                            Instructed by
                             <span className="ml-2 font-semibold">
                                 {course.instructor?.username}
                             </span>
@@ -159,13 +159,13 @@ export default function CourseDetailsPage() {
 
 
                             {user ? <button
-                                className="mt-6 w-full rounded-xl bg-blue-600 py-4 font-semibold text-white transition hover:bg-blue-700"
+                                className="mt-6 w-full rounded-xl  py-4 font-semibold button-1"
                                 onClick={handleEnroll}
                             >
 
                                 Enroll Now
                             </button> :
-                                <button className="mt-6 w-full rounded-xl bg-blue-600 py-4 font-semibold text-white transition hover:bg-blue-700"
+                                <button className="mt-6 w-full rounded-xl  py-4 font-semibold button-1"
                                     onClick={() => router.push('/register')}
                                 >
                                     Sign up to Enroll
@@ -235,7 +235,7 @@ export default function CourseDetailsPage() {
 
 
                                     <PlayCircle
-                                        className="text-blue-600"
+                                        className="text-(--color3)"
                                     />
 
                                 </div>
@@ -250,50 +250,6 @@ export default function CourseDetailsPage() {
                 </div>
 
 
-                {/* Sidebar */}
-                <aside className="h-fit rounded-2xl bg-white p-6 shadow-sm">
-
-                    <h3 className="text-xl font-bold text-slate-900">
-                        Course Details
-                    </h3>
-
-
-                    {/* <div className="mt-6 space-y-4 text-slate-600">
-
-                        <p>
-                            Level:
-                            <span className="ml-2 font-medium text-slate-900">
-                                {course.level}
-                            </span>
-                        </p>
-
-
-                        <p>
-                            Duration:
-                            <span className="ml-2 font-medium text-slate-900">
-                                {course.duration}
-                            </span>
-                        </p>
-
-
-                        <p>
-                            Lessons:
-                            <span className="ml-2 font-medium text-slate-900">
-                                {course.lessons}
-                            </span>
-                        </p>
-
-                    </div> */}
-
-
-                    <Link
-                        href="/profile"
-                        className="mt-8 block rounded-xl bg-slate-900 py-3 text-center font-semibold text-white"
-                    >
-                        Track Progress
-                    </Link>
-
-                </aside>
 
             </section>
 

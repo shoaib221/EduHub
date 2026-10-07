@@ -62,9 +62,10 @@ export default function AddQuizPage() {
     return (
         <main className="max-w-6xl p-8">
 
-            <div className="heading-1">
+            <div className="heading-1 text-center">
                 Create Quiz
             </div>
+            <br />
 
             <form
                 onSubmit={handleSubmit}

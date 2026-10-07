@@ -58,8 +58,8 @@ export default {
             // console.log(quizResults[quiz.id]?.score, quiz.totalQuestions)
             if (quizResults[quiz.id]?.score >= 0) {
 
-                score = Math.round(quizResults[quiz.id].score / quiz.totalQuestions * 100);
-                console.log(score);
+                score = quizResults[quiz.id].score
+                //console.log(score);
                 quizAverage += score
             }
 
@@ -78,7 +78,8 @@ export default {
         return {
             totalQuizzes,
             quizzes,
-            quizAverage
+            quizAverage,
+            attendedQuizzes: Object.keys(quizResults).length
         }
     },
 

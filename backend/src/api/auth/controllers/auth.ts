@@ -4,6 +4,8 @@ import { ErrorProcessor } from "../../../lib/ErrorProcessor";
 import { envVariables } from "../../../../config/environment_variables";
 import { SetHttpCookie } from "../../../lib/SetHttpCookie";
 import { JwtTokenGenerate } from "../../../lib/JwtToken";
+import crypto from "crypto";
+
 
 export default {
 
@@ -49,6 +51,16 @@ export default {
                     confirmed: true,
                     blocked: false,
                 });
+
+            await strapi.db
+                .query("api::token.token")
+                .create({
+                    data: {
+                        user: user.id,
+                    },
+                });
+
+            await strapi.service("api::auth.auth").sendEmailVerification(strapi, user);
 
             const jwtToken = await JwtTokenGenerate(strapi, {
                 email: user.email,
@@ -219,6 +231,51 @@ export default {
                 ErrorProcessor((error))
             );
         }
+    },
+
+    async forgotPassword(ctx: any) {
+
+        try {
+
+            const { email } = ctx.request.body;
+
+            if (!email) {
+                return ctx.badRequest("Email is required.");
+            }
+
+            const user = await strapi.db
+                .query("plugin::users-permissions.user")
+                .findOne({
+                    where: { email },
+                });
+
+            // Always return the same response
+            if (!user) {
+
+                ctx.body = {
+                    message:
+                        "If an account exists, a password reset link has been sent.",
+                };
+
+                return;
+            }
+
+            const ret = await strapi.service("api::auth.auth").sendEmailVerification(strapi, user);
+
+
+            ctx.body = {
+                message:
+                    "If an account exists, a password reset link has been sent.",
+            };
+
+        } catch (error) {
+
+            return ctx.internalServerError(
+                ErrorProcessor(error)
+            );
+
+        }
+
     },
 };
 

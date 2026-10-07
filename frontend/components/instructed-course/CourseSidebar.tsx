@@ -17,6 +17,7 @@ import { Lesson } from "@/types/lesson";
 import { Quiz } from "@/types/quiz";
 import { Course } from "@/types/course";
 import { NotFound } from "../auth/NotFound";
+import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
 interface CourseSidebarProps {
     course: Course
@@ -31,7 +32,7 @@ export default function CourseSidebar({
 
     const [course, setCourse] = useState<Course | null>(coursePara ?? null)
     const pathname = usePathname();
-    const [sidebarOpen, setSidebarOpen] = useState(true);
+    const [sidebarOpen, setSidebarOpen] = useState(false);
     const [lessonOpen, setLessonOpen] = useState(true);
     const [quizOpen, setQuizOpen] = useState(true);
     const isActive = (href: string) => pathname === href;
@@ -48,9 +49,9 @@ export default function CourseSidebar({
             {/* Mobile Toggle */}
             <button
                 onClick={() => setSidebarOpen(!sidebarOpen)}
-                className="fixed left-4 top-20 z-50 rounded-lg bg-blue-600 p-2 text-white lg:hidden"
+                className="flex gap-2 fixed left-4 top-16 z-50 rounded-lg bg-(--color1) p-2 text-(--color3) lg:hidden"
             >
-                {sidebarOpen ? <X size={20} /> : <Menu size={20} />}
+                Content {sidebarOpen ? <IoIosArrowBack size={20} /> : <IoIosArrowForward size={20} />}
             </button>
 
             {/* Sidebar */}
@@ -67,18 +68,16 @@ export default function CourseSidebar({
                     duration-300
                     lg:static
                     lg:translate-x-0
+                    shadow-[8px_0_16px_rgba(0,0,0,0.15)]
                     ${sidebarOpen
                         ? "translate-x-0"
                         : "-translate-x-full"
                     }
                 `}
             >
-                <div className="p-5">
+                <div className="p-5 pt-12">
 
-                    {/* Course */}
-                    <h2 className="mb-6 text-xl font-bold text-slate-900">
-                        {course.title}
-                    </h2>
+
 
                     {/* Home */}
                     <Link

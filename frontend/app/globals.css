@@ -7,6 +7,12 @@
   --color31: #efeacb;
 }
 
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgb(0, 0, 0, .1) transparent;
+
+}
+
 
 body {
   background: var(--color1);

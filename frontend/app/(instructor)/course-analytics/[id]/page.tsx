@@ -62,6 +62,10 @@ export default async function CourseAnalyticsPage({
     // Fetch analytics from Strapi
 
     const analytics = await serverApi(`/course-analytics/${id}`);
+    const { course } = await serverApi(`/course/${id}`);
+
+
+    console.log("course", course);
 
     const { lessonsCompleted, quizzesSubmitted, totalEnrollments, totalCompletedCourse, totalLessons, totalQuizzes } = analytics;
 
@@ -70,7 +74,7 @@ export default async function CourseAnalyticsPage({
     // return <div>Hello World</div>
 
     return (
-        <main className="mx-auto max-w-7xl p-8">
+        <main className="mx-auto max-w-7xl py-8">
 
             {/* Header */}
 
@@ -78,21 +82,13 @@ export default async function CourseAnalyticsPage({
 
                 <div>
 
-                    <Link
-                        href="/dashboard"
-                        className="mb-4 inline-flex items-center gap-2 text-(--color3) hover:underline"
-                    >
-                        <ArrowLeft size={18} />
-
-                        Dashboard
-
-                    </Link>
-
-                    <h1 className="heading-1 text-center">
+                    <div className="heading-2">
                         Course Analytics
-                    </h1>
+                    </div>
 
-
+                    <div className="heading-1">
+                        {course?.title}
+                    </div>
 
                 </div>
 
@@ -118,7 +114,7 @@ export default async function CourseAnalyticsPage({
 
 
 
-            <section className="mt-10 rounded-3xl bg-white p-8 shadow">
+            <section className="mt-10 rounded-3xl bg-white py-8 shadow">
 
                 <div className="mb-8 flex items-center gap-3">
 
@@ -176,7 +172,7 @@ export default async function CourseAnalyticsPage({
 
 
 
-            <section className="mt-10 rounded-3xl bg-white p-8 shadow">
+            <section className="mt-10 rounded-3xl bg-white py-8 shadow">
 
                 <div className="mb-8 flex items-center gap-3">
 
@@ -196,15 +192,15 @@ export default async function CourseAnalyticsPage({
 
                             <tr>
 
-                                <th className="px-6 py-4 text-center">
+                                <th className="p-2 text-center">
                                     Quiz
                                 </th>
 
-                                <th className="px-6 py-4 text-center">
+                                <th className="p-2 text-center">
                                     Submitted
                                 </th>
 
-                                <th className="px-6 py-4 text-center">
+                                <th className="p-2 text-center">
                                     Average Percentage
                                 </th>
 
@@ -224,15 +220,15 @@ export default async function CourseAnalyticsPage({
                                             className="border-t"
                                         >
 
-                                            <td className="px-6 py-4 text-center">
+                                            <td className="p-2 text-center">
                                                 {quiz.title}
                                             </td>
 
-                                            <td className="px-6 py-4 text-center">
+                                            <td className="p-2 text-center">
                                                 {quiz.completed}
                                             </td>
 
-                                            <td className="px-6 py-4 text-center">
+                                            <td className="p-2 text-center">
                                                 {quiz.averageScore ?? 0} %
                                             </td>
 

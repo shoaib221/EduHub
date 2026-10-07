@@ -1,0 +1,33 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tokens",
+  "info": {
+    "singularName": "token",
+    "pluralName": "tokens",
+    "displayName": "Token"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "emailVerification": {
+      "type": "text"
+    },
+    "passwordChange": {
+      "type": "text"
+    },
+    "user": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "tokens"
+    },
+    "passwordChangeExpires": {
+      "type": "datetime"
+    },
+    "emailVerificationExpires": {
+      "type": "datetime"
+    }
+  }
+}

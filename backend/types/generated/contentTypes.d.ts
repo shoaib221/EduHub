@@ -690,6 +690,38 @@ export interface ApiQuizQuiz extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiTokenToken extends Struct.CollectionTypeSchema {
+  collectionName: 'tokens';
+  info: {
+    displayName: 'Token';
+    pluralName: 'tokens';
+    singularName: 'token';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    emailVerification: Schema.Attribute.Text;
+    emailVerificationExpires: Schema.Attribute.DateTime;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::token.token'> &
+      Schema.Attribute.Private;
+    passwordChange: Schema.Attribute.Text;
+    passwordChangeExpires: Schema.Attribute.DateTime;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    user: Schema.Attribute.Relation<
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+  };
+}
+
 export interface PluginContentReleasesRelease
   extends Struct.CollectionTypeSchema {
   collectionName: 'strapi_releases';
@@ -1164,6 +1196,7 @@ export interface PluginUsersPermissionsUser
       Schema.Attribute.SetMinMaxLength<{
         minLength: 6;
       }>;
+    emailVerified: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     first_name: Schema.Attribute.String;
     instructed_courses: Schema.Attribute.Relation<
       'oneToMany',
@@ -1188,6 +1221,7 @@ export interface PluginUsersPermissionsUser
       'manyToOne',
       'plugin::users-permissions.role'
     >;
+    tokens: Schema.Attribute.Relation<'oneToOne', 'api::token.token'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1223,6 +1257,7 @@ declare module '@strapi/strapi' {
       'api::payment.payment': ApiPaymentPayment;
       'api::question.question': ApiQuestionQuestion;
       'api::quiz.quiz': ApiQuizQuiz;
+      'api::token.token': ApiTokenToken;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

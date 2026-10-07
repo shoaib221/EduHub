@@ -40,34 +40,7 @@ export default function Hero() {
                         </Link>
                     </div>
 
-                    <div className="mt-12 flex flex-wrap justify-center gap-8 lg:justify-start">
-                        <div>
-                            <p className="text-3xl font-bold text-slate-900">
-                                500+
-                            </p>
-                            <p className="text-slate-500">
-                                Courses
-                            </p>
-                        </div>
 
-                        <div>
-                            <p className="text-3xl font-bold text-slate-900">
-                                50K+
-                            </p>
-                            <p className="text-slate-500">
-                                Students
-                            </p>
-                        </div>
-
-                        <div>
-                            <p className="text-3xl font-bold text-slate-900">
-                                100+
-                            </p>
-                            <p className="text-slate-500">
-                                Instructors
-                            </p>
-                        </div>
-                    </div>
                 </div>
 
                 {/* Right */}

@@ -30,10 +30,10 @@ export default async function DashboardPage({
         notFound();
     }
 
-    let { course, enrollment, totalLessons,
+    const { course, enrollment, totalLessons,
         completedLessons,
         progress,
-        lessons, totalQuizzes, quizAverage = 0,
+        lessons, totalQuizzes, attendedQuizzes, quizAverage = 0,
         quizzes } = payload
 
 
@@ -48,62 +48,65 @@ export default async function DashboardPage({
                 course={payload?.course} progress={payload?.progress} quizAverage={quizAverage}
             />
 
-            <div className="mt-4">
-
-                <div className="flex justify-between">
-                    <h2 className="text-xl font-semibold mb-4">
-                        Lessons
-                    </h2>
-
-                    <span>
-                        completed {payload?.completedLessons}/{payload?.totalLessons}
-                    </span>
-                </div>
-
-            </div>
-
-
-
             {/* Lessons */}
 
             <section>
+                <div className="mt-4">
 
-                <div className="space-y-3">
-                    {
-                        payload?.lessons?.map(
-                            (lesson: any) => (
+                    <div className="flex justify-between">
+                        <h2 className="text-xl font-semibold mb-4">
+                            Lessons
+                        </h2>
 
-                                <div
-                                    key={lesson.id}
-                                    className="flex justify-between card-4"
-                                >
-
-                                    {lesson.title}
-
-                                    {
-                                        lesson?.completed
-                                            ?
-                                            <span className="text-green-600">
-                                                Completed
-                                            </span>
-                                            :
-                                            <span className="text-gray-400">
-                                                Not completed
-                                            </span>
-                                    }
-
-                                </div>
-
-                            )
-                        )
-                    }
+                        <span>
+                            completed {payload?.completedLessons} of {payload?.totalLessons}
+                        </span>
+                    </div>
 
                 </div>
 
+                <div className="overflow-x-auto">
+                    <table className="min-w-full border border-(--color2) border-collapse">
+                        <thead className="bg-slate-100">
+                            <tr>
+                                <th className="border border-(--color2) px-4 py-2 text-left">
+                                    Title
+                                </th>
+
+                                <th className="border border-(--color2) px-4 py-2 text-left">
+                                    Status
+                                </th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {payload?.lessons?.map(
+                                (lesson: any) => (
+                                    <tr key={lesson.id}>
+                                        <td className="border border-(--color2) px-4 py-2">
+                                            {lesson.title}
+                                        </td>
+
+                                        <td className="border border-(--color2) px-4 py-2">
+                                            {
+                                                lesson?.completed
+                                                    ?
+                                                    <span className="text-green-600 font-bold">
+                                                        Completed
+                                                    </span>
+                                                    :
+                                                    <span className="">
+                                                        Not completed
+                                                    </span>
+                                            }
+                                        </td>
+                                    </tr>
+                                ))}
+                        </tbody>
+                    </table>
+                </div>
+
             </section>
-
-
-
 
             {/* Quiz Results */}
 
@@ -117,39 +120,41 @@ export default async function DashboardPage({
                         </h2>
 
                         <span>
-                            attended {payload?.completedLessons}/{payload?.totalLessons}
+                            attended {attendedQuizzes} of {totalQuizzes}
                         </span>
                     </div>
 
                 </div>
 
+                <div className="overflow-x-auto">
+                    <table className="min-w-full border border-(--color2) border-collapse">
+                        <thead className="bg-slate-100">
+                            <tr>
+                                <th className="border border-(--color2) px-4 py-2 text-left">
+                                    Title
+                                </th>
 
-                <div className="space-y-3">
+                                <th className="border border-(--color2) px-4 py-2 text-left">
+                                    Status
+                                </th>
+                            </tr>
+                        </thead>
 
-                    {
-                        quizzes && quizzes.map(
-                            (quiz: any) => (
+                        <tbody>
+                            {quizzes && quizzes.map(
+                                (quiz: any) => (
+                                    <tr key={quiz.id}>
+                                        <td className="border border-(--color2) px-4 py-2">
+                                            {quiz.title}
+                                        </td>
 
-                                <div
-                                    key={quiz.title}
-                                    className={`p-4 flex justify-between card-4`}
-                                >
-
-                                    <span>
-                                        {quiz.title}
-                                    </span>
-
-
-                                    {quiz.score >= 0 ? <span className={`font-bold ${quiz.score >= 50 ? "text-green-700" : "text-red-700"}`} >{quiz.score} %</span> : <span className="text-gray-400" >Not Attended</span>}
-
-
-                                </div>
-
-                            )
-                        )
-                    }
-
-
+                                        <td className="border border-(--color2) px-4 py-2">
+                                            {quiz.score >= 0 ? <span className={`font-bold ${quiz.score >= 50 ? "text-green-700" : "text-red-700"}`} > {quiz.score >= 50 ? "Passed" : "Failed"} ( {quiz.score} % )</span> : <span className="text-gray-400" >Not Attended</span>}
+                                        </td>
+                                    </tr>
+                                ))}
+                        </tbody>
+                    </table>
                 </div>
 
 

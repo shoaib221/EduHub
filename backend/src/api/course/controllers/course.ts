@@ -133,17 +133,11 @@ export default {
             console.log("course analytics");
             const user = ctx.state.user;
 
-
-
             if (user.user_role === "student") {
                 return ctx.unauthorized("Unauthorized action.");
             }
 
-
             const { courseId } = ctx.params;
-
-
-
 
             const course = await strapi.db
                 .query("api::course.course")
@@ -158,7 +152,6 @@ export default {
                 .courseInstructorAnalytics(strapi, course);
 
             console.log(data)
-
 
             ctx.body = {
                 message: "Course Analytics",

@@ -45,7 +45,8 @@ export default {
                         id: Number(quizId),
                     },
                     data: {
-                        correctAnswers
+                        correctAnswers,
+                        totalQuestions: quiz.totalQuestions + 1,
                     }
                 });
 
@@ -86,6 +87,9 @@ export default {
                             },
                         }
                     },
+                    populate: {
+                        quiz: true
+                    }
                 });
 
 
@@ -102,6 +106,17 @@ export default {
                     where: {
                         id: Number(questionId),
                     },
+                });
+
+            await strapi.db
+                .query("api::quiz.quiz")
+                .update({
+                    where: {
+                        id: Number(question.quiz.id),
+                    },
+                    data: {
+                        totalQuestions: question.quiz.totalQuestions - 1,
+                    }
                 });
 
 
