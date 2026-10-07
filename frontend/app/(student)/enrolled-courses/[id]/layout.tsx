@@ -30,8 +30,10 @@ export default async function CourseLayout({
         notFound();
     }
 
+    let payload = null;
+
     try {
-        const payload = await serverApi(`/enrolled-course/${courseId}`);
+        payload = await serverApi(`/enrolled-course/${courseId}`);
     }
     catch (err) {
         console.log(ErrorProcessor(err))
