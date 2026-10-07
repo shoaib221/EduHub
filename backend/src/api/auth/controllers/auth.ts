@@ -2,7 +2,7 @@
 import { apiRoutes } from "../../../extra/apiRoutes";
 import { ErrorProcessor } from "../../../lib/ErrorProcessor";
 import { envVariables } from "../../../../config/environment_variables";
-import { SetHttpCookie } from "../../../lib/SetHttpCookie";
+import { SetHttpCookie } from "../../../lib/HttpCookie";
 import { JwtTokenGenerate } from "../../../lib/JwtToken";
 import crypto from "crypto";
 

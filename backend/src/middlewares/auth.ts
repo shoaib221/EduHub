@@ -2,7 +2,7 @@
 
 import { ErrorProcessor } from "../lib/ErrorProcessor";
 import { JwtTokenValidate } from "../lib/JwtToken";
-import { GetHttpCookie, SetHttpCookie } from "../lib/SetHttpCookie";
+import { GetHttpCookie, SetHttpCookie } from "../lib/HttpCookie";
 
 export default (config: any, { strapi }: any) => {
 

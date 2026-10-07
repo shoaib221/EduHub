@@ -27,6 +27,7 @@ export default async function DashboardPage({
     try {
         payload = await serverApi(`/enrolled-course/${enrollmentId}`);
     } catch (err) {
+        console.log(ErrorProcessor(err))
         notFound();
     }
 

@@ -8,6 +8,7 @@ import { fetchCourse } from "@/requestAPI/fetchCourse";
 import { Course } from "@/types/course";
 import ProtectedLayout from "@/components/server/ProtectedRoute";
 import { CourseEnrollment } from "@/types/courseEnrollment";
+import ErrorProcessor from "@/lib/ErrorProcessor";
 
 interface LayoutProps {
     children: ReactNode;
@@ -29,7 +30,13 @@ export default async function CourseLayout({
         notFound();
     }
 
-    const payload = await serverApi(`/enrolled-course/${courseId}`);
+    try {
+        const payload = await serverApi(`/enrolled-course/${courseId}`);
+    }
+    catch (err) {
+        console.log(ErrorProcessor(err))
+        notFound();
+    }
 
     return (
 
