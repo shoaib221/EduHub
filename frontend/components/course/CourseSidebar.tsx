@@ -46,9 +46,11 @@ export default function CourseSidebar() {
             }
         }
 
+        fetchEnrollment();
+
     }, [courseId])
 
-    if (!enrollment) return <Loader2 />
+    if (!enrollment) return null;
 
 
     return (

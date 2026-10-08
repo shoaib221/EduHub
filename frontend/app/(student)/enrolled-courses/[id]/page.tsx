@@ -8,6 +8,7 @@ import { CourseEnrollment } from "@/types/courseEnrollment";
 import ErrorProcessor from "@/lib/ErrorProcessor";
 import { useEffect, useState } from "react";
 import api from "@/lib/axios";
+import { Loader2 } from "lucide-react";
 
 interface PageProps {
     params: Promise<{
@@ -34,11 +35,15 @@ export default function DashboardPage() {
             }
         }
         fetchData();
+
+
     }, [enrollmentId])
+
+    if (!payload) return <Loader2 />
 
     return (
         <div>
-            <CourseHeader course={payload?.course} progress={payload?.progress} quizAverage={payload.quizAverage} />
+            <CourseHeader course={payload?.course} progress={payload?.progress} quizAverage={payload?.quizAverage} />
 
             {/* Lessons */}
             <section>
