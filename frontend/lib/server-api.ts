@@ -7,15 +7,16 @@ export async function serverApi(
 ) {
 
     const cookieStore = await cookies();
+    const allCookies = cookieStore.getAll();
 
+    console.log("SERVER COOKIES:", allCookies);
 
-    const cookieHeader = cookieStore
-        .getAll()
-        .map(
-            ({ name, value }) =>
-                `${name}=${value}`
-        )
-        .join("; ");
+    const cookieHeader = allCookies.map(
+        ({ name, value }) =>
+            `${name}=${value}`
+    ).join("; ");
+
+    console.log("COOKIE HEADER:", cookieHeader);
 
 
     const res = await fetch(
