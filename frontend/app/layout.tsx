@@ -42,6 +42,7 @@ export default function RootLayout({
 				<AuthProvider>
 					<AuthListener />
 					<Navbar />
+					<div className="min-h-16" ></div>
 					{children}
 				</AuthProvider>
 			</body>
