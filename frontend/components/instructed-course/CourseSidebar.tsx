@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { useParams, usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import {
     ChevronDown,
@@ -11,6 +11,7 @@ import {
     FileQuestion,
     Menu,
     X,
+    LoaderCircle,
 } from "lucide-react";
 import api from "@/lib/axios";
 import { Lesson } from "@/types/lesson";
@@ -18,6 +19,7 @@ import { Quiz } from "@/types/quiz";
 import { Course } from "@/types/course";
 import { NotFound } from "../auth/NotFound";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+import ErrorProcessor from "@/lib/ErrorProcessor";
 
 interface CourseSidebarProps {
     course: Course
@@ -25,20 +27,43 @@ interface CourseSidebarProps {
 
 
 
-export default function CourseSidebar({
-    course: coursePara
-}: CourseSidebarProps) {
 
-
-    const [course, setCourse] = useState<Course | null>(coursePara ?? null)
+export default function CourseSidebar() {
+    const params = useParams()
+    const { id: courseId } = params;
+    const [course, setCourse] = useState<Course | null>(null)
     const pathname = usePathname();
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [lessonOpen, setLessonOpen] = useState(true);
     const [quizOpen, setQuizOpen] = useState(true);
     const isActive = (href: string) => pathname === href;
+    const [lessons, setLessons] = useState<Lesson[]>([]);
+    const [quizzes, setQuizzes] = useState<Quiz[]>([]);
+    const [fetchingData, setFetchingData] = useState(true)
 
-    const [lessons, setLessons] = useState<Lesson[]>(coursePara.lessons ?? []);
-    const [quizzes, setQuizzes] = useState<Quiz[]>(coursePara.quizzes ?? []);
+
+    useEffect(() => {
+        if (!courseId) return;
+
+        async function fetchCourse() {
+            try {
+                const res = await api.get(`/course/${courseId}`);
+                setCourse(res.data.course)
+                setLessons(res.data.course?.lessons)
+                setQuizzes(res.data.quizzes?.quizzes);
+            } catch (err) {
+                ErrorProcessor(err);
+            }
+            finally {
+                setFetchingData(false)
+            }
+        }
+
+        fetchCourse();
+
+    }, [courseId])
+
+    if (fetchingData) return <LoaderCircle />
 
     if (!course) return <NotFound />;
 
@@ -180,7 +205,7 @@ export default function CourseSidebar({
                     {quizOpen && (
                         <div className="ml-6 mt-2 space-y-2">
 
-                            {quizzes.map((quiz) => {
+                            {quizzes && quizzes.map((quiz) => {
 
                                 const href =
                                     `/course-analytics/${course.id}/quiz/${quiz.id}`;

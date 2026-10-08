@@ -1,15 +1,22 @@
+"use client"
+
 import Link from "next/link";
 import {
     ArrowLeft,
     BookOpen,
     CheckCircle2,
     Clock3,
+    Loader2,
     TrendingUp,
     Trophy,
     Users,
 } from "lucide-react";
-import { serverApi } from "@/lib/server-api";
+
 import { Lesson } from "@/types/lesson";
+import { useParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import { Course } from "@/types/course";
+import api from "@/lib/axios";
 
 
 interface StatCardProps {
@@ -51,27 +58,44 @@ interface PageProps {
     params: Promise<{
         id: string;
     }>;
-}
-
-export default async function CourseAnalyticsPage({
-    params,
-}: PageProps) {
-    const { id } = await params;
-
-    // TODO:
-    // Fetch analytics from Strapi
-
-    const analytics = await serverApi(`/course-analytics/${id}`);
-    const { course } = await serverApi(`/course/${id}`);
+};
 
 
-    console.log("course", course);
 
-    const { lessonsCompleted, quizzesSubmitted, totalEnrollments, totalCompletedCourse, totalLessons, totalQuizzes } = analytics;
 
-    console.log("course analytics", analytics);
 
-    // return <div>Hello World</div>
+export default function CourseAnalyticsPage() {
+
+
+    const params = useParams();
+    const { id } = params;
+
+    const [course, setCourse] = useState<Course | null>(null)
+    const [analytics, setAnalytics] = useState<any>(null)
+
+    useEffect(() => {
+        if (!id) return;
+
+        async function fetchData() {
+            try {
+                let res = await api.get(`/course-analytics/${id}`);
+                setAnalytics(res.data);
+                res = await api.get(`/course/${id}`);
+                const { course } = res.data;
+            } catch (err) {
+
+            }
+        }
+
+        fetchData();
+
+    }, [id])
+
+
+
+    if (!analytics) return <Loader2 />
+
+
 
     return (
         <main className="mx-auto max-w-7xl py-8">
@@ -101,13 +125,13 @@ export default async function CourseAnalyticsPage({
                 <StatCard
                     icon={<Users />}
                     title="Students"
-                    value={totalEnrollments}
+                    value={analytics.totalEnrollments}
                 />
 
                 <StatCard
                     icon={<CheckCircle2 />}
                     title="Completed"
-                    value={totalCompletedCourse}
+                    value={analytics.totalCompletedCourse}
                 />
 
             </section>
@@ -128,11 +152,10 @@ export default async function CourseAnalyticsPage({
 
                 <div className="space-y-5">
 
-                    {Object.entries(lessonsCompleted as Record<string, { title: string, completed: number }>).map(
+                    {Object.entries(analytics.lessonsCompleted as Record<string, { title: string, completed: number }>).map(
                         ([lessonId, lesson]) => {
 
-                            const percentage = (lesson.completed / totalEnrollments) * 100;
-
+                            const percentage = (lesson.completed / analytics.totalEnrollments) * 100;
 
                             return (
                                 <div key={lessonId}>
@@ -148,7 +171,6 @@ export default async function CourseAnalyticsPage({
                                         </span>
 
                                     </div>
-
 
                                     <div className="h-3 overflow-hidden rounded-full bg-slate-200">
 
@@ -210,7 +232,7 @@ export default async function CourseAnalyticsPage({
 
                         <tbody>
 
-                            {Object.entries(quizzesSubmitted as Record<string, { title: string, completed: number, averageScore: number }>).map(
+                            {Object.entries(analytics.quizzesSubmitted as Record<string, { title: string, completed: number, averageScore: number }>).map(
                                 ([quizId, quiz]) => {
 
                                     return (

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
     ChevronDown,
     ChevronRight,
@@ -11,26 +11,44 @@ import {
     FileQuestion,
     Menu,
     X,
+    Loader2,
 } from "lucide-react";
 import { Course } from "@/types/course";
 import { CourseEnrollment } from "@/types/courseEnrollment";
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
+import { useParams } from "next/navigation";
+import api from "@/lib/axios";
+import ErrorProcessor from "@/lib/ErrorProcessor";
 
-
-interface CourseSidebarProps {
-    courseId: string;
-}
-
-
-
-export default function CourseSidebar({
-    enrollment, course
-}: { enrollment: CourseEnrollment, course: Course }) {
+export default function CourseSidebar() {
+    const params = useParams()
+    const { id: courseId } = params;
     const pathname = usePathname();
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [lessonOpen, setLessonOpen] = useState(true);
     const [quizOpen, setQuizOpen] = useState(true);
     const isActive = (href: string) => pathname === href;
+    const [enrollment, setEnrollment] = useState<CourseEnrollment | null>(null);
+    const [course, setCourse] = useState<Course | null>(null);
+
+    useEffect(() => {
+
+        if (!courseId) return;
+
+        async function fetchEnrollment() {
+            try {
+                const res = await api.get(`/enrolled-course/${courseId}`);
+                setEnrollment(res.data?.enrollment)
+                setCourse(res.data?.course)
+            }
+            catch (err) {
+                console.log(ErrorProcessor(err))
+            }
+        }
+
+    }, [courseId])
+
+    if (!enrollment) return <Loader2 />
 
 
     return (

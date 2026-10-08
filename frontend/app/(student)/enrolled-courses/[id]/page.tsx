@@ -1,10 +1,13 @@
+"use client"
+
 import CourseHeader from "@/components/course/CourseHeader";
-import { serverApi } from "@/lib/server-api";
 import { Course } from "@/types/course";
-import { notFound } from "next/navigation";
+import { notFound, useParams } from "next/navigation";
 import Link from "next/link";
 import { CourseEnrollment } from "@/types/courseEnrollment";
 import ErrorProcessor from "@/lib/ErrorProcessor";
+import { useEffect, useState } from "react";
+import api from "@/lib/axios";
 
 interface PageProps {
     params: Promise<{
@@ -12,45 +15,32 @@ interface PageProps {
     }>;
 }
 
-export default async function DashboardPage({
-    params,
-}: PageProps) {
+export default function DashboardPage() {
 
-    const { id: enrollmentId } = await params;
+    const params = useParams();
+    const { id: enrollmentId } = params;
+    const [payload, setPayload] = useState<any>(null);
 
-    if (!enrollmentId) {
-        notFound();
-    }
+    useEffect(() => {
+        if (!enrollmentId) return;
 
-    let payload;
-
-    try {
-        payload = await serverApi(`/enrolled-course/${enrollmentId}`);
-    } catch (err) {
-        console.log(ErrorProcessor(err))
-        notFound();
-    }
-
-    const { course, enrollment, totalLessons,
-        completedLessons,
-        progress,
-        lessons, totalQuizzes, attendedQuizzes, quizAverage = 0,
-        quizzes } = payload
-
-
-
-    console.log(payload, quizAverage ?? 0)
-
-
+        async function fetchData() {
+            try {
+                let res = await api.get(`/enrolled-course/${enrollmentId}`);
+                setPayload(res.data);
+            } catch (err) {
+                console.log(ErrorProcessor(err));
+                notFound();
+            }
+        }
+        fetchData();
+    }, [enrollmentId])
 
     return (
         <div>
-            <CourseHeader
-                course={payload?.course} progress={payload?.progress} quizAverage={quizAverage}
-            />
+            <CourseHeader course={payload?.course} progress={payload?.progress} quizAverage={payload.quizAverage} />
 
             {/* Lessons */}
-
             <section>
                 <div className="mt-4">
 
@@ -63,7 +53,6 @@ export default async function DashboardPage({
                             completed {payload?.completedLessons} of {payload?.totalLessons}
                         </span>
                     </div>
-
                 </div>
 
                 <div className="overflow-x-auto">
@@ -106,7 +95,6 @@ export default async function DashboardPage({
                         </tbody>
                     </table>
                 </div>
-
             </section>
 
             {/* Quiz Results */}
@@ -114,17 +102,15 @@ export default async function DashboardPage({
             <section className="mt-10">
 
                 <div className="mt-4">
-
                     <div className="flex justify-between">
                         <h2 className="text-xl font-semibold mb-4">
                             Quizzes
                         </h2>
 
                         <span>
-                            attended {attendedQuizzes} of {totalQuizzes}
+                            attended {payload.attendedQuizzes} of {payload.totalQuizzes}
                         </span>
                     </div>
-
                 </div>
 
                 <div className="overflow-x-auto">
@@ -142,7 +128,7 @@ export default async function DashboardPage({
                         </thead>
 
                         <tbody>
-                            {quizzes && quizzes.map(
+                            {payload.quizzes && payload.quizzes.map(
                                 (quiz: any) => (
                                     <tr key={quiz.id}>
                                         <td className="border border-(--color2) px-4 py-2">
@@ -157,7 +143,6 @@ export default async function DashboardPage({
                         </tbody>
                     </table>
                 </div>
-
 
             </section>
 
