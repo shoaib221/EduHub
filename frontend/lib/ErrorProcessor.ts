@@ -1,7 +1,7 @@
 
 
 export default function ErrorProcessor(error: any): string {
-    console.dir(error);
+    console.log(error);
 
     const err = error as {
         response?: {

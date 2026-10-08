@@ -3,7 +3,7 @@ import ClientPage from "./client-page";
 import ErrorProcessor from "@/lib/ErrorProcessor";
 
 export default async function TestPage() {
-
+    console.log("server page")
     let serverMessage = "server request failed";
     let serverProtectedMessage = "server protected request failed";
     let error = null;

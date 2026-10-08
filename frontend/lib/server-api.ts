@@ -6,6 +6,8 @@ export async function serverApi(
     options?: RequestInit
 ) {
 
+    console.log("serverApi");
+
     const cookieStore = await cookies();
     const allCookies = cookieStore.getAll();
 

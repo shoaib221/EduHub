@@ -6,7 +6,7 @@ import React from "react";
 
 
 export default function ClientPage() {
-
+    console.log("client page");
     const [serverMessage, setServerMessage] = React.useState("client request failed");
     const [serverProtectedMessage, setServerProtectedMessage] = React.useState("client protected request failed");
     const [error, setError] = React.useState<any>(null)
