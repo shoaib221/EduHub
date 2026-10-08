@@ -36,15 +36,22 @@ export async function serverApi(
     );
 
 
+
+
     if (!res.ok) {
-        const error = await res.json()
-            .catch(() => null);
+        const error = await res.json().catch(() => null);
 
-        console.log(error);
-
-        return null;
+        throw new Error(
+            JSON.stringify({
+                status: res.status,
+                statusText: res.statusText,
+                url: res.url,
+                error,
+            })
+        );
     }
 
+    const ret = await res.json();
 
-    return res.json();
+    return ret;
 }

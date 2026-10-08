@@ -89,7 +89,25 @@ export default {
             handler: "auth.logout",
             config: {
                 auth: false,
-
+            },
+        },
+        {
+            method: "GET",
+            path: "/test-endpoint",
+            handler: "auth.testEndpoint",
+            config: {
+                auth: false,
+            },
+        },
+        {
+            method: "GET",
+            path: "/test-protected-endpoint",
+            handler: "auth.testEndpoint",
+            config: {
+                auth: false,
+                middlewares: [
+                    "global::auth",
+                ],
             },
         },
     ],

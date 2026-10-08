@@ -277,6 +277,24 @@ export default {
         }
 
     },
+
+    async testEndpoint(ctx: any) {
+        try {
+            const data = await strapi.db.query("api::test.test").findMany({});
+            const user = ctx.state.user;
+
+            ctx.body = {
+                message:
+                    "If an account exists, a password reset link has been sent.",
+                data,
+                user: user ?? "user not found"
+            };
+        } catch (error) {
+            return ctx.internalServerError(
+                ErrorProcessor(error)
+            );
+        }
+    },
 };
 
 
