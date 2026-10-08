@@ -45,14 +45,11 @@ export default (config: any, { strapi }: any) => {
 
         } catch (err) {
 
-
             SetHttpCookie(ctx, 0, "jwtAuthToken", null);
 
             return ctx.unauthorized(
                 ErrorProcessor(err)
             );
-
         }
-
     };
 };

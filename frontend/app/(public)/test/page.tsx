@@ -1,10 +1,12 @@
 import { serverApi } from "@/lib/server-api";
 import ClientPage from "./client-page";
+import ErrorProcessor from "@/lib/ErrorProcessor";
 
 export default async function TestPage() {
 
     let serverMessage = "server request failed";
     let serverProtectedMessage = "server protected request failed";
+    let error = null;
 
     try {
         let res = await serverApi("/test-endpoint");
@@ -13,8 +15,8 @@ export default async function TestPage() {
         res = await serverApi("/test-protected-endpoint");
         serverProtectedMessage = res;
 
-    } catch (error) {
-        console.error("Error fetching data from server:", error);
+    } catch (err) {
+        error = ErrorProcessor(err);
     }
 
 
@@ -27,6 +29,9 @@ export default async function TestPage() {
 
                 <h2 className="font-bold" >Server Protected Message:</h2>
                 <p>{JSON.stringify(serverProtectedMessage)}</p>
+
+                <h2 className="font-bold" >Error</h2>
+                <p>{JSON.stringify(error)}</p>
             </div>
             <ClientPage />
         </div>

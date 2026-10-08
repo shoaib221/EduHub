@@ -1,6 +1,7 @@
 "use client"
 
 import api from "@/lib/axios";
+import ErrorProcessor from "@/lib/ErrorProcessor";
 import React from "react";
 
 
@@ -8,6 +9,7 @@ export default function ClientPage() {
 
     const [serverMessage, setServerMessage] = React.useState("client request failed");
     const [serverProtectedMessage, setServerProtectedMessage] = React.useState("client protected request failed");
+    const [error, setError] = React.useState<any>(null)
 
     React.useEffect(() => {
         const fetchData = async () => {
@@ -16,8 +18,8 @@ export default function ClientPage() {
                 setServerMessage(res.data);
                 res = await api.get("/test-protected-endpoint");
                 setServerProtectedMessage(res.data);
-            } catch (error) {
-                console.error("Error fetching data from server:", error);
+            } catch (error: any) {
+                setError(ErrorProcessor(error))
             }
         };
 
@@ -26,12 +28,14 @@ export default function ClientPage() {
 
     return (
         <div>
-            <h1>Client Page</h1>
             <div>
                 <h2 className="font-bold" >Client Message:</h2>
                 <p>{JSON.stringify(serverMessage)}</p>
                 <h2 className="font-bold" >Client Protected Message:</h2>
                 <p>{JSON.stringify(serverProtectedMessage)}</p>
+
+                <h2 className="font-bold" >Error</h2>
+                <p>{JSON.stringify(error)}</p>
             </div>
         </div>
     )
