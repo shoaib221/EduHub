@@ -50,7 +50,7 @@ export default function CourseSidebar() {
                 const res = await api.get(`/course/${courseId}`);
                 setCourse(res.data.course)
                 setLessons(res.data.course?.lessons)
-                setQuizzes(res.data.quizzes?.quizzes);
+                setQuizzes(res.data.course?.quizzes);
             } catch (err) {
                 ErrorProcessor(err);
             }
@@ -74,7 +74,7 @@ export default function CourseSidebar() {
             {/* Mobile Toggle */}
             <button
                 onClick={() => setSidebarOpen(!sidebarOpen)}
-                className="flex gap-2 fixed left-4 top-16 z-50 rounded-lg bg-(--color1) p-2 text-(--color3) lg:hidden"
+                className="flex gap-2 fixed left-2 top-17 z-30 rounded-lg bg-(--color1) p-2 text-(--color3) lg:hidden"
             >
                 Content {sidebarOpen ? <IoIosArrowBack size={20} /> : <IoIosArrowForward size={20} />}
             </button>
@@ -82,7 +82,7 @@ export default function CourseSidebar() {
             {/* Sidebar */}
             <aside
                 className={`
-                    fixed left-0 top-16 z-40
+                    fixed left-0 top-16 z-30 p-2
                     h-[calc(100vh-4rem)]
                     w-72
                     overflow-y-auto
@@ -91,143 +91,148 @@ export default function CourseSidebar() {
                     bg-white
                     transition-transform
                     duration-300
+                    shadow-[12px_0_24px_rgba(0,0,0,0.2)]
                     lg:static
                     lg:translate-x-0
-                    shadow-[8px_0_16px_rgba(0,0,0,0.15)]
+
                     ${sidebarOpen
                         ? "translate-x-0"
                         : "-translate-x-full"
                     }
                 `}
             >
-                <div className="p-5 pt-12">
+                <button
+                    onClick={() => setSidebarOpen(!sidebarOpen)}
+                    className="flex gap-4 rounded-lg bg-(--color1) px-4 py-2 text-(--color3) lg:hidden"
+                >
+                    {sidebarOpen ? <IoIosArrowBack size={20} /> : <IoIosArrowForward size={20} />} Close
+                </button>
 
 
+                {/* Home */}
+                <Link
+                    href={`/course-analytics/${course.id}`}
+                    className={`mb-3 flex items-center gap-3 rounded-xl px-4 py-3 transition ${isActive(`/course-analytics/${course.id}`)
+                        ? "bg-(--color3) text-white"
+                        : "text-slate-700 hover:bg-slate-100"
+                        }`}
+                >
+                    <Home />
+                    Home
+                </Link>
 
-                    {/* Home */}
-                    <Link
-                        href={`/course-analytics/${course.id}`}
-                        className={`mb-3 flex items-center gap-3 rounded-xl px-4 py-3 transition ${isActive(`/course-analytics/${course.id}`)
-                            ? "bg-(--color3) text-white"
-                            : "text-slate-700 hover:bg-slate-100"
-                            }`}
-                    >
-                        <Home />
-                        Home
-                    </Link>
+                {/* Home */}
+                <Link
+                    href={`/course-analytics/${course.id}/add-lesson`}
+                    className={`mb-3 flex items-center gap-3 rounded-xl px-4 py-3 transition ${isActive(`/course-analytics/${course.id}/add-lesson`)
+                        ? "bg-(--color3) text-white"
+                        : "text-slate-700 hover:bg-slate-100"
+                        }`}
+                >
+                    <BookOpen />
+                    Add Lesson
+                </Link>
 
-                    {/* Home */}
-                    <Link
-                        href={`/course-analytics/${course.id}/add-lesson`}
-                        className={`mb-3 flex items-center gap-3 rounded-xl px-4 py-3 transition ${isActive(`/course-analytics/${course.id}/add-lesson`)
-                            ? "bg-(--color3) text-white"
-                            : "text-slate-700 hover:bg-slate-100"
-                            }`}
-                    >
+                <Link
+                    href={`/course-analytics/${course.id}/add-quiz`}
+                    className={`mb-3 flex items-center gap-3 rounded-xl px-4 py-3 transition ${isActive(`/course-analytics/${course.id}/add-quiz`)
+                        ? "bg-(--color3) text-white"
+                        : "text-slate-700 hover:bg-slate-100"
+                        }`}
+                >
+                    <FileQuestion />
+                    Add Quiz
+                </Link>
+
+                {/* Lessons */}
+                <button
+                    onClick={() =>
+                        setLessonOpen(!lessonOpen)
+                    }
+                    className="flex w-full items-center justify-between rounded-xl px-4 py-3 button-2"
+                >
+                    <div className="flex items-center gap-3">
                         <BookOpen />
-                        Add Lesson
-                    </Link>
+                        Lessons
+                    </div>
 
-                    <Link
-                        href={`/course-analytics/${course.id}/add-quiz`}
-                        className={`mb-3 flex items-center gap-3 rounded-xl px-4 py-3 transition ${isActive(`/course-analytics/${course.id}/add-quiz`)
-                            ? "bg-(--color3) text-white"
-                            : "text-slate-700 hover:bg-slate-100"
-                            }`}
-                    >
+                    {lessonOpen ? (
+                        <ChevronDown />
+                    ) : (
+                        <ChevronRight />
+                    )}
+                </button>
+
+                {lessonOpen && (
+                    <div className="ml-6 mt-2 space-y-2">
+
+                        {lessons && lessons.map((lesson) => {
+
+                            const href =
+                                `/course-analytics/${course.id}/lesson/${lesson.id}`;
+
+                            return (
+                                <Link
+                                    key={lesson.id}
+                                    href={href}
+                                    className={`block rounded-lg px-4 py-2 text-sm transition ${isActive(href)
+                                        ? "bg-(--color3) font-semibold text-white"
+                                        : "text-slate-600 hover:bg-slate-100"
+                                        }`}
+                                >
+                                    {lesson.title}
+                                </Link>
+                            );
+                        })}
+
+                    </div>
+                )}
+
+                {/* Quizzes */}
+                <button
+                    onClick={() =>
+                        setQuizOpen(!quizOpen)
+                    }
+                    className="mt-5 flex w-full items-center justify-between rounded-xl px-2 py-3 font-semibold button-2"
+                >
+                    <div className="flex items-center gap-3">
                         <FileQuestion />
-                        Add Quiz
-                    </Link>
+                        Quizzes
+                    </div>
 
-                    {/* Lessons */}
-                    <button
-                        onClick={() =>
-                            setLessonOpen(!lessonOpen)
-                        }
-                        className="flex w-full items-center justify-between rounded-xl px-4 py-3 button-2"
-                    >
-                        <div className="flex items-center gap-3">
-                            <BookOpen />
-                            Lessons
-                        </div>
-
-                        {lessonOpen ? (
-                            <ChevronDown />
-                        ) : (
-                            <ChevronRight />
-                        )}
-                    </button>
-
-                    {lessonOpen && (
-                        <div className="ml-6 mt-2 space-y-2">
-
-                            {lessons && lessons.map((lesson) => {
-
-                                const href =
-                                    `/course-analytics/${course.id}/lesson/${lesson.id}`;
-
-                                return (
-                                    <Link
-                                        key={lesson.id}
-                                        href={href}
-                                        className={`block rounded-lg px-4 py-2 text-sm transition ${isActive(href)
-                                            ? "bg-(--color3) font-semibold text-white"
-                                            : "text-slate-600 hover:bg-slate-100"
-                                            }`}
-                                    >
-                                        {lesson.title}
-                                    </Link>
-                                );
-                            })}
-
-                        </div>
+                    {quizOpen ? (
+                        <ChevronDown size={18} />
+                    ) : (
+                        <ChevronRight size={18} />
                     )}
+                </button>
 
-                    {/* Quizzes */}
-                    <button
-                        onClick={() =>
-                            setQuizOpen(!quizOpen)
-                        }
-                        className="mt-5 flex w-full items-center justify-between rounded-xl px-2 py-3 font-semibold button-2"
-                    >
-                        <div className="flex items-center gap-3">
-                            <FileQuestion />
-                            Quizzes
-                        </div>
+                {quizOpen && (
+                    <div className="ml-6 mt-2 space-y-2">
 
-                        {quizOpen ? (
-                            <ChevronDown size={18} />
-                        ) : (
-                            <ChevronRight size={18} />
-                        )}
-                    </button>
+                        {quizzes && quizzes.map((quiz) => {
 
-                    {quizOpen && (
-                        <div className="ml-6 mt-2 space-y-2">
+                            const href =
+                                `/course-analytics/${course.id}/quiz/${quiz.id}`;
 
-                            {quizzes && quizzes.map((quiz) => {
+                            return (
+                                <Link
+                                    key={quiz.id}
+                                    href={href}
+                                    className={`block rounded-lg px-4 py-2 text-sm transition ${isActive(href)
+                                        ? "bg-(--color3) font-semibold text-white"
+                                        : "text-slate-600 hover:bg-slate-100"
+                                        }`}
+                                >
+                                    {quiz.title}
+                                </Link>
+                            );
+                        })}
 
-                                const href =
-                                    `/course-analytics/${course.id}/quiz/${quiz.id}`;
+                    </div>
+                )}
 
-                                return (
-                                    <Link
-                                        key={quiz.id}
-                                        href={href}
-                                        className={`block rounded-lg px-4 py-2 text-sm transition ${isActive(href)
-                                            ? "bg-(--color3) font-semibold text-white"
-                                            : "text-slate-600 hover:bg-slate-100"
-                                            }`}
-                                    >
-                                        {quiz.title}
-                                    </Link>
-                                );
-                            })}
 
-                        </div>
-                    )}
-
-                </div>
             </aside>
         </>
     );

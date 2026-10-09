@@ -30,7 +30,7 @@ export default function CourseHeader({
 
                 <div className="absolute top-0 left-0 w-full p-4 text-white">
 
-                    <h1 className="heading-1">
+                    <h1 className="text-2xl font-bold text-white">
                         {course.title}
                     </h1>
 

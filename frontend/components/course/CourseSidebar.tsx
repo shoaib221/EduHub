@@ -38,8 +38,8 @@ export default function CourseSidebar() {
         async function fetchEnrollment() {
             try {
                 const res = await api.get(`/enrolled-course/${courseId}`);
-                setEnrollment(res.data?.enrollment)
-                setCourse(res.data?.course)
+                setEnrollment(res.data?.enrollment);
+                setCourse(res.data?.course);
             }
             catch (err) {
                 console.log(ErrorProcessor(err))
@@ -58,7 +58,7 @@ export default function CourseSidebar() {
             {/* Mobile Toggle */}
             <button
                 onClick={() => setSidebarOpen(!sidebarOpen)}
-                className="flex gap-2 fixed left-2 top-17 z-50 rounded-lg bg-(--color1) p-2 text-(--color3) lg:hidden"
+                className="flex gap-2 fixed left-2 top-17 z-30 rounded-lg bg-(--color1) p-2 text-(--color3) lg:hidden"
             >
                 Content {sidebarOpen ? <IoIosArrowBack size={20} /> : <IoIosArrowForward size={20} />}
             </button>
@@ -66,7 +66,7 @@ export default function CourseSidebar() {
             {/* Sidebar */}
             <aside
                 className={`
-                    fixed left-0 top-16 z-40
+                    fixed left-0 top-16 z-30 p-2
                     h-[calc(100vh-4rem)]
                     w-72
                     overflow-y-auto
@@ -85,112 +85,114 @@ export default function CourseSidebar() {
                     }
                 `}
             >
-                <div className="p-5 pt-12">
+                <button
+                    onClick={() => setSidebarOpen(!sidebarOpen)}
+                    className="flex gap-4 rounded-lg bg-(--color1) px-4 py-2 text-(--color3) lg:hidden"
+                >
+                    {sidebarOpen ? <IoIosArrowBack size={20} /> : <IoIosArrowForward size={20} />} Close
+                </button>
 
+                {/* Home */}
+                <Link
+                    href={`/enrolled-courses/${enrollment.id}`}
+                    className={`mb-3 flex items-center gap-3 rounded-xl px-4 py-3 transition ${isActive(`/enrolled-courses/${enrollment.id}`)
+                        ? "bg-(--color3) text-white"
+                        : "text-slate-700 hover:bg-slate-100"
+                        }`}
+                >
+                    <Home size={20} />
+                    Home
+                </Link>
 
+                {/* Lessons */}
+                <button
+                    onClick={() =>
+                        setLessonOpen(!lessonOpen)
+                    }
+                    className="flex w-full items-center justify-between button-2"
+                >
+                    <div className="flex items-center gap-3">
+                        <BookOpen size={20} />
+                        Lessons
+                    </div>
 
-                    {/* Home */}
-                    <Link
-                        href={`/enrolled-courses/${enrollment.id}`}
-                        className={`mb-3 flex items-center gap-3 rounded-xl px-4 py-3 transition ${isActive(`/enrolled-courses/${enrollment.id}`)
-                            ? "bg-(--color3) text-white"
-                            : "text-slate-700 hover:bg-slate-100"
-                            }`}
-                    >
-                        <Home size={20} />
-                        Home
-                    </Link>
-
-                    {/* Lessons */}
-                    <button
-                        onClick={() =>
-                            setLessonOpen(!lessonOpen)
-                        }
-                        className="flex w-full items-center justify-between button-2"
-                    >
-                        <div className="flex items-center gap-3">
-                            <BookOpen size={20} />
-                            Lessons
-                        </div>
-
-                        {lessonOpen ? (
-                            <ChevronDown size={18} />
-                        ) : (
-                            <ChevronRight size={18} />
-                        )}
-                    </button>
-
-                    {lessonOpen && (
-                        <div className="ml-6 mt-2 space-y-2">
-
-                            {course?.lessons?.map((lesson) => {
-
-                                const href =
-                                    `/enrolled-courses/${enrollment.id}/lesson/${lesson.id}`;
-
-                                return (
-                                    <Link
-                                        key={lesson.id}
-                                        href={href}
-                                        className={`block rounded-lg px-4 py-2 text-sm transition ${isActive(href)
-                                            ? "font-semibold button-1"
-                                            : "text-slate-600 hover:bg-slate-100"
-                                            }`}
-                                    >
-                                        {lesson.title}
-                                    </Link>
-                                );
-                            })}
-
-                        </div>
+                    {lessonOpen ? (
+                        <ChevronDown size={18} />
+                    ) : (
+                        <ChevronRight size={18} />
                     )}
+                </button>
 
-                    {/* Quizzes */}
-                    <button
-                        onClick={() =>
-                            setQuizOpen(!quizOpen)
-                        }
-                        className="mt-5 flex w-full items-center justify-between button-2"
-                    >
-                        <div className="flex items-center gap-3">
-                            <FileQuestion />
-                            Quizzes
-                        </div>
+                {lessonOpen && (
+                    <div className="ml-6 mt-2 space-y-2">
 
-                        {quizOpen ? (
-                            <ChevronDown size={18} />
-                        ) : (
-                            <ChevronRight size={18} />
-                        )}
-                    </button>
+                        {course?.lessons?.map((lesson) => {
 
-                    {quizOpen && (
-                        <div className="ml-6 mt-2 space-y-2">
+                            const href = `/enrolled-courses/${enrollment.id}/lesson/${lesson.id}`;
 
-                            {course?.quizzes?.map((quiz) => {
+                            return (
+                                <Link
+                                    key={lesson.id}
+                                    href={href}
+                                    className={`block rounded-lg px-4 py-2 text-sm transition ${isActive(href)
+                                        ? "font-semibold button-1"
+                                        : "text-slate-600 hover:bg-slate-100"
+                                        }`}
+                                >
+                                    {lesson.title}
+                                </Link>
+                            );
+                        })}
 
-                                const href =
-                                    `/enrolled-courses/${enrollment.id}/quiz/${quiz.id}`;
+                    </div>
+                )}
 
-                                return (
-                                    <Link
-                                        key={quiz.id}
-                                        href={href}
-                                        className={`block rounded-lg px-4 py-2 text-sm transition ${isActive(href)
-                                            ? "font-semibold button-1"
-                                            : "text-slate-600 hover:bg-slate-100"
-                                            }`}
-                                    >
-                                        {quiz.title}
-                                    </Link>
-                                );
-                            })}
+                {/* Quizzes */}
+                <button
+                    onClick={() =>
+                        setQuizOpen(!quizOpen)
+                    }
+                    className="mt-5 flex w-full items-center justify-between button-2"
+                >
+                    <div className="flex items-center gap-3">
+                        <FileQuestion />
+                        Quizzes
+                    </div>
 
-                        </div>
+                    {quizOpen ? (
+                        <ChevronDown size={18} />
+                    ) : (
+                        <ChevronRight size={18} />
                     )}
+                </button>
 
-                </div>
-            </aside>
+                {quizOpen && (
+                    <div className="ml-6 mt-2 space-y-2">
+
+                        {course?.quizzes?.map((quiz) => {
+
+                            const href =
+                                `/enrolled-courses/${enrollment.id}/quiz/${quiz.id}`;
+
+                            return (
+                                <Link
+                                    key={quiz.id}
+                                    href={href}
+                                    className={`block rounded-lg px-4 py-2 text-sm transition ${isActive(href)
+                                        ? "font-semibold button-1"
+                                        : "text-slate-600 hover:bg-slate-100"
+                                        }`}
+                                >
+                                    {quiz.title}
+                                </Link>
+                            );
+                        })}
+
+                    </div>
+                )}
+
+
+            </aside >
         </>
     );
 }

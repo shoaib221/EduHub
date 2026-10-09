@@ -24,7 +24,26 @@ const nextConfig: NextConfig = {
 				protocol: "https",
 				hostname: "wp.sfdcdigital.com"
 			},
-
+			{
+				protocol: "https",
+				hostname: "www.teachpeak.in"
+			},
+			{
+				protocol: "https",
+				hostname: "news.mit.edu"
+			},
+			{
+				protocol: "https",
+				hostname: "img.magnific.com"
+			},
+			{
+				protocol: "https",
+				hostname: "miro.medium.com"
+			},
+			{
+				protocol: "https",
+				hostname: "media.licdn.com"
+			},
 		],
 	},
 };
