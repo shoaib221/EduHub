@@ -4,6 +4,10 @@ A modern Learning Management System (LMS) built with **Next.js**, **Strapi CMS**
 
 👉 **[Live Demo](https://lms-delta-cyan.vercel.app)**
 
+<p align="center">
+  <img src="images/banner1.jpg" width="700"  alt="Demo Image" />
+</p>
+
 ---
 
 ## Features
