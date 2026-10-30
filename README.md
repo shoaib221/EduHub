@@ -1,4 +1,4 @@
-# EduHub - An Online School
+# EduHub 
 
 A modern Learning Management System (LMS) built with **Next.js**, **Strapi CMS**, and **PostgreSQL**. The platform enables instructors to create and manage courses while allowing students to enroll, learn through lessons, and take quizzes.
 
